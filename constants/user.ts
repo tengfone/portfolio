@@ -49,7 +49,7 @@ export const userData = {
       link: 'https://github.com/tengfone?tab=repositories',
       image:
         'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
-      tech: ['React', 'Solidity', 'Ethereum'],
+      tech: [''],
     },
   ],
   experience: [

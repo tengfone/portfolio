@@ -5,6 +5,22 @@ export const userData = {
   formBold: 'https://formbold.com/s/3ZdJ6',
   projects: [
     {
+      title: 'Yestion',
+      desc: 'A Notion Copy to test out the latest UI frameworks',
+      link: 'https://yestion-one.vercel.app/',
+      image:
+        'https://github.com/tengfone/yestion/blob/main/demo_yestion.gif?raw=true',
+      tech: ['NextJS', 'Tailwind'],
+    },
+    {
+      title: 'Chat-Kaki',
+      desc: 'An educational piece of a conversational bot. Removed demo due to costing.',
+      link: 'https://github.com/tengfone/chat-kaki',
+      image:
+        'https://github.com/tengfone/chat-kaki/blob/main/demo_chatkaki.gif?raw=true',
+      tech: ['NextJS', 'Pinecone', 'Langchain', 'Stripe'],
+    },
+    {
       title: 'OpenRiver',
       desc: 'Ethereum smart contracts specifically designed for buying and selling unique digital assets.',
       link: 'https://open-river.vercel.app/',
@@ -54,16 +70,16 @@ export const userData = {
   ],
   experience: [
     {
+      title: 'Data Engineer',
+      company: 'GovTech',
+      year: '2021-2024',
+      desc: 'Under the Technology Associate Programme (TAP) - An exclusive leadership-trainee programme to sharpen and develop technical knowledge and professional skills. Currently working in the Data Science and AI Division with the latest cutting edge technologies and tools.',
+    },
+    {
       title: 'Volunteer - Python Instructor',
       company: 'Code In The Community',
       year: '2022',
       desc: 'Code in the Community (CITC) is Singapore’s largest free coding programme for kids from disadvantaged backgrounds.',
-    },
-    {
-      title: 'Data Engineer',
-      company: 'GovTech',
-      year: '2021',
-      desc: 'Under the Technology Associate Programme (TAP) - An exclusive leadership-trainee programme to sharpen and develop technical knowledge and professional skills. Currently working in the Data Science and AI Division with the latest cutting edge technologies and tools.',
     },
     {
       title: 'Graduate Degree',

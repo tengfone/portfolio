@@ -41,6 +41,46 @@ export default function Navbar(): React.ReactElement {
     setMounted(true);
   }, []);
 
+  // Prevent hydration mismatch by not rendering theme button until mounted
+  const renderThemeChanger = () => {
+    if (!mounted) return null;
+
+    return (
+      <button
+        type="button"
+        className="w-10 h-10 p-3 rounded-full hover:bg-gray-500 daisyui-tooltip daisyui-tooltip-bottom"
+        data-tip={theme === "light" ? "Dark Mode" : "Light Mode"}
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        onMouseEnter={() => setOnHoverTheme(theme === "dark" ? "animate-ping" : "animate-pulse")}
+        onMouseLeave={() => setOnHoverTheme("")}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          stroke="currentColor"
+          className={`w-4 h-4 text-blue-500 dark:text-yellow-500 ${onHoverTheme}`}
+        >
+          {theme === "dark" ? (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          ) : (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          )}
+        </svg>
+      </button>
+    );
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 md:py-8">
       <div className="flex md:flex-row justify-between items-center">
@@ -77,61 +117,24 @@ export default function Navbar(): React.ReactElement {
 
         <nav className="flex">
           {links.map(({ name, href }) => (
-            <Link href={href} key={name} >
-              <a className="mr-6 sm:mr-8 flex flex-col relative">
-                {name}
-                {isActiveLink(href, router.pathname) && (
-                  <motion.div
-                    layoutId="w-full border border-green-500"
-                    className="w-full border border-green-500"
-                    animate
-                  />
-                )}
-              </a>
+            <Link 
+              href={href} 
+              key={name}
+              className="mr-6 sm:mr-8 flex flex-col relative"
+            >
+              {name}
+              {isActiveLink(href, router.pathname) && (
+                <motion.div
+                  layoutId="w-full border border-green-500"
+                  className="w-full border border-green-500"
+                  animate
+                />
+              )}
             </Link>
           ))}
         </nav>
 
-        <button
-          type="button"
-          className="w-10 h-10 p-3 rounded-full hover:bg-gray-500 daisyui-tooltip daisyui-tooltip-bottom"
-          data-tip={theme === "light" ? "Dark Mode" : "Light Mode"}
-          onClick={() => {
-            setTheme(theme === "dark" ? "light" : "dark")
-          }}
-          onMouseEnter={() => {
-            setOnHoverTheme(theme === "dark" ? "animate-ping" : "animate-pulse")
-          }}
-          onMouseLeave={() => {
-            setOnHoverTheme(theme === "dark" ? "" : "")
-          }}
-        >
-          {mounted && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              stroke="currentColor"
-              className={`w-4 h-4 text-blue-500 dark:text-yellow-500 ${onHoverTheme}`}
-            >
-              {theme === "dark" ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                />
-              )}
-            </svg>
-          )}
-        </button>
+        {renderThemeChanger()}
       </div>
     </div>
   );

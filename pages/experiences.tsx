@@ -23,9 +23,8 @@ const Experiences: NextPage = () => {
             </div>
             <div className="grid grid-cols-1 max-w-xl mx-auto pt-5 mb-10">
                 {userData.experience.map((exp, idx) => (
-                    <>
+                    <React.Fragment key={`${exp.company}-${exp.year}`}>
                         <ExperienceCard
-                            key={idx}
                             title={exp.title}
                             desc={exp.desc}
                             year={exp.year}
@@ -39,7 +38,7 @@ const Experiences: NextPage = () => {
                                 <div className="w-1 h-24 bg-green-200 rounded-full -mt-2"></div>
                             </div>
                         )}
-                    </>
+                    </React.Fragment>
                 ))}
             </div>
         </Layout>

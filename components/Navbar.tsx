@@ -23,11 +23,7 @@ export default function Navbar(): React.ReactElement {
     {
       name: 'Experiences',
       href: '/experiences',
-    },
-    {
-      name: 'Contact',
-      href: '/contact',
-    },
+    }
   ]
 
   const isActiveLink = (href: string, currentPathname: string): boolean => {

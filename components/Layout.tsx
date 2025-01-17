@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { motion } from 'framer-motion'
+import { motion, MotionProps } from 'framer-motion'
 import Footer from './Footer'
 
 
@@ -16,7 +16,7 @@ const variants = {
     exit: { opacity: 0, x: 0, y: -100 },
 }
 
-const Layout = ({ children, title, description }: Props): JSX.Element => {
+const Layout = ({ children, title, description }: Props): React.ReactElement => {
 
     const [showTopBtn, setShowTopBtn] = useState(false);
 

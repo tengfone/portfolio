@@ -4,7 +4,7 @@ export default {
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    url: 'https://tengfone.dev/',
+    url: 'https://tengfone-portfolio.vercel.app/',
     site_name: 'Teng Fone | Portfolio',
   },
   // twitter: {

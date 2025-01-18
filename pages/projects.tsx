@@ -44,16 +44,16 @@ const Projects: NextPage = () => {
 
 const ProjectCard = ({ title, link, image, desc, tech }: projectDetails) => {
     return (
-        <a 
-            target="_blank" 
-            href={link} 
+        <a
+            target="_blank"
+            href={link}
             className="group relative block h-full rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-white dark:bg-gray-800"
         >
             <div className="relative h-48 sm:h-56 w-full overflow-hidden">
-                <img 
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300" 
-                    src={image} 
-                    alt={title} 
+                <img
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                    src={image}
+                    alt={title}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
@@ -66,12 +66,15 @@ const ProjectCard = ({ title, link, image, desc, tech }: projectDetails) => {
                 </p>
                 <div className="flex flex-wrap gap-2">
                     {tech.map((eachTech, idx) => (
-                        <div 
-                            key={idx} 
-                            className="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-full"
-                        >
-                            {eachTech}
-                        </div>
+                        <React.Fragment key={idx}>
+                            {eachTech.trim() !== "" && (
+                                <div
+                                    className="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-full"
+                                >
+                                    {eachTech}
+                                </div>
+                            )}
+                        </React.Fragment>
                     ))}
                 </div>
             </div>

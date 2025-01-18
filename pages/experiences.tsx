@@ -31,10 +31,6 @@ const Experiences: NextPage = () => {
                                 className="relative flex flex-col sm:grid sm:grid-cols-2 gap-4"
                             >
                                 <div className={`${idx % 2 === 0 ? 'sm:col-start-1' : 'sm:col-start-2'} relative`}>
-                                    <div className="absolute -left-4 sm:left-0 top-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg z-10">
-                                        <div className="w-4 h-4 bg-green-500 rounded-full animate-ping absolute"></div>
-                                        <span className="relative">{idx + 1}</span>
-                                    </div>
                                     <ExperienceCard
                                         title={exp.title}
                                         desc={exp.desc}

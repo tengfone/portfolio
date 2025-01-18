@@ -2,15 +2,17 @@ import React from 'react';
 import { userData } from "../constants/user";
 import styles from "./HeroSplash.module.css";
 import Icon from "./shared/Icon";
-import useScroll from '../hooks/useScroll';
+
+interface HeroSplashProps {
+  scrollToSection: (id: string) => void;
+}
 
 const TITLE = "Hi, I'm Teng Fone 👋";
 const SUBTITLE = "I build things for public good";
 const ROLE = "A Data Engineer (DE)";
 const TAGLINE = "*Do Everything Engineer";
 
-export default function HeroSplash(): React.ReactElement {
-    const scrollToSection = useScroll();
+export default function HeroSplash({ scrollToSection }: HeroSplashProps): React.ReactElement {
 
     return (
         <>

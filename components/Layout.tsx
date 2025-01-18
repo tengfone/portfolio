@@ -21,13 +21,20 @@ const Layout = ({ children, title, description }: Props): React.ReactElement => 
     const [showTopBtn, setShowTopBtn] = useState(false);
 
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                setShowTopBtn(true);
-            } else {
-                setShowTopBtn(false);
-            }
-        });
+        let timeoutId: NodeJS.Timeout;
+        
+        const handleScroll = () => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                setShowTopBtn(window.scrollY > 400);
+            }, 100);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     const goToTop = () => {
@@ -53,18 +60,23 @@ const Layout = ({ children, title, description }: Props): React.ReactElement => 
 
                 <Footer />
             </div>
-            {showTopBtn && (
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: showTopBtn ? 1 : 0, y: showTopBtn ? 0 : 20 }}
+                transition={{ duration: 0.3 }}
+                className="fixed xl:bottom-0 mr-4 xl:mb-4 bottom-5 mb-10 right-0"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="50"
                     height="50"
-                    className={"cursor-pointer bi bi-arrow-up-circle fixed xl:bottom-0 mr-4 xl:mb-4 bottom-5 mb-10 right-0 fill-green-500 animate-bounce"}
+                    className="cursor-pointer bi bi-arrow-up-circle fill-green-500 hover:fill-green-600 transition-colors"
                     viewBox="0 0 20 20"
                     onClick={goToTop}
                 >
                     <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
                 </svg>
-            )}{" "}
+            </motion.div>
         </div>
     )
 

@@ -2,38 +2,41 @@ import React from 'react';
 import { userData } from "../constants/user";
 import styles from "./HeroSplash.module.css";
 import Icon from "./shared/Icon";
+import useScroll from '../hooks/useScroll';
 
-interface Props {
-    scrollToSection: (id: string) => void;
-}
+const TITLE = "Hi, I'm Teng Fone 👋";
+const SUBTITLE = "I build things for public good";
+const ROLE = "A Data Engineer (DE)";
+const TAGLINE = "*Do Everything Engineer";
 
-export default function HeroSplash(props: Props): React.ReactElement {
+export default function HeroSplash(): React.ReactElement {
+    const scrollToSection = useScroll();
 
     return (
         <>
             <div className="flex flex-row justify-center items-start overflow-hidden h-screen">
                 <div className="w-full md:w-1/2 mx-auto text-center md:text-left lg:p-20">
-                    <h1 className="mb-2 font-mono text-4xl text-black-100 md:text-6xl">
-                        Hi, I&apos;m <br className="block md:hidden" />
+                    <h1 className="mb-2 font-mono text-3xl text-black-100 sm:text-4xl md:text-6xl">
+                        Hi, I'm <br className="block md:hidden" />
                         <span className="relative">
-                            <span className="h-20 pt-2 overflow-x-hidden whitespace-nowrap text-brand-accent text-green-500">
-                                Teng Fone<span className="text-3xl md:text-5xl">👋</span>
+                            <span className="h-16 sm:h-20 pt-2 overflow-x-hidden whitespace-nowrap text-brand-accent text-green-500">
+                                {userData.name}<span className="text-2xl sm:text-3xl md:text-5xl">👋</span>
                             </span>
                             <span
                                 className={`cursor absolute -bottom-0 left-0 -top-1 inline-block bg-white w-full animate-type will-change dark:bg-[#121212]`}
                             ></span>
                         </span>
                         <br />
-                        <span className="">
-                            A Data Engineer(DE)
+                        <span className="text-2xl sm:text-3xl md:text-4xl">
+                            {ROLE}
                         </span>
-                        <span className="absolute translate-y-1 transform md:text-base text-gray-500 text-sm flex-row">
-                            *Do Everything Engineer
+                        <span className="absolute translate-y-1 transform text-xs sm:text-sm md:text-base text-gray-500 flex-row">
+                            {TAGLINE}
                         </span>
                     </h1>
 
-                    <h2 className="mt-10 font-bold text-lg text-gray-500 md:text-xl">
-                        I build things for &nbsp;
+                    <h2 className="mt-6 sm:mt-10 font-bold text-base sm:text-lg text-gray-500 md:text-xl">
+                        {SUBTITLE.split('public good')[0]}
                         <span className="before:block before:absolute before:-inset-0.5 before:-skew-y-3 before:bg-green-500 relative inline-block">
                             <span className="relative text-white">public good</span>
                         </span>
@@ -63,7 +66,7 @@ export default function HeroSplash(props: Props): React.ReactElement {
                         </a>
                     </div>
 
-                    <div className='cursor-pointer w-full grid place-items-center mt-24' onClick={() => props.scrollToSection("aboutme")}>
+                    <div className='cursor-pointer w-full grid place-items-center mt-24' onClick={() => scrollToSection("aboutme")}>
                         <div className={styles.chevron}></div>
                         <div className={styles.chevron}></div>
                         <div className={styles.chevron}></div>

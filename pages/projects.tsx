@@ -24,17 +24,19 @@ const Projects: NextPage = () => {
                 </div>
 
             </div>
-            <div className="max-w-md md:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 pb-10">
-                {userData.projects.map((proj, idx) => (
-                    <ProjectCard
-                        key={idx}
-                        title={proj.title}
-                        link={proj.link}
-                        image={proj.image}
-                        desc={proj.desc}
-                        tech={proj.tech}
-                    />
-                ))}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-12">
+                    {userData.projects.map((proj, idx) => (
+                        <ProjectCard
+                            key={idx}
+                            title={proj.title}
+                            link={proj.link}
+                            image={proj.image}
+                            desc={proj.desc}
+                            tech={proj.tech}
+                        />
+                    ))}
+                </div>
             </div>
         </Layout>
     );
@@ -42,17 +44,34 @@ const Projects: NextPage = () => {
 
 const ProjectCard = ({ title, link, image, desc, tech }: projectDetails) => {
     return (
-        <a target="_blank" href={link} className="daisyui-card w-full shadow-xl relative overflow-hidden hover:scale-110 transition duration-2000 ease-out h-full">
-            <figure><img className="max-w-[500px] h-[300px]" src={image} alt="projectPics" /></figure>
-            <div className="daisyui-card-body dark:bg-gray-800">
-                <h2 className="daisyui-card-title">
+        <a 
+            target="_blank" 
+            href={link} 
+            className="group relative block h-full rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-white dark:bg-gray-800"
+        >
+            <div className="relative h-48 sm:h-56 w-full overflow-hidden">
+                <img 
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300" 
+                    src={image} 
+                    alt={title} 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <div className="p-6">
+                <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">
                     {title}
-                    {/* <div className="daisyui-badge daisyui-badge-secondary">NEW</div> */}
                 </h2>
-                <p>{desc}</p>
-                <div className="daisyui-card-actions justify-end">
+                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                    {desc}
+                </p>
+                <div className="flex flex-wrap gap-2">
                     {tech.map((eachTech, idx) => (
-                        <div key={idx} className="daisyui-badge daisyui-badge-outline">{eachTech}</div>
+                        <div 
+                            key={idx} 
+                            className="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-full"
+                        >
+                            {eachTech}
+                        </div>
                     ))}
                 </div>
             </div>

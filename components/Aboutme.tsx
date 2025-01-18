@@ -43,6 +43,9 @@ export default function AboutMe(props: any): React.ReactElement {
                             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
                                 Technical Skills
                             </h2>
+                            <p className="text-gray-600 dark:text-gray-300 mb-6">
+                                I work primarily with these technologies:
+                            </p>
 
                             <div className="space-y-8">
                                 <div>
@@ -99,19 +102,30 @@ export default function AboutMe(props: any): React.ReactElement {
                                         Cloud & Infrastructure
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
-                                        {["Amazon_AWS", "Microsoft_Azure", "Terraform"].map((tool, i) => (
-                                            <motion.div
-                                                key={tool}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                            >
-                                                <img
-                                                    alt={tool}
-                                                    src={`https://img.shields.io/badge/${tool.toLowerCase()}-%235835CC.svg?style=for-the-badge&logo=${tool.toLowerCase()}&logoColor=white`}
-                                                    className="hover:opacity-80 transition-opacity"
-                                                />
-                                            </motion.div>
-                                        ))}
+                                        {["Amazon_AWS", "Microsoft_Azure", "Terraform"].map((tool, i) => {
+                                            let badgeUrl;
+                                            if (tool === "Amazon_AWS") {
+                                                badgeUrl = "https://img.shields.io/badge/Amazon_AWS-%23FF9900.svg?style=for-the-badge&logo=amazonaws&logoColor=white";
+                                            } else if (tool === "Microsoft_Azure") {
+                                                badgeUrl = "https://img.shields.io/badge/Microsoft_Azure-%230078D4.svg?style=for-the-badge&logo=microsoftazure&logoColor=white";
+                                            } else {
+                                                badgeUrl = `https://img.shields.io/badge/${tool.toLowerCase()}-%235835CC.svg?style=for-the-badge&logo=${tool.toLowerCase()}&logoColor=white`;
+                                            }
+                                            
+                                            return (
+                                                <motion.div
+                                                    key={tool}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                >
+                                                    <img
+                                                        alt={tool}
+                                                        src={badgeUrl}
+                                                        className="hover:opacity-80 transition-opacity"
+                                                    />
+                                                </motion.div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>

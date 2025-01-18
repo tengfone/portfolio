@@ -43,9 +43,6 @@ export default function AboutMe(props: any): React.ReactElement {
                             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
                                 Technical Skills
                             </h2>
-                            <p className="text-gray-600 dark:text-gray-300 mb-6">
-                                Skills are arranged from left to right by proficiency level.
-                            </p>
 
                             <div className="space-y-8">
                                 <div>

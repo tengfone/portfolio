@@ -6,10 +6,17 @@ export default {
     locale: 'en_IE',
     url: 'https://tengfone-portfolio.vercel.app/',
     site_name: 'Teng Fone | Portfolio',
+    images: [
+      {
+        url: 'https://tengfone-portfolio.vercel.app/profilepic.jpg',
+        width: 800,
+        height: 600,
+        alt: 'Teng Fone Portfolio',
+      },
+    ],
   },
-  // twitter: {
-  //   handle: '@handle',
-  //   site: '@site',
-  //   cardType: 'summary_large_image',
-  // }
+  twitter: {
+    handle: '@tengfone',
+    cardType: 'summary_large_image',
+  }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export default function AboutMe(props: any): React.ReactElement {
@@ -65,7 +66,7 @@ export default function AboutMe(props: any): React.ReactElement {
                                                 <img
                                                     alt={lang}
                                                     src={`https://img.shields.io/badge/${lang.toLowerCase()}-%2314354C.svg?style=for-the-badge&logo=${lang.toLowerCase()}&logoColor=white`}
-                                                    className="hover:opacity-80 transition-opacity"
+                                                    className="hover:opacity-80 transition-opacity h-7"
                                                 />
                                             </motion.div>
                                         ))}
@@ -90,7 +91,7 @@ export default function AboutMe(props: any): React.ReactElement {
                                                 <img
                                                     alt={tech}
                                                     src={`https://img.shields.io/badge/${tech.toLowerCase()}-%2320232a.svg?style=for-the-badge&logo=${tech.toLowerCase()}&logoColor=white`}
-                                                    className="hover:opacity-80 transition-opacity"
+                                                    className="hover:opacity-80 transition-opacity h-7"
                                                 />
                                             </motion.div>
                                         ))}
@@ -111,7 +112,7 @@ export default function AboutMe(props: any): React.ReactElement {
                                             } else {
                                                 badgeUrl = `https://img.shields.io/badge/${tool.toLowerCase()}-%235835CC.svg?style=for-the-badge&logo=${tool.toLowerCase()}&logoColor=white`;
                                             }
-                                            
+
                                             return (
                                                 <motion.div
                                                     key={tool}
@@ -121,7 +122,7 @@ export default function AboutMe(props: any): React.ReactElement {
                                                     <img
                                                         alt={tool}
                                                         src={badgeUrl}
-                                                        className="hover:opacity-80 transition-opacity"
+                                                        className="hover:opacity-80 transition-opacity h-7"
                                                     />
                                                 </motion.div>
                                             );

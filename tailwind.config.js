@@ -9,12 +9,24 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
         fancy: ['Dancing Script'],
+        mono: ['Fira Code', ...defaultTheme.fontFamily.mono],
+      },
+      colors: {
+        // Premium Palette
+        brand: {
+          dark: '#0a0a0a',
+          gray: '#202020',
+          accent: '#10b981', // Emerald 500
+          muted: '#888888',
+        }
       },
       animation: {
         type: 'type 2.7s ease-out .8s infinite alternate both',
         slowBounce: 'slowBounce 3s infinite',
+        'fade-in-up': 'fadeInUp 0.5s ease-out',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         type: {
@@ -39,6 +51,10 @@ module.exports = {
             transform: 'translateY(0)',
             AnimationTimeline: 'cubic-bezier(0.8, 0, 1, 1)',
           }
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         }
       },
     },

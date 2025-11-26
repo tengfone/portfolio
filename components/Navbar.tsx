@@ -44,8 +44,8 @@ export default function Navbar(): React.ReactElement {
     return (
       <button
         type="button"
-        className="w-10 h-10 p-3 rounded-full hover:bg-gray-500 daisyui-tooltip daisyui-tooltip-bottom"
-        data-tip={theme === "light" ? "Dark Mode" : "Light Mode"}
+        aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        className="w-10 h-10 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         onMouseEnter={() => setOnHoverTheme(theme === "dark" ? "animate-ping" : "animate-pulse")}
         onMouseLeave={() => setOnHoverTheme("")}
@@ -55,7 +55,7 @@ export default function Navbar(): React.ReactElement {
           viewBox="0 0 24 24"
           fill="currentColor"
           stroke="currentColor"
-          className={`w-4 h-4 text-blue-500 dark:text-yellow-500 ${onHoverTheme}`}
+          className={`w-4 h-4 text-gray-800 dark:text-yellow-500 ${onHoverTheme}`}
         >
           {theme === "dark" ? (
             <path
@@ -78,59 +78,65 @@ export default function Navbar(): React.ReactElement {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 md:py-8">
-      <div className="flex md:flex-row justify-between items-center">
-        <Link href="/">
-          <div className="cursor-pointer flex gap-5 items-center mr-5 hover:animate-pulse">
-            <svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325.77 340.66">
-              <g id="a" />
-              <g id="b">
-                <g id="c">
-                  <g>
-                    <polygon points="127.09 .25 99.46 85.28 27.88 .25 127.09 .25" fill="#1d604f" />
-                    <polygon points="27.88 .25 99.46 85.28 .25 85.28 27.88 .25" fill="#174036" />
-                  </g>
-                  <g>
-                    <polygon points="127.1 .25 226.31 .25 198.68 85.28 127.1 .25" fill="#44b495" />
-                    <polygon points="127.1 .25 198.68 85.28 99.47 85.28 127.1 .25" fill="#44b495" />
-                  </g>
-                  <g>
-                    <polygon points="325.52 .25 297.89 85.29 226.31 .25 325.52 .25" fill="#1d604f" />
-                    <polygon points="226.31 .25 297.89 85.29 198.68 85.29 226.31 .25" fill="#174036" />
-                  </g><g><polygon points="198.68 85.29 171.05 170.33 99.46 85.29 198.68 85.29" fill="#1d604f" />
-                    <polygon points="99.46 85.29 171.05 170.33 71.83 170.33 99.46 85.29" fill="#44b495" /></g><g>
-                    <polygon points="171.05 170.33 143.42 255.37 71.83 170.33 171.05 170.33" fill="#44b495" />
-                    <polygon points="71.83 170.33 143.42 255.37 44.2 255.37 71.83 170.33" fill="#174036" /></g>
-                  <g><polygon points="143.42 255.37 115.79 340.41 44.2 255.37 143.42 255.37" fill="#1d604f" />
-                    <polygon points="44.2 255.37 115.79 340.41 16.57 340.41 44.2 255.37" fill="#44b495" /></g>
-                  <g><polygon points="270.25 170.33 242.62 255.37 171.04 170.33 270.25 170.33" fill="#44b495" />
-                    <polygon points="171.04 170.33 242.62 255.37 143.41 255.37 171.04 170.33" fill="#174036" /></g>
-                </g></g>
-            </svg>
-            <h1 className="hidden md:flex font-semibold text-xl dark:text-gray-100 whitespace-nowrap">{userData.name}</h1>
-          </div>
-        </Link>
+    <div className="sticky top-0 z-50 w-full glass">
+      <div className="max-w-6xl mx-auto px-4 py-4">
+        <div className="flex md:flex-row justify-between items-center">
+          <Link href="/">
+            <div className="cursor-pointer flex gap-3 items-center hover:opacity-80 transition-opacity">
+              <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325.77 340.66">
+                <g id="a" />
+                <g id="b">
+                  <g id="c">
+                    <g>
+                      <polygon points="127.09 .25 99.46 85.28 27.88 .25 127.09 .25" fill="#10b981" />
+                      <polygon points="27.88 .25 99.46 85.28 .25 85.28 27.88 .25" fill="#065f46" />
+                    </g>
+                    <g>
+                      <polygon points="127.1 .25 226.31 .25 198.68 85.28 127.1 .25" fill="#34d399" />
+                      <polygon points="127.1 .25 198.68 85.28 99.47 85.28 127.1 .25" fill="#34d399" />
+                    </g>
+                    <g>
+                      <polygon points="325.52 .25 297.89 85.29 226.31 .25 325.52 .25" fill="#10b981" />
+                      <polygon points="226.31 .25 297.89 85.29 198.68 85.29 226.31 .25" fill="#065f46" />
+                    </g><g><polygon points="198.68 85.29 171.05 170.33 99.46 85.29 198.68 85.29" fill="#10b981" />
+                      <polygon points="99.46 85.29 171.05 170.33 71.83 170.33 99.46 85.29" fill="#34d399" /></g><g>
+                      <polygon points="171.05 170.33 143.42 255.37 71.83 170.33 171.05 170.33" fill="#34d399" />
+                      <polygon points="71.83 170.33 143.42 255.37 44.2 255.37 71.83 170.33" fill="#065f46" /></g>
+                    <g><polygon points="143.42 255.37 115.79 340.41 44.2 255.37 143.42 255.37" fill="#10b981" />
+                      <polygon points="44.2 255.37 115.79 340.41 16.57 340.41 44.2 255.37" fill="#34d399" /></g>
+                    <g><polygon points="270.25 170.33 242.62 255.37 171.04 170.33 270.25 170.33" fill="#34d399" />
+                      <polygon points="171.04 170.33 242.62 255.37 143.41 255.37 171.04 170.33" fill="#065f46" /></g>
+                  </g></g>
+              </svg>
+              <h1 className="hidden md:flex font-bold text-xl text-gray-800 dark:text-gray-100 whitespace-nowrap tracking-tight">{userData.name}</h1>
+            </div>
+          </Link>
 
-        <nav className="flex">
-          {links.map(({ name, href }) => (
-            <Link 
-              href={href} 
-              key={name}
-              className="mr-6 sm:mr-8 flex flex-col relative"
-            >
-              {name}
-              {isActiveLink(href, router.pathname) && (
-                <motion.div
-                  layoutId="w-full border border-green-500"
-                  className="w-full border border-green-500"
-                  animate
-                />
-              )}
-            </Link>
-          ))}
-        </nav>
-
-        {renderThemeChanger()}
+          <nav className="flex items-center">
+            {links.map(({ name, href }) => (
+              <Link
+                href={href}
+                key={name}
+                className="mr-6 sm:mr-8 relative group"
+              >
+                <span className={`text-sm font-medium transition-colors duration-200 ${isActiveLink(href, router.pathname)
+                  ? 'text-brand-accent'
+                  : 'text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200'
+                  }`}>
+                  {name}
+                </span>
+                {isActiveLink(href, router.pathname) && (
+                  <motion.div
+                    layoutId="navbar-underline"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-brand-accent"
+                    animate
+                  />
+                )}
+              </Link>
+            ))}
+            {renderThemeChanger()}
+          </nav>
+        </div>
       </div>
     </div>
   );

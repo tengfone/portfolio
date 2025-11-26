@@ -6,6 +6,14 @@ export const userData = {
   formBold: 'https://formbold.com/s/3ZdJ6',
   projects: [
     {
+      title: 'Retrava',
+      desc: 'Forgot to track your run? Draw your route, set your pace, and export a TCX file. Compatible with Strava, Garmin, and all major fitness platforms.',
+      link: 'https://retrava.vercel.app/',
+      image:
+        'https://retrava.vercel.app/animation.gif',
+      tech: ['NextJS', 'Tailwind'],
+    },
+    {
       title: 'ForgeTools',
       desc: 'Comprehensive offline desktop application built with Electron that provides a suite of essential development tools for software engineers.',
       link: 'https://github.com/tengfone/forgetools',

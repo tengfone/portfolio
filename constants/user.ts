@@ -3,6 +3,7 @@ export const userData = {
   linkedin: 'https://www.linkedin.com/in/tengfonephang/',
   medium: 'https://medium.com/@tengfone',
   github: 'https://github.com/tengfone',
+  buymeacoffee: 'https://www.buymeacoffee.com/tengfone',
   formBold: 'https://formbold.com/s/3ZdJ6',
   projects: [
     {

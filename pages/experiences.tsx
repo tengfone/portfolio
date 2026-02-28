@@ -70,16 +70,8 @@ const Experiences: NextPage = () => {
                     highlights={exp.highlights}
                     subSections={exp.subSections}
                   />
-                  <div
-                    className={`absolute top-6 z-20 h-4 w-4 rounded-full border-4 border-white bg-brand-accent shadow-lg dark:border-brand-dark 
-                                        ${
-                                          idx % 2 === 0
-                                            ? '-right-[26px] sm:-right-[26px]'
-                                            : '-left-[26px] sm:-left-[26px]'
-                                        } 
-                                        hidden sm:block`}
-                  />
                 </div>
+                <div className="absolute left-4 top-6 z-20 hidden h-4 w-4 -translate-x-1/2 rounded-full border-4 border-white bg-brand-accent shadow-lg dark:border-brand-dark sm:left-1/2 sm:block" />
               </motion.div>
             ))}
           </div>

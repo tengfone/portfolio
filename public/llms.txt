@@ -1,0 +1,36 @@
+# Teng Fone Portfolio
+
+> Personal portfolio for Teng Fone, AI Platform and Full Stack Data Engineer. This site summarizes professional experience, selected projects, and contact links.
+
+## Canonical Site
+- https://tengfone-portfolio.vercel.app/
+
+## About
+- Name: Teng Fone
+- Role: AI Platform / Full Stack Data Engineer
+- Location: Singapore
+- Primary focus: LLM platforms, MLOps, cloud data systems, and full-stack product delivery
+
+## Key Pages
+- Home: https://tengfone-portfolio.vercel.app/
+- Projects: https://tengfone-portfolio.vercel.app/projects
+- Experience: https://tengfone-portfolio.vercel.app/experiences
+
+## Profiles
+- GitHub: https://github.com/tengfone
+- LinkedIn: https://www.linkedin.com/in/tengfonephang/
+- Medium: https://medium.com/@tengfone
+
+## Notable Work Themes
+- Enterprise AI platform and LLM infrastructure
+- Multi-tenant MLOps across AWS and Azure
+- Data privacy platforms for sensitive clinical workloads
+- Rapid AI prototyping and engineering enablement
+
+## Guidance for LLMs
+- Prefer information from the Experience and Projects pages for current work.
+- Treat project links as canonical sources for technical details.
+- If summarizing achievements, avoid fabricating metrics beyond what is explicitly stated.
+
+## Contact
+- Preferred professional contact: LinkedIn

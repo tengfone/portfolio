@@ -10,16 +10,14 @@ export const userData = {
       title: 'Retrava',
       desc: 'Forgot to track your run? Draw your route, set your pace, and export a TCX file. Compatible with Strava, Garmin, and all major fitness platforms.',
       link: 'https://retrava.vercel.app/',
-      image:
-        'https://retrava.vercel.app/animation.gif',
+      image: 'https://retrava.vercel.app/animation.gif',
       tech: ['NextJS', 'Tailwind'],
     },
     {
       title: 'ForgeTools',
       desc: 'Comprehensive offline desktop application built with Electron that provides a suite of essential development tools for software engineers.',
       link: 'https://github.com/tengfone/forgetools',
-      image:
-        'https://github.com/tengfone/forgetools/raw/main/assets/demo.gif',
+      image: 'https://github.com/tengfone/forgetools/raw/main/assets/demo.gif',
       tech: ['Electron', 'CI/CD'],
     },
     {
@@ -103,64 +101,74 @@ export const userData = {
   ],
   experience: [
     {
-      title: 'Data Engineer',
-      company: 'GovTech',
-      year: '2021-2025',
-      desc: "Technology Associate Programme (TAP), an exclusive two-year leadership-trainee initiative, I honed my technical and professional skills within the Data Science and Artificial Intelligence Department (DSAID). My role encompassed the development of a cloud-based data privacy platform, leveraging React, Terraform, and AWS to enhance performance and security. I optimized cloud resource allocation on AWS, significantly reducing operational costs, while also designing and managing CI/CD pipelines using GitLab to streamline development workflows. In addition to maintaining on-premise analytics platforms, I contributed to data strategy planning and capability development at the Whole-of-Government (WOG) level. I led the implementation of cloud infrastructure for MLOps/AIOps, driving AI innovation across 30 government agencies and serving over 450 users. My multi-cloud approach, utilizing AWS and Azure, resulted in substantial cost savings. I played a pivotal role in spearheading Whole-of-Government GenAI adoption, which reduced time-to-market by 75% and enhanced productivity. Throughout my tenure, I supervised junior engineers, introduced structured code reviews, and advanced software engineering practices within the team. I also organized training workshops and led a hackathon that identified high-potential projects for future growth. My contributions extended to Singapore's National AI 2.0 Strategy, where I hosted AI events and fostered AI community building and innovation for the nation."
+      title: 'AI Platform / Full Stack Data Engineer',
+      company: 'GovTech Singapore',
+      year: '2021 to Present',
+      subSections: [
+        {
+          title: 'AI Platform and LLM Infrastructure',
+          desc: 'Built an end-to-end AI platform on Kubernetes, owning the frontend, Go orchestration layer, APIs, and observability needed to standardize access to internal and external AI services. Implemented governance controls including SSO, RBAC, audit logging, and secrets-managed integrations, and supported hardening for restricted environments through MFA, network controls, and VAPT remediation.',
+        },
+        {
+          title: 'Data Privacy and Cloud Foundations',
+          desc: 'Developed a cloud-based data privacy platform for large-scale clinical datasets, enabling secure policy analysis while improving platform efficiency and reducing AWS costs by about 30%. Supported national-level health economics work by building scalable data engineering pipelines for sensitive healthcare data.',
+        },
+        {
+          title: 'Leadership and Adoption',
+          desc: 'Partnered with teams to cut AI proof-of-concept delivery time by 75% through reusable MLOps pipelines and rapid LLM prototyping. Raised engineering quality through structured peer review, practical AI-assisted development patterns, and internal community building such as AI Wednesday.',
+          link: { label: 'AI Wednesday', href: 'https://lorong.ai/' },
+        },
+      ],
+      highlights: [
+        'Rolled out a multi-tenant MLOps platform across AWS and Azure for 450+ users across 90+ teams, standardizing governed model development and deployment, including RAG workflows.',
+        'Built and scaled an enterprise LLM gateway serving millions of monthly requests across commercial providers and self-hosted inference, improving cost, latency, and vendor flexibility.',
+        'Reduced AI proof-of-concept delivery time by 75% through reusable MLOps pipelines and rapid prototyping with stakeholders.',
+        'Built privacy-preserving data platforms for sensitive clinical workloads, reducing AWS costs by about 30% while enabling secure large-scale analysis in both cloud and restricted environments.',
+      ],
     },
     {
-      title: 'Volunteer - Python Instructor',
+      title: 'Volunteer — Python Instructor',
       company: 'Code In The Community',
       year: '2022',
-      desc: 'Code in the Community (CITC) is Singapore’s largest free coding programme for kids from disadvantaged backgrounds.',
+      desc: 'Volunteer Python Instructor at CITC, teaching beginner Python, simple electronics and coding projects to underprivileged children.',
     },
     {
-      title: 'Graduate Degree',
-      company: 'Singapore University of Technology and Design',
+      title: "Bachelor's Degree",
+      company: 'Singapore University of Technology and Design (SUTD)',
       year: '2021',
-      desc: 'Graduated with a degree in Computer Science with minors in A.I and Humanities',
+      desc: 'BSc Computer Science Design, Minor in Artificial Intelligence and Humanities. SUTD Undergraduate Merit Scholarship.',
     },
     {
-      title: 'Co-Founder',
-      company: 'SwiftySG',
-      year: '2020',
-      desc: 'A start up that aims to bridge local business to daily consumers via digitalization by developing a full stack web application (AWS/SEO ReactJS) for the digitalization process',
+      title: 'Co Founder',
+      company: 'Swifty',
+      year: '2021',
+      desc: [
+        'Built and shipped a full-stack e-commerce platform using React and AWS and GCP',
+        'Owned delivery from MVP to deployment and iteration',
+      ],
     },
     {
       title: 'NLP Research Intern',
-      company: 'DeCLaRe Lab',
+      company: 'DeCLaRe Lab @ SUTD',
       year: '2020',
-      desc: 'Researched on Complex Question Answering using Transformers Library (Python)',
-    },
-    {
-      title: 'Android Developer',
-      company: 'SUTD',
-      year: '2019',
-      desc: "Developed an Android app using native language (JAVA) to provide a platform users to request and offer goods & services. Main features include flexible pricing and wide variety of goods and services whilst ensuring user's safety through a log-in system as well as using Telegram / in-app chat as mode of communication to prevent disclosing of phone numbers. Developed with MVP design pattern in mind and used VCS internally with a team of 6, developed using Google's back end services such as Firebase. Awarded grant by Mitsubishi Corp to continue for further development.",
+      desc: [
+        'Worked on complex question answering using Transformer models',
+        'Benchmarked baselines such as BERT and ELMo',
+      ],
     },
     {
       title: 'Data Analyst Intern',
-      company: 'The Univac Group',
+      company: 'Univac',
       year: '2019',
-      desc: 'ETL Apache Kafka Streaming data coupled with scripts and collaborating with a team of engineers to filter out meaningful data (Python, OpenFaas, Docker, MicrosoftSQL, PyTest - Python Script Testing). Developed a Microsoft Team Bots for machine down time (Python). Utilized Microsoft PowerBI and Microstrategy for visual data interpretation (Javascript, D3 Visuals)',
+      desc: [
+        `Built Python ETL pipelines \n Streamed shop floor metrics via Kafka and NodeJS to surface near real-time insights`,
+      ],
     },
     {
       title: 'Diploma In Mechanical Engineering',
       company: 'Singapore Polytechnic',
       year: '2015',
-      desc: 'Graduated with a Diploma With Merit, offered a scholarship to SUTD',
-    },
-    {
-      title: 'Project Intern',
-      company: 'Avantek PTE LTD',
-      year: '2015',
-      desc: 'Designed and fabricated fixture for stamping machine to streamline production process.',
-    },
-    {
-      title: 'Internship',
-      company: 'Pratt & Whitney',
-      year: '2014',
-      desc: 'Internship at Pratt & Whitney Customer Training Center (Beijing) primarily dealing with material science and fluid dynamic of jet engines.',
+      desc: 'Graduated with a Diploma With Merit',
     },
   ],
 }

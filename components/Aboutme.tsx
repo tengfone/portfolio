@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 export default function AboutMe(props: any): React.ReactElement {
@@ -84,12 +83,9 @@ export default function AboutMe(props: any): React.ReactElement {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <Image
+                        <img
                           alt={lang}
                           src={`https://img.shields.io/badge/${lang.toLowerCase()}-%2314354C.svg?style=for-the-badge&logo=${lang.toLowerCase()}&logoColor=white`}
-                          width={70}
-                          height={28}
-                          unoptimized
                           className="h-7 transition-opacity hover:opacity-80"
                         />
                       </motion.div>
@@ -122,12 +118,9 @@ export default function AboutMe(props: any): React.ReactElement {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <Image
+                        <img
                           alt={tech}
                           src={`https://img.shields.io/badge/${tech.toLowerCase()}-%2320232a.svg?style=for-the-badge&logo=${tech.toLowerCase()}&logoColor=white`}
-                          width={70}
-                          height={28}
-                          unoptimized
                           className="h-7 transition-opacity hover:opacity-80"
                         />
                       </motion.div>
@@ -159,12 +152,9 @@ export default function AboutMe(props: any): React.ReactElement {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            <Image
+                            <img
                               alt={tool}
                               src={badgeUrl}
-                              width={70}
-                              height={28}
-                              unoptimized
                               className="h-7 transition-opacity hover:opacity-80"
                             />
                           </motion.div>

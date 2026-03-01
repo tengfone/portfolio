@@ -71,7 +71,12 @@ const Experiences: NextPage = () => {
                     subSections={exp.subSections}
                   />
                 </div>
-                <div className="absolute left-4 top-6 z-20 hidden h-4 w-4 -translate-x-1/2 rounded-full border-4 border-white bg-brand-accent shadow-lg dark:border-brand-dark sm:left-1/2 sm:block" />
+                <div className="absolute left-4 top-6 z-20 hidden -translate-x-1/2 sm:left-1/2 sm:block">
+                  <div className="relative flex h-4 w-4 items-center justify-center">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75"></span>
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-accent shadow-lg border-2 border-white dark:border-brand-dark"></span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>

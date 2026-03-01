@@ -65,14 +65,14 @@ const Layout = ({ children, title, description }: Props): React.ReactElement => 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: showTopBtn ? 1 : 0, y: showTopBtn ? 0 : 20 }}
                 transition={{ duration: 0.3 }}
-                className="fixed xl:bottom-0 mr-4 xl:mb-4 bottom-5 mb-10 right-0"
+                className="fixed bottom-8 right-6 z-50 md:bottom-10 md:right-10"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="50"
                     height="50"
                     className="cursor-pointer bi bi-arrow-up-circle fill-green-500 hover:fill-green-600 transition-colors"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 16 16"
                     onClick={goToTop}
                     role="button"
                     aria-label="Scroll to top"

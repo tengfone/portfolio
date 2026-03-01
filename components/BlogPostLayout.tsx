@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Layout from './Layout'
 
 interface BlogMeta {
+  slug: string
   title: string
   date: string
   summary: string
@@ -20,7 +21,7 @@ interface BlogPostLayoutProps {
 const SITE_URL = 'https://tengfone.dev'
 
 export default function BlogPostLayout({ meta, children }: BlogPostLayoutProps) {
-  const canonicalUrl = `${SITE_URL}/blog/${slugify(meta.title)}`
+  const canonicalUrl = `${SITE_URL}/blog/${meta.slug}`
 
   return (
     <Layout title={meta.title} description={meta.summary}>
@@ -167,13 +168,6 @@ function formatDate(dateStr: string): string {
     month: 'long',
     day: 'numeric',
   })
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
 }
 
 function estimateReadTime(children: ReactNode): number {

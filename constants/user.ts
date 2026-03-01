@@ -1,3 +1,14 @@
+export const blogData = [
+  {
+    slug: 'hello-world',
+    title: 'Hello World — Why I am trying to start blogging',
+    date: '2026-03-01',
+    summary:
+      'I have been building things for years but almost never writing them down. This is me fixing that.',
+    tags: ['blogging'],
+  },
+]
+
 export const userData = {
   name: 'Teng Fone',
   linkedin: 'https://www.linkedin.com/in/tengfonephang/',

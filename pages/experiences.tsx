@@ -31,20 +31,22 @@ interface ExpDetails {
 const Experiences: NextPage = () => {
   return (
     <Layout title="Experiences" description={`${title} - ${subtitle}`}>
-      <div className="flex flex-row items-start justify-center overflow-hidden">
-        <div className="mx-auto w-full text-center md:w-1/2 md:text-left lg:p-20">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="font-body text-5xl font-bold text-gray-900 dark:text-gray-100 md:text-[60px]"
-          >
+      <div className="mx-auto max-w-7xl px-4 pt-12 pb-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
             Experiences
-          </motion.p>
-        </div>
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Where I worked.
+          </p>
+        </motion.div>
       </div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative pb-20 pt-10">
+        <div className="relative pb-20 pt-6">
           <div className="absolute inset-0 left-4 h-full w-0.5 -translate-x-1/2 transform bg-gray-200 dark:bg-gray-800 sm:left-1/2"></div>
           <div className="relative space-y-12">
             {userData.experience.map((exp, idx) => (
@@ -57,9 +59,8 @@ const Experiences: NextPage = () => {
                 className="relative flex flex-col gap-4 sm:grid sm:grid-cols-2"
               >
                 <div
-                  className={`${
-                    idx % 2 === 0 ? 'sm:col-start-1' : 'sm:col-start-2'
-                  } relative`}
+                  className={`${idx % 2 === 0 ? 'sm:col-start-1' : 'sm:col-start-2'
+                    } relative`}
                 >
                   <ExperienceCard
                     title={exp.title}

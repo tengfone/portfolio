@@ -15,6 +15,7 @@
 - Home: https://tengfone-portfolio.vercel.app/
 - Projects: https://tengfone-portfolio.vercel.app/projects
 - Experience: https://tengfone-portfolio.vercel.app/experiences
+- Blog: https://tengfone-portfolio.vercel.app/blog
 
 ## Profiles
 - GitHub: https://github.com/tengfone

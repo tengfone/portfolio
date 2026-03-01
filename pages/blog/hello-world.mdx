@@ -1,0 +1,39 @@
+import BlogPostLayout from '../../components/BlogPostLayout'
+
+export const meta = {
+  title: 'Hello World — Why I am trying to start blogging',
+  date: '2026-03-01',
+  summary:
+    'I have been building things for years but almost never writing them down. This is me fixing that.',
+  tags: ['blogging'],
+  mediumUrl: '',
+}
+
+export default ({ children }) => <BlogPostLayout meta={meta}>{children}</BlogPostLayout>
+
+I have been building things for a while: Failed startup ideas, AI platforms, data pipelines, random side projects that start as "one weekend" and somehow turn into weeks. But I almost never write down what I learned, which means the same lessons keep getting re-learned (and occasionally re-debugged).
+
+So this blog is me fixing that.
+
+Writing is also a good honesty test. If I cannot explain something simply, I probably don't understand it as well as I thought. And if I can explain it, future me (and maybe someone else) gets to benefit from it.
+
+## How I'm publishing
+
+This site is where I publish first.
+
+After that, I'll repost to [Medium](https://medium.com/@tengfone) using their import tool so it points back here as the original source. Mostly because I want a home base on my own domain, but I also don't mind the extra reach.
+
+My workflow is intentionally boring:
+
+1. Write the post here (MDX)
+2. Deploy
+3. Import to Medium
+4. Publish it public
+
+## What I'll write about
+
+Mostly the stuff I run into day to day: AI infrastructure, MLOps, full-stack engineering, and the occasional deep dive when I build something and it surprises me (in a good or bad way).
+
+No fixed schedule. If there's something worth sharing, I'll write it.
+
+Thanks for reading — more soon.

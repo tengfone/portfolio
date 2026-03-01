@@ -23,6 +23,10 @@ export default function Navbar(): React.ReactElement {
     {
       name: 'Experiences',
       href: '/experiences',
+    },
+    {
+      name: 'Blog',
+      href: '/blog',
     }
   ]
 

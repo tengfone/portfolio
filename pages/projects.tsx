@@ -19,20 +19,22 @@ interface projectDetails {
 const Projects: NextPage = () => {
     return (
         <Layout title="Projects" description={`${title} - ${subtitle}`}>
-            <div className="flex flex-row justify-center items-start overflow-hidden">
-                <div className="w-full md:w-1/2 mx-auto text-center md:text-left lg:p-20">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="font-body font-bold text-5xl md:text-[60px] text-gray-900 dark:text-gray-100"
-                    >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
                         Projects
-                    </motion.h1>
-                </div>
+                    </h1>
+                    <p className="mt-2 text-gray-600 dark:text-gray-400">
+                        Things I built and shipped.
+                    </p>
+                </motion.div>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-12 pt-6">
                     {userData.projects.map((proj, idx) => (
                         <motion.div
                             key={idx}

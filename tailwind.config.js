@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme'
 import daisyui from 'daisyui'
+import typography from '@tailwindcss/typography'
 
 const config = {
   darkMode: 'class',
@@ -60,7 +61,7 @@ const config = {
       },
     },
   },
-  plugins: [daisyui],
+  plugins: [typography, daisyui],
   daisyui: {
     styled: true,
     themes: true,

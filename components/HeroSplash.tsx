@@ -1,14 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
 import { userData } from '../constants/user'
-import Icon from './shared/Icon'
+import Icon, { IconName } from './shared/Icon'
 import { motion } from 'framer-motion'
 
 interface HeroSplashProps {
   scrollToSection: (id: string) => void
 }
 
-const TITLE = 'Hi, I&apos;m Teng Fone 👋'
 const SUBTITLE = 'I build things for public good'
 const ROLE = 'A Data Engineer (DE)'
 const TAGLINE = '*Do Everything Engineer'
@@ -88,7 +87,7 @@ export default function HeroSplash({
             { href: userData.github, icon: 'github' },
             { href: userData.linkedin, icon: 'linkedin' },
             { href: userData.medium, icon: 'medium' },
-          ].map((item, index) => (
+          ].map((item) => (
             <a
               key={item.icon}
               href={item.href}
@@ -97,7 +96,7 @@ export default function HeroSplash({
               aria-label={`Visit my ${item.icon} profile`}
               className="transform text-gray-600 transition-colors duration-300 hover:scale-110 hover:text-brand-accent dark:text-gray-400 dark:hover:text-brand-accent"
             >
-              <Icon name={item.icon as any} className="h-6 w-6" />
+              <Icon name={item.icon as IconName} className="h-6 w-6" />
             </a>
           ))}
         </motion.div>

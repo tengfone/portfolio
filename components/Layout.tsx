@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { motion, MotionProps } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Footer from './Footer'
 
 

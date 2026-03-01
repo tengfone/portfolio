@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-export default function AboutMe(props: any): React.ReactElement {
+export default function AboutMe(): React.ReactElement {
   const fadeIn = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.8 } },
@@ -77,12 +77,13 @@ export default function AboutMe(props: any): React.ReactElement {
                       '.NET',
                       'c%23',
                       'C++',
-                    ].map((lang, i) => (
+                    ].map((lang) => (
                       <motion.div
                         key={lang}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           alt={lang}
                           src={`https://img.shields.io/badge/${lang.toLowerCase()}-%2314354C.svg?style=for-the-badge&logo=${lang.toLowerCase()}&logoColor=white`}
@@ -112,12 +113,13 @@ export default function AboutMe(props: any): React.ReactElement {
                       'Pandas',
                       'MongoDB',
                       '.NET',
-                    ].map((tech, i) => (
+                    ].map((tech) => (
                       <motion.div
                         key={tech}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           alt={tech}
                           src={`https://img.shields.io/badge/${tech.toLowerCase()}-%2320232a.svg?style=for-the-badge&logo=${tech.toLowerCase()}&logoColor=white`}
@@ -134,7 +136,7 @@ export default function AboutMe(props: any): React.ReactElement {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {['Amazon_AWS', 'Microsoft_Azure', 'Terraform'].map(
-                      (tool, i) => {
+                      (tool) => {
                         let badgeUrl
                         if (tool === 'Amazon_AWS') {
                           badgeUrl =
@@ -152,6 +154,7 @@ export default function AboutMe(props: any): React.ReactElement {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               alt={tool}
                               src={badgeUrl}

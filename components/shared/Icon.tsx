@@ -1,6 +1,6 @@
 import React from 'react';
 
-type IconName = 'github' | 'linkedin' | 'medium';
+export type IconName = 'github' | 'linkedin' | 'medium';
 
 interface IconProps {
   name: IconName;

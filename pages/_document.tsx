@@ -13,7 +13,7 @@ class MyDocument extends Document {
   }
   render() {
     return (
-      <Html>
+      <Html data-scroll-behavior="smooth">
         <Head>
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"

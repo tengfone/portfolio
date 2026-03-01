@@ -1,6 +1,7 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+import defaultTheme from 'tailwindcss/defaultTheme'
+import daisyui from 'daisyui'
 
-module.exports = {
+const config = {
   darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -59,7 +60,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [daisyui],
   daisyui: {
     styled: true,
     themes: true,
@@ -70,3 +71,5 @@ module.exports = {
     prefix: 'daisyui-',
   },
 }
+
+export default config

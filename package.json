@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "start": "next start",
     "lint": "eslint ."
   },
@@ -35,6 +36,7 @@
     "framer-motion": "^11.18.0",
     "next": "^16.1.6",
     "next-seo": "^5.4.0",
+    "next-sitemap": "^4.2.3",
     "next-themes": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

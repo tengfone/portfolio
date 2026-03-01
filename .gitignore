@@ -37,3 +37,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 .vscode/
+
+# next-sitemap generated shards (index sitemap kept, shards are build artifacts)
+/public/sitemap-*.xml

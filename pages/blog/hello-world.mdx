@@ -1,4 +1,5 @@
 import BlogPostLayout from '../../components/BlogPostLayout'
+import { createBlogStaticProps } from '../../lib/getPostWordCount'
 
 export const meta = {
   slug: 'hello-world',
@@ -10,7 +11,11 @@ export const meta = {
   mediumUrl: '',
 }
 
-export default ({ children }) => <BlogPostLayout meta={meta}>{children}</BlogPostLayout>
+export const getStaticProps = createBlogStaticProps(meta.slug)
+
+export default function Page({ children, wordCount }) {
+  return <BlogPostLayout meta={meta} wordCount={wordCount}>{children}</BlogPostLayout>
+}
 
 I have been building things for a while: Failed startup ideas, AI platforms, data pipelines, random side projects that start as "one weekend" and somehow turn into weeks. But I almost never write down what I learned, which means the same lessons keep getting re-learned (and occasionally re-debugged).
 

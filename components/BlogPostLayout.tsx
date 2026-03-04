@@ -11,17 +11,17 @@ interface BlogMeta {
   summary: string
   tags: string[]
   mediumUrl?: string
-  wordCount?: number
 }
 
 interface BlogPostLayoutProps {
   meta: BlogMeta
   children: ReactNode
+  wordCount?: number
 }
 
 const SITE_URL = 'https://tengfone.dev'
 
-export default function BlogPostLayout({ meta, children }: BlogPostLayoutProps) {
+export default function BlogPostLayout({ meta, children, wordCount }: BlogPostLayoutProps) {
   const canonicalUrl = `${SITE_URL}/blog/${meta.slug}`
 
   return (
@@ -76,7 +76,7 @@ export default function BlogPostLayout({ meta, children }: BlogPostLayoutProps) 
                 {formatDate(meta.date)}
               </time>
               <span className="h-1 w-1 rounded-full bg-brand-muted" />
-              <span>{estimateReadTime(children, meta.wordCount)} min read</span>
+              <span>{estimateReadTime(wordCount)} min read</span>
             </div>
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl md:text-5xl">
               {meta.title}
@@ -171,21 +171,6 @@ function formatDate(dateStr: string): string {
   })
 }
 
-function estimateReadTime(children: ReactNode, wordCount?: number): number {
-  if (wordCount && wordCount > 0) {
-    return Math.max(1, Math.round(wordCount / 200))
-  }
-  let text = ''
-  const extractText = (node: ReactNode): void => {
-    if (typeof node === 'string') {
-      text += node
-    } else if (Array.isArray(node)) {
-      node.forEach(extractText)
-    } else if (node && typeof node === 'object' && 'props' in node) {
-      extractText((node as React.ReactElement).props.children)
-    }
-  }
-  extractText(children)
-  const words = text.trim().split(/\s+/).length
-  return Math.max(1, Math.round(words / 200))
+function estimateReadTime(wordCount?: number): number {
+  return Math.max(1, Math.round((wordCount ?? 0) / 200))
 }

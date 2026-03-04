@@ -1,14 +1,20 @@
 import React from 'react'
 import Link from 'next/link'
-import { NextPage } from 'next'
+import { NextPage, GetStaticProps } from 'next'
 import { motion } from 'framer-motion'
+import fs from 'fs'
+import path from 'path'
 import Layout from '../../components/Layout'
 import { blogData, userData } from '../../constants/user'
 
 const title = `${userData.name}`
 const subtitle = 'Blog'
 
-const Blog: NextPage = () => {
+interface BlogProps {
+  wordCounts: Record<string, number>
+}
+
+const Blog: NextPage<BlogProps> = ({ wordCounts }) => {
   const sortedPosts = [...blogData].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
@@ -54,7 +60,7 @@ const Blog: NextPage = () => {
                               {formatDate(post.date)}
                             </time>
                             <span className="h-0.5 w-0.5 rounded-full bg-brand-muted" />
-                            <span>{estimateReadTime(post.summary)} min read</span>
+                            <span>{estimateReadTime(wordCounts[post.slug])} min read</span>
                           </div>
                           <h2 className="mt-1.5 text-base font-semibold text-gray-900 transition-colors group-hover:text-brand-accent dark:text-gray-100 sm:text-lg">
                             {post.title}
@@ -101,9 +107,33 @@ function formatDate(dateStr: string): string {
   })
 }
 
-function estimateReadTime(text: string): number {
-  const words = text.trim().split(/\s+/).length
-  return Math.max(1, Math.round(words / 200))
+function estimateReadTime(wordCount?: number): number {
+  return Math.max(1, Math.round((wordCount ?? 0) / 200))
+}
+
+export const getStaticProps: GetStaticProps<BlogProps> = async () => {
+  const postsDir = path.join(process.cwd(), 'pages', 'blog')
+  const wordCounts: Record<string, number> = {}
+
+  for (const post of blogData) {
+    const filePath = path.join(postsDir, `${post.slug}.mdx`)
+    if (!fs.existsSync(filePath)) continue
+    const raw = fs.readFileSync(filePath, 'utf-8')
+    const stripped = raw
+      .replace(/^import\s.+$/gm, '')
+      .replace(/^export\s.+$/gm, '')
+      .replace(/export\s+const\s+meta\s*=\s*\{[\s\S]*?\}/m, '')
+      .replace(/export\s+default\s+[^\n]+/g, '')
+      .replace(/^#+\s/gm, '')
+      .replace(/[*_`~>]/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/```[\s\S]*?```/g, '')
+      .replace(/\{[^}]+\}/g, '')
+    const words = stripped.trim().split(/\s+/).filter(Boolean)
+    wordCounts[post.slug] = words.length
+  }
+
+  return { props: { wordCounts } }
 }
 
 export default Blog

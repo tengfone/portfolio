@@ -1,17 +1,23 @@
 import BlogPostLayout from '../../components/BlogPostLayout'
+import { createBlogStaticProps } from '../../lib/getPostWordCount'
 
 export const meta = {
-  slug: 'ai-coding-assistants-march-2026',
+  slug: 'ai-coding-tools-march-2026',
   title: 'AI Coding Tools — March 2026',
   date: '2026-03-04',
   summary:
     'A workflow-first take on AI coding tools: what feels like good value, what I would pick depending on your constraints, and why PLAN/EXECUTE beats one-model-does-everything.',
   tags: ['AI', 'tooling', 'productivity', 'coding'],
   mediumUrl: '',
-  wordCount: 1400,
 }
 
-export default ({ children }) => <BlogPostLayout meta={meta}>{children}</BlogPostLayout>
+export const getStaticProps = createBlogStaticProps(meta.slug)
+
+export default function Page({ children, wordCount }) {
+  return <BlogPostLayout meta={meta} wordCount={wordCount}>{children}</BlogPostLayout>
+}
+
+![AI Coding Tools — March 2026](https://tengfone.dev/images/ai-coding-tools-march-2026-banner.png)
 
 AI coding tools change fast. Anything I write today might be outdated next week. Its fine as this post is just a snapshot of has been useful to me, what feels like good value, and what I would pick depending on your constraints (privacy, budget, and how much you actually ship).
 
@@ -40,7 +46,7 @@ My first "wow" moment was early GitHub Copilot: name a function, hit tab a few t
 
 Fast forward past the hype of early agents like Devin (iykyk) / Aider, and the industry has made massive strides in the unsexy basics: repository awareness (no more manually pasting directory trees!), codebase indexing (subjective), actual agentic loops (plan > change > run > fix) and a swarm of agents.
 
-Now we have a messy, growing pile of options: Cursor, Copilot, Windsurf, VS Code agent extensions (Cline/Roo/etc), Claude Code, Codex, OpenHands, OpenCode... and more every month.
+Now we have a messy, growing pile of options: Cursor, Copilot, Kilo, VS Code agent extensions (Cline/Roo/etc), Claude Code, Codex, OpenHands, OpenCode... and more every month.
 
 So the real question is not "what's best?" It is currently:
 
@@ -131,6 +137,10 @@ This usually beats "one model does everything" on both cost and quality.
 
 ## Privacy: paid doesn't mean private
 
+![Cursor IDE](https://tengfone.dev/images/ai-coding-tools-march-2026-cursor.png)
+
+*Cursor's privacy settings — worth checking what's toggled on by default.*
+
 This is where people get sloppy.
 
 Even on paid individual plans, don't assume training or retention is off. Some tools require you to toggle settings. And if the tool runs code in the cloud, that's a bigger surface area than people realize.
@@ -139,9 +149,9 @@ My practical rules:
 
 * **Personal projects**: consumer plans are fine (turn off training if possible)
 * **Sensitive/company repos**: prefer enterprise terms, or API usage with explicit retention guarantees
-* **When in doubt**: treat cloud agents as "someone else's computer running my code"
+* **When in doubt**: treat cloud agents as running your code on someone else computer
 
-Self-hosting is the extreme end of privacy. It can be worth it, but it's rarely "cheap" after you include compute, ops, reliability, and security. In a lot of cases, paying for a provider with clear no-logging/retention terms is simple. Unless you truly need privacy + throughput enough to justify the burden, mostly for enterprise use cases.
+Self-hosting is the extreme end of privacy. It can be worth it, but it's rarely "cheap" after you include compute, ops, reliability, and security. In a lot of cases, paying for a provider with clear no-logging/retention terms is simple. Unless you truly need privacy + throughput enough to justify the burden, mostly for enterprise use cases. For personal use case, honestly even with the latest open source consumer grade coding agent (< 30b models), I honestly feel using the paid PAYG would be a better choice.
 
 One more thing: Don't trust landing page copy. Read the policy. Vendors can say "we don't store prompts" in marketing and still leave themselves wiggle room in legal terms.
 
@@ -166,31 +176,45 @@ In practice, builders usually end up with a stack (be it due to tooling constrai
 
 ## Pricing buckets (free to company pays)
 
-This is opinionated and based on **value per work shipped**, not leaderboards (although I might add that TerminalBench and SWE verified are good benchmarks).
+This is opinionated and based on **value per work shipped**, not leaderboards (although I might add that <a href="https://www.tbench.ai/" target="_blank" rel="noopener noreferrer">TerminalBench</a> and <a href="https://www.swebench.com/" target="_blank" rel="noopener noreferrer">SWE Verified</a> are good benchmarks).
+
+One recommendation before diving in: never go for an annual plan with individual AI companies. You never know which model will beat the rest on any given day, locking in for a year means you are stuck when the landscape shifts or worse, a rug pull.
 
 ### 1. Free / Almost-Free (The Hacker Tier)
 
 You can get surprisingly far without spending much, provided you know where to look.
 
-**OpenCode + Free APIs**: OpenCode provides access to models like Minimax 2.5. If you use OpenRouter, there are free APIs you can plug right into OpenCode. The catch? It can be slow or throw random error codes during peak times.
+**OpenCode + Free APIs**: <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer">OpenCode</a> provides access to models like Minimax 2.5. If you use OpenRouter, there are free APIs you can plug right into OpenCode. The catch? It can be slow or throw random error codes during peak times.
 
-**Nvidia Build (The Hidden Gem)**: Not enough people know this, but Nvidia provides APIs for almost-latest models like Kimi K2.5, GLM-5, and Minimax m2.5. Pair these with OpenCode, and you have a highly capable, free agentic setup.
+![OpenCode free tier setup](https://tengfone.dev/images/ai-coding-tools-march-2026-opencode.png)
 
-**Provider Swapping**: Using tools like Claude Code (the CLI) doesn't mean you must use Anthropic. You can swap out the provider with cheaper plans from Moonshot (Kimi) or Minimax. If you want an all-in-one, AliCloudCoding is worth looking into as it aggregates many top open-source models.
+*OpenCode running with free models — If a product is free, you are the product*
+
+**Nvidia Build (The Hidden Gem)**: Not enough people know this, but <a href="https://build.nvidia.com/" target="_blank" rel="noopener noreferrer">Nvidia</a> provides APIs for almost-latest models like Kimi K2.5, GLM-5, and Minimax m2.5. Pair these with OpenCode, and you have a highly capable, free agentic setup.
+
+![Nvidia Build free model APIs](https://tengfone.dev/images/ai-coding-tools-march-2026-nvidia.png)
+
+*Nvidia Build's model catalogue — Kimi K2.5 and Minimax m2.5 are worth trying.*
+
+**Provider Swapping**: Using tools like Claude Code (the CLI) doesn't mean you must use Anthropic. You can swap out the provider with cheaper plans from Moonshot (Kimi) or Minimax. If you want an all-in-one, <a href="https://www.alibabacloud.com/help/en/model-studio/coding-plan" target="_blank" rel="noopener noreferrer">AliCloudCoding</a> is worth looking into as it aggregates many top open-source models.
 
 ### 2. The Value Tier (Best Bang-for-Buck)
 
 This is for predictable pricing and solid baseline quality.
 
-**GitHub Copilot**: Hear me out. While the base harness might feel lacking compared to frontier labs, the value is excellent. You can use it alongside extensions like Roo or Cline (which offer codebase indexing). Pro-tip: Go into your VS Code settings, search for Copilot Reasoning, and change it to "High."
+**<a href="https://github.com/features/copilot/plans" target="_blank" rel="noopener noreferrer">Github Copilot</a>**: Hear me out. While the base harness might feel lacking compared to frontier labs, the value is excellent. You can use it alongside extensions like Roo or Cline (which offer codebase indexing). Pro-tip: Go into your VS Code settings, search for Copilot Reasoning, and change it to "High."
 
-**Codex**: I've been incredibly impressed here. You get ChatGPT Premium and double the usage limit when using their desktop app (at least until 2 April 2026). The interface across desktop, plugin, and CLI is surprisingly cohesive.
+![Github Copilot Reasoning](https://tengfone.dev/images/ai-coding-tools-march-2026-copilot.png)
 
-**Cursor**: I've been a $20/month subscriber since day zero. People complain about it online, but the strategy is simple: use SOTA models for the hard architectural planning, and once you hit your premium limits, drop down to AUTO or cheaper models for the mechanical diffs.
+*GitHub Copilot Reasoning Effort — Change the default to high (Note that responses will take a longer time)*
+
+**<a href="https://openai.com/codex/" target="_blank" rel="noopener noreferrer">OpenAI Codex</a>**: I've been incredibly impressed here. You get ChatGPT Premium and double the usage limit when using their desktop app (at least until 2 April 2026). The interface across desktop, plugin, and CLI is surprisingly cohesive.
+
+**<a href="https://cursor.com/" target="_blank" rel="noopener noreferrer">Cursor</a>**: I've been a $20/month subscriber since day zero. People complain about it online, but the strategy is simple: use SOTA models for the hard architectural planning, and once you hit your premium limits, drop down to AUTO or cheaper models for the mechanical diffs.
 
 ### 3. Expensive but Excellent (The Heavy Hitters)
 
-**Claude Code**: It's a no-brainer for quality, but heavy usage will burn through your wallet. Some Reddit users complain it occasionally feels "stupid" (speculation: aggressive quantization on the backend?), but if you route your workflow correctly—planning with Opus and executing with Sonnet—it is a powerhouse.
+**<a href="https://claude.com/product/claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a>**: It's a no-brainer for quality, but heavy usage will burn through your wallet. Some Reddit users complain it occasionally feels "stupid" (speculation: aggressive quantization on the backend?), but if you route your workflow correctly—planning with Opus and executing with Sonnet—it is a powerhouse.
 
 ---
 
@@ -234,6 +258,33 @@ You will definitely get better output if you give:
 * guardrails ("don't change API contracts", "only touch these folders")
 
 These tools are powerful. But you still have to drive.
+
+---
+
+## My current setup (March 2026)
+
+For those who asked what I actually use day-to-day — here it is. The harness (Cursor, Claude Code, GitHub Copilot) shifts depending on the task, but the model routing stays roughly the same.
+
+**PLAN**
+
+Opus 4.6 (High) or Codex 5.3 (xHigh) for architecture, task breakdown, and design discussions. The harness varies — sometimes Claude Code, sometimes GitHub Copilot depending on what I'm working in.
+
+**EXECUTE**
+
+One of:
+* Codex 5.3 xHigh (via Codex MacOS - Hooray for 2x limits)
+* Sonnet 4.6 (via Claude Code or GitHub Copilot)
+* MiniMax m2.5 (via OpenCode, when I want free and fast for mechanical diffs)
+
+**AUTOCOMPLETE**
+
+Honestly, I stopped using autocomplete. The agentic loop replaced it for me.
+
+**REVIEW**
+
+Manual review and tests before anything ships. No exceptions.
+
+This changes fairly often, so treat it as a snapshot, not a recommendation.
 
 ---
 

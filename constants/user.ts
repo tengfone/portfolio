@@ -1,7 +1,7 @@
 export const blogData = [
   {
-    slug: 'ai-coding-tools-march-2026',
-    title: 'AI Coding Tools — March 2026',
+    slug: 'ai-coding-assistants-value-workflow-march-2026',
+    title: 'AI Coding Assistants: Value, Workflow, and Tradeoffs (March 2026)',
     date: '2026-03-04',
     summary:
       'A workflow-first take on AI coding tools: what feels like good value, what I would pick depending on your constraints, and why PLAN/EXECUTE beats one-model-does-everything.',

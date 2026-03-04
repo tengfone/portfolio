@@ -107,29 +107,7 @@ For production systems, I don't let an agent "just run" and ship blindly. I stay
 
 It maps pretty well to how teams already work: senior engineer plans, mid-level implements, senior reviews.
 
-**Problem > PLAN > EXECUTE > YOU**
-
-**PLAN (smart model)**
-
-* clarify requirements (this flushes out edge cases fast)
-* propose approach
-* list files and steps
-* define acceptance tests
-  * best case: one root-level test command
-  * put it in an `AGENTS.md` / `CLAUDE.md` style file so the tool can follow it
-
-**EXECUTE (fast/cheap but yet still intelligent model)**
-
-* apply diffs
-* update tests
-* run commands
-* iterate on errors
-
-**YOU**
-
-* review code
-* confirm/tighten/update behavior
-* ship
+![Problem > PLAN > EXECUTE > YOU workflow](https://tengfone.dev/images/ai-coding-tools-march-2026-workflow.png)
 
 This usually beats "one model does everything" on both cost and quality.
 

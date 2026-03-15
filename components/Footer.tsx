@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { userData } from "../constants/user";
+import { safeExternalUrl } from "../lib/safeExternalUrl";
 
 export default function Footer(): React.ReactElement {
 
@@ -14,8 +15,9 @@ export default function Footer(): React.ReactElement {
                     </div>
                     <div className="space-x-4 flex flex-row items-center">
                         <a
-                            href={userData.linkedin}
+                            href={safeExternalUrl(userData.linkedin)}
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="text-base font-normal text-gray-600 dark:text-gray-300"
                         >
                             <svg
@@ -30,8 +32,9 @@ export default function Footer(): React.ReactElement {
                             </svg>
                         </a>
                         <a
-                            href={userData.github}
+                            href={safeExternalUrl(userData.github)}
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="text-base font-normal text-gray-600 dark:text-gray-300"
                         >
                             <svg
@@ -46,7 +49,7 @@ export default function Footer(): React.ReactElement {
                             </svg>
                         </a>
                         <a
-                            href={userData.buymeacoffee}
+                            href={safeExternalUrl(userData.buymeacoffee)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="hover:opacity-80 transition-opacity"

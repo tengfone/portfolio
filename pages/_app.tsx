@@ -12,6 +12,8 @@ import { Toaster } from 'react-hot-toast';
 import { Analytics } from '@vercel/analytics/react';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const analyticsEnabled = process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === 'true'
+
   return (
     <>
       <SkipToContent />
@@ -31,7 +33,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           <Component {...pageProps} key={router.route} />
         </AnimatePresence>
       </ThemeProvider>
-      <Analytics />
+      {analyticsEnabled && <Analytics />}
     </>
   )
 }

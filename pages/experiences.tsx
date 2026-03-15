@@ -3,6 +3,7 @@ import { userData } from '../constants/user'
 import { NextPage } from 'next'
 import Layout from '../components/Layout'
 import { motion } from 'framer-motion'
+import { safeExternalUrl } from '../lib/safeExternalUrl'
 
 const title = `${userData.name}`
 const subtitle = 'Experiences'
@@ -141,7 +142,7 @@ const ExperienceCard = ({
                 </p>
                 {section.link && (
                   <a
-                    href={section.link.href}
+                    href={safeExternalUrl(section.link.href)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-2 inline-block text-sm text-brand-accent hover:underline"
@@ -201,7 +202,7 @@ const ExperienceCard = ({
           {proofLinks.map((link, idx) => (
             <a
               key={idx}
-              href={link.href}
+              href={safeExternalUrl(link.href)}
               className="text-sm text-brand-accent hover:underline"
             >
               {link.label}

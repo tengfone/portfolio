@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { userData } from '../constants/user'
 import Icon, { IconName } from './shared/Icon'
 import { motion } from 'framer-motion'
+import { safeExternalUrl } from '../lib/safeExternalUrl'
 
 interface HeroSplashProps {
   scrollToSection: (id: string) => void
@@ -90,7 +91,7 @@ export default function HeroSplash({
           ].map((item) => (
             <a
               key={item.icon}
-              href={item.href}
+              href={safeExternalUrl(item.href)}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visit my ${item.icon} profile`}

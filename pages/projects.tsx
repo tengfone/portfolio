@@ -4,6 +4,7 @@ import { userData } from "../constants/user";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { motion } from "framer-motion";
+import { safeExternalUrl } from "../lib/safeExternalUrl";
 
 const title = `${userData.name}`;
 const subtitle = "Projects"
@@ -61,7 +62,8 @@ const ProjectCard = ({ title, link, image, desc, tech }: projectDetails) => {
     return (
         <a
             target="_blank"
-            href={link}
+            rel="noopener noreferrer"
+            href={safeExternalUrl(link)}
             className="group relative block h-full rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-white dark:bg-brand-gray border border-gray-100 dark:border-gray-800 hover:-translate-y-2"
         >
             <div className="relative h-48 sm:h-64 w-full overflow-hidden">

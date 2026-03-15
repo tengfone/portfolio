@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
 import Layout from './Layout'
+import { safeExternalUrl } from '../lib/safeExternalUrl'
 
 interface BlogMeta {
   slug: string
@@ -126,7 +127,7 @@ export default function BlogPostLayout({ meta, children, wordCount }: BlogPostLa
                 </p>
                 {meta.mediumUrl && (
                   <a
-                    href={meta.mediumUrl}
+                    href={safeExternalUrl(meta.mediumUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-medium text-gray-700 transition-all hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-brand-gray dark:text-gray-300 dark:hover:border-gray-600"

@@ -46,18 +46,53 @@ body {
   }
 }
 
-/* ── Code block styling (shiki) ── */
+/* ── Code block wrapper ── */
+
+.code-block-wrapper {
+  @apply my-6 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700/60;
+}
+
+.code-block-header {
+  @apply flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700/60 dark:bg-[#252b33];
+}
+
+.code-block-lang {
+  @apply text-xs font-medium text-gray-500 dark:text-gray-400;
+}
+
+.code-block-copy {
+  @apply flex items-center gap-1.5 rounded-md px-2 py-1 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-300;
+}
+
+/* ── Shiki theme switching via CSS variables ── */
+
+.shiki,
+.shiki span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+/* ── Code block body ── */
 
 .shiki,
 .shiki-fallback {
-  @apply overflow-x-auto rounded-xl border border-gray-200 px-5 py-4 text-sm leading-relaxed font-mono dark:border-gray-700/60;
+  @apply overflow-x-auto px-5 py-4 text-sm leading-relaxed font-mono;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
 }
 
 .shiki {
   background-color: #fff !important;
 }
 
-.dark .shiki {
+html.dark .shiki {
   background-color: #1c2128 !important;
 }
 
@@ -74,26 +109,17 @@ body {
   @apply leading-relaxed;
 }
 
-html.dark .shiki .shiki.github-light {
-  display: none;
+/* Prevent prose typography from overriding code block styling */
+.prose .code-block-wrapper {
+  @apply my-6;
 }
 
-html:not(.dark) .shiki .shiki.github-dark-dimmed {
-  display: none;
+.prose .code-block-wrapper pre {
+  @apply m-0 rounded-none border-0;
 }
 
-.shiki .shiki {
-  @apply !bg-transparent;
-}
-
-/* Prevent prose from overriding shiki code styling */
 .prose .shiki code,
 .prose .shiki-fallback code {
   @apply bg-transparent px-0 py-0 text-sm before:content-none after:content-none;
   color: inherit;
-}
-
-.prose .shiki,
-.prose .shiki-fallback {
-  @apply my-6;
 }

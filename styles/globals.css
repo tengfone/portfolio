@@ -45,3 +45,55 @@ body {
     opacity: 0;
   }
 }
+
+/* ── Code block styling (shiki) ── */
+
+.shiki,
+.shiki-fallback {
+  @apply overflow-x-auto rounded-xl border border-gray-200 px-5 py-4 text-sm leading-relaxed font-mono dark:border-gray-700/60;
+}
+
+.shiki {
+  background-color: #fff !important;
+}
+
+.dark .shiki {
+  background-color: #1c2128 !important;
+}
+
+.shiki-fallback {
+  @apply bg-gray-50 text-gray-800 dark:bg-[#1c2128] dark:text-gray-300;
+}
+
+.shiki code {
+  @apply bg-transparent p-0 text-sm;
+  background: transparent !important;
+}
+
+.shiki .line {
+  @apply leading-relaxed;
+}
+
+html.dark .shiki .shiki.github-light {
+  display: none;
+}
+
+html:not(.dark) .shiki .shiki.github-dark-dimmed {
+  display: none;
+}
+
+.shiki .shiki {
+  @apply !bg-transparent;
+}
+
+/* Prevent prose from overriding shiki code styling */
+.prose .shiki code,
+.prose .shiki-fallback code {
+  @apply bg-transparent px-0 py-0 text-sm before:content-none after:content-none;
+  color: inherit;
+}
+
+.prose .shiki,
+.prose .shiki-fallback {
+  @apply my-6;
+}

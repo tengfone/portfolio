@@ -1,5 +1,13 @@
 export const blogData = [
   {
+    slug: 'agentic-mlops-review-flow-april-2026',
+    title: 'What Building an Agentic MLOps Review Flow in an Isolated Environment Taught Me',
+    date: '2026-04-05',
+    summary:
+      'After building a ReAct-style model promotion review system for HDB resale price prediction, the hardest part was not adding the agent — it was making it trustworthy in an isolated enterprise environment where bad decisions have real business cost.',
+    tags: ['MLOps', 'AI', 'LangGraph', 'agentic', 'machine-learning'],
+  },
+  {
     slug: 'ai-coding-assistants-value-workflow-march-2026',
     title: 'AI Coding Assistants: Value, Workflow, and Tradeoffs (March 2026)',
     date: '2026-03-04',

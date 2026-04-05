@@ -122,26 +122,32 @@ if _mlflow_tracking_is_configured() and not review_logged:
 
 This is the kind of detail that changed how I think about agentic systems in enterprise settings. Not every failure should stop the workflow. Not every failure should be tolerated either. You have to decide which missing capability is merely inconvenient and which one breaks the trust contract.
 
+## A Note on Metric Choice
+
+This project uses RMSE as the primary evaluation metric. That is a defensible choice for this dataset, though it is not the only reasonable option. MAPE (Mean Absolute Percentage Error) expresses error relative to the actual price, which can be more intuitive when relative accuracy matters, though it can be unstable when actual values are zero or very small. RMSLE (Root Mean Squared Logarithmic Error) applies a log transform that reduces the influence of very large target values and is often useful when prices are right-skewed. Both metrics are used in regression work, including housing price prediction, under the right conditions.
+
+I stayed with RMSE and MAE because they are simple, widely understood, and sufficient for a demo-scale project where the goal is to show the promotion workflow rather than to optimize the metric itself. In a production setting, the right metric depends on the target distribution and the business objective. If the price distribution is heavily skewed or if relative accuracy matters more than absolute dollar error, RMSLE or a percentage-based metric such as MAPE could be worth considering. The policy engine and segment checks are metric-agnostic in structure, so changing the primary metric would not alter the overall workflow design.
+
 ## A Concrete Review Walkthrough
 
 One of the most useful scenarios I keep around is a candidate that looks acceptable at the top level but fails when you inspect one segment closely.
 
-In this scenario, the current champion has an RMSE of 150,000 and the candidate comes in at around 155,000. It performs worse, but not devastatingly worse. It is a ~3% regression, which is still below the hard overall regression threshold. Drift is also clean in that run, so if I only looked at overall metrics and drift, the candidate might look like a borderline but manageable case.
+In this scenario, the current champion has an RMSE of 150,000 and the candidate comes in at around 155,000. It performs worse, but not devastatingly worse. It is a roughly 3% regression, which is still below the hard overall regression threshold. The PSI and KS drift tests also come back clean, meaning no aggregate feature distributions cross those thresholds. But passing those tests only means the overall monitored feature distributions did not shift enough to trigger an alert. They do not rule out concept drift or localised distributional changes that affect specific segments. If I only looked at overall metrics and the aggregate drift screen, the candidate might look like a borderline but manageable case.
 
-The problem shows up when the workflow compares segment performance. For the town segment `YISHUN`, the candidate RMSE jumps from 150,000 for the champion to 195,000 for the candidate. That is a 30% regression for that subgroup. In my policy, segment regressions above 20% do not auto-reject the model, but they do force `MANUAL_REVIEW`.
+The problem shows up when the workflow compares segment performance. For the town segment `YISHUN`, the candidate RMSE jumps from 150,000 for the champion to 195,000 for the candidate. In other words, the candidate's prediction performance for Yishun, measured by RMSE for that subgroup, is 30% worse than the current champion's. In my policy, a segment RMSE degradation above 20% relative to the current champion does not auto-reject the model, but they do force `MANUAL_REVIEW`.
 
 That is exactly the kind of case I wanted this system to catch. If I only optimized for aggregate metrics, I could easily end up promoting a model that is slightly acceptable on average while getting noticeably worse for one part of the population. In a business setting, this is an actual setback.
 
 Here is how that run behaves:
 
 1. Candidate metrics are loaded and compared to the current champion.
-2. Drift checks run and come back clean.
-3. Segment deltas show `town=YISHUN (+30.0%)`.
-4. The deterministic policy returns `MANUAL_REVIEW`.
-5. The agent writes a report that highlights the subgroup regression and its likely impact.
-6. A human reviewer decides whether this is an acceptable tradeoff or a reason to keep the current champion.
+2. Drift checks run and come back clean, meaning no aggregate feature distributions cross the PSI or KS thresholds.
+3. Segment deltas show `town=YISHUN` with a prediction RMSE that is `+30.0%` worse than the current champion for that subgroup.
+4. The deterministic policy returns `MANUAL_REVIEW` because a 30% segment RMSE degradation relative to the current champion exceeds the 20% threshold.
+5. The agent writes a report that highlights the Yishun segment's worse prediction performance relative to the current champion and may investigate whether localised data patterns or concept drift (the kind that aggregate PSI/KS tests can miss at the feature-distribution level) could explain the degradation. This is not contradicted by step 2: PSI/KS tests measure overall feature distributions, not segment-level prediction accuracy, so a clean drift result and a segment-level performance investigation by the agent are complementary, not conflicting.
+6. A human reviewer decides whether that 30% worse prediction RMSE for Yishun relative to the current champion is an acceptable tradeoff or a reason to keep the current champion.
 
-I like this example because it shows why I did not want the agentic layer to own the promotion decision. The agent can help explain why Yishun got worse and whether there is any surrounding market context worth inspecting, but it should not get to decide that a 30% subgroup regression is acceptable. That is a policy question and, after policy has spoken, a human accountability question.
+I like this example because it shows why I did not want the agentic layer to own the promotion decision. The agent can help explain why Yishun prediction RMSE is 30% worse relative to the current champion, including concept drift, market shifts, or data quality issues in that segment might be driving the gap, but it should not get to decide whether a 30% worse prediction performance for a specific category, compared to the current champion, is an acceptable tradeoff. That is a policy question and, after policy has spoken, a human accountability question.
 
 I also keep scenarios like this as fixtures for tests and demos. That turned out to be important. It means the same cases I use to explain the workflow to humans are also the cases I use to verify the routing logic, the report generation, and the review behavior. For agentic systems, that kind of reuse is valuable because it ties the narrative back to something concrete and repeatable.
 
@@ -151,9 +157,9 @@ The more agentic a workflow becomes, the more debugging moves from code inspecti
 
 I ended up caring a lot more about review packets, traces, version tags, and reproducible scenarios than I expected. Each promotion review is persisted locally and mirrored into MLflow. Decision metadata is written back to the model version. The explainer path records structured outputs and trace information. There is also an optional LLM judge that scores the report quality, but that judge is advisory only. I did not want one LLM grading another and then quietly nudging promotion policy.
 
-The first is drift. In my workflow, categorical drift is checked with PSI and numeric drift with KS tests. Drift does not force an immediate permanent reject, but it does block automatic promotion and routes the candidate into manual review. That is an example of where the deterministic layer should stay in charge. Drift is not a storytelling problem, it is a control plane problem.
+The first is drift. In my workflow, categorical drift is checked with PSI and numeric drift with KS tests. Drift does not force an immediate permanent reject, but it does block automatic promotion and routes the candidate into manual review. Passing PSI and KS only means the monitored feature distributions did not cross those thresholds. It does not rule out concept drift or segment-specific performance failures. That is an example of where the deterministic layer should stay in charge. Drift is not a storytelling problem, it is a control plane problem.
 
-The second is segmented regression. It may reduce the overall error a little, but it can make the results much worse for one type of flat or one town. That is exactly the kind of failure that an average metric can hide and a business team will care about. I push those segmented metrics through the entire workflow so the policy engine can force manual review when a subgroup regresses. The agent can then help explain why the regression matters and whether there is any surrounding context worth considering.
+The second is segmented regression. It may reduce the overall error a little, but it can make the segment RMSE much worse for one type of flat or one town relative to the current champion. That is exactly the kind of failure that an average metric can hide and a business team will care about. I push those segmented metrics through the entire workflow so the policy engine can force manual review when a segment RMSE regresses beyond threshold, even if PSI and KS stay clean. The agent can then help explain why the regression matters and whether there is any surrounding context worth considering.
 
 Without observability, both of those cases become harder to trust. You end up reading a nice report without knowing if it is grounded in with the appropriate facts.
 
@@ -189,9 +195,19 @@ Start from business decision, not the agent. In my case, the question was simple
 
 Design the fallback path before you celebrate the happy path. If the LLM disappears, your workflow should still produce something useful. If a provider returns malformed output, you should know that happened. If a required evidence artifact is missing, promotion should stop. Agentic systems fail in messy ways, so fallback behavior is part of the product, not an edge case.
 
-Invest in observability earlier than feels necessary. Teams often want better prompts, more tools, or a stronger model. Those can help, but they do not solve the trust problem. Persist the review segments. Record the tool outputs. Tag the final decision. Keep model version history clean. Test scenario fixtures that represent real promotion states.
+Invest in observability earlier than feels necessary. Teams often want better prompts, more tools, or a stronger model. Those can help, but they do not solve the trust problem. Persist the review packets. Record the tool outputs. Tag the final decision. Keep model version history clean. Test scenario fixtures that represent real promotion states.
 
 Keep the agent on a short leash and be honest about maintenance cost. Bound the tool surface. Make the control flow explicit. Do not let the agent mutate production state just because it can produce convincing text. The more fancy tooling you add, the harder debugging becomes. Someone still has to maintain the surrounding system, monitor provider health, inspect regressions, and keep the review logic aligned with the business.
+
+## Where This Design Fits, and Where It Does Not
+
+The human-in-the-loop step is a deliberate choice, but it is not always necessary. It makes the most sense when model updates are infrequent and the cost of a bad promotion is high. In those cases, having a person make the final call adds oversight and accountability.
+
+In higher-volume systems, that tradeoff changes. If a team is handling large numbers of model updates every day, manual review can become a bottleneck. In that kind of setting, a more automated promotion process often makes more sense, as long as the evaluation policy is reliable and rollback is easy.
+
+This project fits the first case. HDB resale price prediction is a single, visible model, and a poor promotion decision would likely be noticed. Since updates are infrequent, adding human review improves accountability without creating much delay.
+
+Ultimately, whether to keep a human in the loop is a business decision, not just an engineering one. The architecture supports both approaches: fully automated promotion when the policy is trusted, and human review when needed.
 
 ## Closing Thoughts
 
@@ -201,6 +217,6 @@ Model versioning matters more once an agent enters the loop because you need a d
 
 If you want the short version, mine is this: use agents where they genuinely improve investigation, context gathering, and explanation. Keep deterministic code in charge of policy and control points. Build for failure before you build for fluency.
 
-The private MAESTRO-specific notebook variants are staying private, but the public repo still reflects the core ideas. The local/Colab notebook and the shared package modules preserve the same promotion design, the same agent boundary, and the same bias toward auditability and fallbacks. Internal enterprise users can layer the MAESTRO-specific entrypoints on top of that shared core. That is the part worth reusing. Not the exact platform, but the discipline around where the agent fits.
+The MAESTRO-specific notebook versions are still private, but the public repo still shows the main ideas behind the project. The local and Colab notebooks, together with the shared package modules, keep the same promotion flow, the same agent boundary, and the same focus on auditability and fallback handling. Internal enterprise users can still build MAESTRO-specific entry points on top of that shared core. So the reusable part is not the exact platform, but the design approach behind it.
 
-One thing worth calling out: the public repo does not contain a full MLOps pipeline. What you will find are ad-hoc notebook-based jobs that walk through the promotion review flow. The actual Sagemaker pipeline DAG, including scheduling and orchestration, lives in the MAESTRO internal docs and is not exposed publicly. That said, the notebooks are structured so they could be run as scheduled CRON jobs to drive real deployments. I kept the repo scoped this way deliberately. The goal was learning and demonstration, not shipping a production-grade pipeline template. The ideas transfer; the operational wiring is something each team will need to fit to their own platform.
+At the same time, the public repo is not meant to be a full MLOps pipeline. What it includes are notebook-based jobs that demonstrate the promotion review flow step by step. The full SageMaker pipeline DAG, including scheduling and orchestration, remains in MAESTRO’s internal documentation and is not public. I scoped the repo this way on purpose because the goal of the project was to demonstrate the ideas and workflow, not to release a production-ready pipeline template. The concepts can still be applied elsewhere, but the actual operational setup would need to be adapted to each team’s own platform.

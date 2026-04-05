@@ -19,9 +19,9 @@ export default function Page({ children, wordCount }) {
 
 When people write about agentic systems, they usually start with capability. Give an LLM some tools, let it search for context, let it call APIs, and the workflow suddenly looks smarter. After building one inside an isolated enterprise setup, I came away caring much less about raw capability and much more about trust.
 
-The hard part was never adding the agent. The hard part was making the agent trustworthy in an environment where systems are isolated, dependencies fail in awkward ways, and a bad decision has a real business cost.
+The hard part was never adding the agent. The hard part was making the agent trustworthy in an environment where systems are isolated, where dependencies can fail in awkward ways, and having bad decisions results in a real business cost.
 
-I ran into that while building an HDB resale price prediction project with an agentic promotion review flow. Once a candidate model is registered, something has to decide whether it is safe to replace the current champion. That is where I used an agentic workflow. The enterprise path runs on my own MLOps platform, MAESTRO. The public repo ships the local/Colab workflow plus the shared package modules, while the enterprise notebook variants stay private.
+I ran into that while building a demo [HDB](https://data.gov.sg/datasets?agencies=HDB&resultId=d_8b84c4ee58e3cfc0ece0d773c8ca6abc) resale price prediction project with an agentic promotion review flow. Once a candidate model is registered, something(in this case, an agent) has to decide whether it is safe to replace the current champion. The enterprise path runs within my company's MLOps platform, MAESTRO. The public repo ships the local/Colab workflow plus the shared package modules, while the enterprise notebook variants stay private.
 
 The open-source repo is here: <a href="https://github.com/tengfone/hdb-resale-agentic-mlops" target="_blank" rel="noopener noreferrer">github.com/tengfone/hdb-resale-agentic-mlops</a>.
 
@@ -29,7 +29,7 @@ The open-source repo is here: <a href="https://github.com/tengfone/hdb-resale-ag
 
 I never wanted the agent to train the model or decide whether a model should be promoted. I wanted it in the review layer.
 
-The workflow has three parts. First, deterministic code gathers evidence, compares the candidate to the current champion, checks for drift, and applies policy. Second, a ReAct-style explainer agent investigates the evidence with a constrained toolset and writes a structured report. Third, a human reviewer makes the final call whenever promotion is still on the table.
+The workflow has three parts. First, deterministic code gathers evidence, compares the candidate to the current champion, checks for drift, and applies policy. Second, a ReAct-style explainer agent investigates the evidence with a constrained toolset and writes a structured report. Third, a human reviewer makes the final call if the promotion is still on the table.
 
 ```mermaid
 flowchart TD
@@ -41,13 +41,13 @@ flowchart TD
     F --> G["Update MLflow registry"]
 ```
 
-In my case, the candidate comes from an HDB resale price model. I evaluate overall RMSE and MAE, but I also track segment performance by town and flat type because an average improvement can still hide a harmful regression. The promotion workflow is orchestrated with LangGraph, the evidence and decisions are recorded in MLflow, and the review packet is persisted so the decision stays auditable and resumable.
+In my case, the candidate comes from the HDB resale price model. I evaluate overall RMSE and MAE, but I also track segment performance by town and flat type because an average improvement can still hide a harmful regression. The promotion workflow is orchestrated with LangGraph, the evidence and decisions are recorded in MLflow, and the review packet is persisted so the decision stays auditable and resumable.
 
 ## How I Got Here
 
 This was not the first version I had in mind.
 
-My first instinct was the obvious version. Train the model, hand the metrics and some context to an LLM, let it investigate, and ask it whether the candidate should be promoted. It looks clean on a whiteboard, and it is close to how many agentic demos are presented. The problem is that model promotion is not a summarization task. It is a control point.
+My first instinct was the obvious version. Train the model, hand the metrics and some context to an LLM, let it investigate, and ask if candidate should be promoted. It looks clean on a whiteboard, and close to how many agentic demos are presented. The problem is that model promotion is not a summarization task. It is a *control point*.
 
 Three things pushed me away from that design.
 
@@ -63,9 +63,9 @@ LLMs are useful when the job is to synthesize evidence, explain tradeoffs, and p
 
 So in my workflow, the policy engine decides the routing first. It produces a deterministic verdict such as `PROMOTE`, `MANUAL_REVIEW`, or `REJECT` based on explicit checks. Only after that does the explainer agent get involved. The agent can inspect candidate metrics, champion comparisons, drift results, training history, and optional market research. It can decide which tools to call and how to structure the explanation. What it cannot do is override the policy logic.
 
-From a business perspective, this separation felt much more honest. I do not want a persuasive paragraph to quietly outrank a hard regression threshold. I want the agent to help a reviewer understand what is going on, not to inherit authority that should belong to deterministic policy or a human owner.
+From a business perspective, this separation felt much more honest. I do not want a persuasive paragraph to quietly outrank a hard regression threshold. I want the agent to help a reviewer understand what is going on, not for the agent to inherit the authority. Instead, that should belong to a deterministic policy or a human decision maker.
 
-There is one nuance here. For obvious rejects, the workflow can reject automatically after the report is generated. Even then, I still persist the review packet so a human can inspect it later and override if needed. That gives me a useful middle ground.
+There is one nuance here. For obvious rejects, the workflow can reject automatically after the report is generated. Even then, I still persist the review packet so a human can inspect it later and override if needed.
 
 I also wanted that boundary to be visible in code, not just in architecture diagrams. The ordering below is the important part. The policy verdict is computed before the explainer runs, and only non-reject cases move to human review.
 
@@ -86,17 +86,17 @@ def route_after_report(state: PromotionState) -> str:
     return "human_review"
 ```
 
-That may look simple, but that simplicity is doing real work. It means the agent never quietly becomes the decision-maker just because it produced a convincing explanation.
+This may look simple, but it is preciously that simplicity doing the real work. It means the agent never quietly becomes the decision-maker just because it produced a convincing explanation.
 
 ## What Breaks First in an Isolated Environment
 
 The first thing that breaks is usually not the model. It is the assumption that your AI tooling will be available wherever the real workflow has to run.
 
-In a normal development environment, it is easy to wire up an LLM, search provider, notebook, and registry client and convince yourself the pattern works. In an isolated enterprise environment, moving those capabilities closer to the workload is a project in itself. You either invest in a workflow that can run those tools inside the constrained environment, or you invest in a developer setup that can faithfully replicate enough of it to be useful. Without that, the agentic part stays theatrical.
+In a normal development environment, it is easy to wire up an LLM, search provider, notebook, and registry client and convince yourself the pattern works. In an isolated enterprise environment, moving those capabilities closer to the workload is a project in itself. You will have to either have to invest in a workflow that can run those tools inside the constrained environment, or you invest in a developer setup that can faithfully replicate enough of it to be useful. Without that, the agentic part stays theatrical.
 
 External search is a good example. People often talk about LLMs that can search the internet or an intranet faster than a human and pull in richer context. That is directionally true, but operationally incomplete. In a real isolated setup, the agent might not have the right network path, the result set might be stale, the provider response shape might be slightly incompatible, or the API might simply be unavailable.
 
-That is why I stopped thinking of tool access as a feature checklist and started treating it as a reliability problem. If the LLM path is unavailable, the workflow falls back to a deterministic template report built from the same evidence. If market research is unavailable, the review proceeds without pretending that research happened. If MLflow review persistence fails while tracking is configured, the workflow blocks instead of silently degrading. In MLOps, silent success is often worse than loud failure.
+That is why I stopped thinking of tool access as a feature checklist and started treating it as a reliability problem. If the LLM path is unavailable, the workflow falls back to a deterministic template report built from the same evidence. If market research is unavailable, the review proceeds without pretending that research happened. If MLflow review persistence fails while tracking is configured, the workflow blocks instead of silently degrading. In MLOps, *silent success is often worse than loud failure*.
 
 ## A Failure Mode That Changed My Design
 
@@ -126,11 +126,11 @@ This is the kind of detail that changed how I think about agentic systems in ent
 
 One of the most useful scenarios I keep around is a candidate that looks acceptable at the top level but fails when you inspect one segment closely.
 
-In that scenario, the current champion has an RMSE of 150,000 and the candidate comes in at 155,000. That is worse, but not catastrophically worse. It is a 3.3 percent regression, which is still below the hard overall regression threshold. Drift is also clean in that run, so if I only looked at overall metrics and drift, the candidate might look like a borderline but manageable case.
+In this scenario, the current champion has an RMSE of 150,000 and the candidate comes in at around 155,000. It performs worse, but not devastatingly worse. It is a ~3% regression, which is still below the hard overall regression threshold. Drift is also clean in that run, so if I only looked at overall metrics and drift, the candidate might look like a borderline but manageable case.
 
-The problem shows up when the workflow compares segment performance. For the town segment `YISHUN`, the candidate RMSE jumps from 150,000 for the champion to 195,000 for the candidate. That is a 30 percent regression for that subgroup. In my policy, segment regressions above 20 percent do not auto-reject the model, but they do force `MANUAL_REVIEW`.
+The problem shows up when the workflow compares segment performance. For the town segment `YISHUN`, the candidate RMSE jumps from 150,000 for the champion to 195,000 for the candidate. That is a 30% regression for that subgroup. In my policy, segment regressions above 20% do not auto-reject the model, but they do force `MANUAL_REVIEW`.
 
-That is exactly the kind of case I wanted this system to catch. If I only optimized for aggregate metrics, I could easily end up promoting a model that is slightly acceptable on average while getting noticeably worse for one part of the population. In a business setting, that is not a math curiosity. That is a real regression.
+That is exactly the kind of case I wanted this system to catch. If I only optimized for aggregate metrics, I could easily end up promoting a model that is slightly acceptable on average while getting noticeably worse for one part of the population. In a business setting, this is an actual setback.
 
 Here is how that run behaves:
 
@@ -141,7 +141,7 @@ Here is how that run behaves:
 5. The agent writes a report that highlights the subgroup regression and its likely impact.
 6. A human reviewer decides whether this is an acceptable tradeoff or a reason to keep the current champion.
 
-I like this example because it shows why I did not want the agentic layer to own the promotion decision. The agent can help explain why Yishun got worse and whether there is any surrounding market context worth inspecting, but it should not get to decide that a 30 percent subgroup regression is acceptable. That is a policy question and, after policy has spoken, a human accountability question.
+I like this example because it shows why I did not want the agentic layer to own the promotion decision. The agent can help explain why Yishun got worse and whether there is any surrounding market context worth inspecting, but it should not get to decide that a 30% subgroup regression is acceptable. That is a policy question and, after policy has spoken, a human accountability question.
 
 I also keep scenarios like this as fixtures for tests and demos. That turned out to be important. It means the same cases I use to explain the workflow to humans are also the cases I use to verify the routing logic, the report generation, and the review behavior. For agentic systems, that kind of reuse is valuable because it ties the narrative back to something concrete and repeatable.
 
@@ -151,11 +151,11 @@ The more agentic a workflow becomes, the more debugging moves from code inspecti
 
 I ended up caring a lot more about review packets, traces, version tags, and reproducible scenarios than I expected. Each promotion review is persisted locally and mirrored into MLflow. Decision metadata is written back to the model version. The explainer path records structured outputs and trace information. There is also an optional LLM judge that scores the report quality, but that judge is advisory only. I did not want one LLM grading another and then quietly nudging promotion policy.
 
-The first is drift. In my workflow, categorical drift is checked with PSI and numeric drift with KS tests. Drift does not force an immediate permanent reject, but it does block automatic promotion and routes the candidate into manual review. That is an example of where the deterministic layer should stay in charge. Drift is not a storytelling problem. It is a control problem.
+The first is drift. In my workflow, categorical drift is checked with PSI and numeric drift with KS tests. Drift does not force an immediate permanent reject, but it does block automatic promotion and routes the candidate into manual review. That is an example of where the deterministic layer should stay in charge. Drift is not a storytelling problem, it is a control plane problem.
 
-The second is segment regression. Suppose the overall error looks slightly better, but one flat type or one town gets materially worse. That is exactly the kind of failure that an average metric can hide and a business team will care about. I push those segment metrics through the entire workflow so the policy engine can force manual review when a subgroup regresses. Then the agent can help explain why the regression matters and whether there is any surrounding context worth considering.
+The second is segmented regression. It may reduce the overall error a little, but it can make the results much worse for one type of flat or one town. That is exactly the kind of failure that an average metric can hide and a business team will care about. I push those segmented metrics through the entire workflow so the policy engine can force manual review when a subgroup regresses. The agent can then help explain why the regression matters and whether there is any surrounding context worth considering.
 
-Without observability, both of those cases become harder to trust. You end up reading a nice report without knowing whether it is grounded in the right facts.
+Without observability, both of those cases become harder to trust. You end up reading a nice report without knowing if it is grounded in with the appropriate facts.
 
 I found it useful to ask a simple question: after a bad promotion review, what would I want to inspect first. At minimum, I want a persisted record that looks something like this:
 
@@ -164,8 +164,8 @@ I found it useful to ask a simple question: after a bad promotion review, what w
   "policy_verdict": "MANUAL_REVIEW",
   "policy_reasons": "Data drift detected in: town, floor_area_sqm",
   "decision_source": "human_review",
-  "decision_timestamp": "2026-04-04T09:41:12Z",
-  "decision_reviewer": "analyst@example"
+  "decision_timestamp": "2026-04-04T00:00:00Z",
+  "decision_reviewer": "analyst_tengf"
 }
 ```
 
@@ -177,28 +177,30 @@ Three patterns ended up being worth keeping.
 
 The first was deterministic orchestration. LangGraph gave me a clear state machine for gather evidence, check drift, apply policy, generate report, and then either stop for human input or execute the final registry action.
 
-The second was a single ReAct investigator. Once the policy verdict and evidence existed, the agent was good at turning metrics, segment deltas, drift results, training history, and optional market context into a readable review.
+The second was a single ReAct investigator. Once the policy verdict and evidence existed, the agent was good at taking metrics, segment changes, drift results, training history, and optional market context and turning them into a readable review.
 
-The third was human in the loop. Human review is there because promotion is a business decision with technical evidence attached to it. If a model is going to replace the current champion, somebody should be accountable for saying yes.
+The third was human-in-the-loop. Human review is there as promotion is a business decision with technical evidence attached to it. If a model is going to replace the current champion, somebody should be accountable for saying yes.
 
-What did not help was pretending that agentic patterns should spread everywhere. I do not think every MLOps step needs an agent. Deterministic thresholding, drift checks, artifact persistence, and registry mutation are exactly the places where I want boring code.
+What did not help was pretending that agentic patterns should spread everywhere. I do not think every MLOps step needs an agent. Deterministic thresholds, drift checks, artifact persistence, and registry updates are exactly the parts where I want simple and reliable code.
 
 ## What I Would Recommend to Teams Trying This
 
-Start from the business decision, not the agent. In my case, the question was simple: should this candidate replace the current champion. Once I framed it that way, the boundaries got clearer. Hard policy checks became deterministic. Narrative explanation became a good fit for the agent. Final ownership stayed with a human.
+Start from business decision, not the agent. In my case, the question was simple: should this candidate replace the current champion. Once I framed it that way, the boundaries got clearer. Hard policy checks became deterministic. Narrative explanation became a good fit for the agent. Final ownership stayed with a human.
 
 Design the fallback path before you celebrate the happy path. If the LLM disappears, your workflow should still produce something useful. If a provider returns malformed output, you should know that happened. If a required evidence artifact is missing, promotion should stop. Agentic systems fail in messy ways, so fallback behavior is part of the product, not an edge case.
 
-Invest in observability earlier than feels necessary. Teams often want better prompts, more tools, or a stronger model. Those can help, but they do not solve the trust problem. Persist the review packet. Record the tool outputs. Tag the final decision. Keep model version history clean. Test scenario fixtures that represent real promotion states.
+Invest in observability earlier than feels necessary. Teams often want better prompts, more tools, or a stronger model. Those can help, but they do not solve the trust problem. Persist the review segments. Record the tool outputs. Tag the final decision. Keep model version history clean. Test scenario fixtures that represent real promotion states.
 
 Keep the agent on a short leash and be honest about maintenance cost. Bound the tool surface. Make the control flow explicit. Do not let the agent mutate production state just because it can produce convincing text. The more fancy tooling you add, the harder debugging becomes. Someone still has to maintain the surrounding system, monitor provider health, inspect regressions, and keep the review logic aligned with the business.
 
 ## Closing Thoughts
 
-I still think agentic AI has real potential in MLOps. It can help teams scale review and make complex model changes easier to understand. But I came away from this project believing that the operational layer matters more than the agent layer.
+I still believe that agentic AI has real potential in MLOps. It can help teams scale reviews and make complex model changes easier to understand. But I came away from this project believing that the operational layer matters more than the agent layer.
 
 Model versioning matters more once an agent enters the loop because you need a durable record of what changed and why. Drift detection matters more because an articulate explanation does not make a shifted distribution safe. Human review matters more because somebody has to own the decision when a model crosses the line into production.
 
 If you want the short version, mine is this: use agents where they genuinely improve investigation, context gathering, and explanation. Keep deterministic code in charge of policy and control points. Build for failure before you build for fluency.
 
 The private MAESTRO-specific notebook variants are staying private, but the public repo still reflects the core ideas. The local/Colab notebook and the shared package modules preserve the same promotion design, the same agent boundary, and the same bias toward auditability and fallbacks. Internal enterprise users can layer the MAESTRO-specific entrypoints on top of that shared core. That is the part worth reusing. Not the exact platform, but the discipline around where the agent fits.
+
+One thing worth calling out: the public repo does not contain a full MLOps pipeline. What you will find are ad-hoc notebook-based jobs that walk through the promotion review flow. The actual Sagemaker pipeline DAG, including scheduling and orchestration, lives in the MAESTRO internal docs and is not exposed publicly. That said, the notebooks are structured so they could be run as scheduled CRON jobs to drive real deployments. I kept the repo scoped this way deliberately. The goal was learning and demonstration, not shipping a production-grade pipeline template. The ideas transfer; the operational wiring is something each team will need to fit to their own platform.

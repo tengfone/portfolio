@@ -34,6 +34,27 @@ export const userData = {
   formBold: 'https://formbold.com/s/3ZdJ6',
   projects: [
     {
+      title: 'PrivatePixel',
+      desc: 'A local-first browser image utility suite for resizing, compressing, converting, cropping, editing metadata, and removing backgrounds without uploads or remote inference.',
+      link: 'https://tengfone.github.io/privatepixel/',
+      image: '/images/projects/privatepixel.png',
+      tech: ['Vite', 'React', 'TypeScript', 'Web Workers', 'WASM'],
+    },
+    {
+      title: 'MemeOps',
+      desc: 'A static JSON API and docs site for infra humor, AI agent satire, and postmortem-grade truth, with versioned endpoints and generated API catalogs.',
+      link: 'https://tengfone.github.io/memeops/',
+      image: '/images/projects/memeops.png',
+      tech: ['Static API', 'GitHub Pages', 'Node.js', 'JSON'],
+    },
+    {
+      title: 'GovAgent Panic',
+      desc: 'A real-time canvas arcade defense game about surviving five workdays inside a chaotic government AI platform office while incidents and audits pile up.',
+      link: 'https://tengfone.github.io/GovAgentPanic/',
+      image: '/images/projects/govagent-panic.png',
+      tech: ['Canvas', 'JavaScript', 'Game', 'GitHub Pages'],
+    },
+    {
       title: 'Retrava',
       desc: 'Forgot to track your run? Draw your route, set your pace, and export a TCX file. Compatible with Strava, Garmin, and all major fitness platforms.',
       link: 'https://retrava.vercel.app/',

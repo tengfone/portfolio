@@ -1,23 +1,23 @@
 const SEO = {
   titleTemplate: '%s | Teng Fone',
-  defaultTitle: 'Teng Fone | AI & Data Engineer',
+  defaultTitle: 'Teng Fone | AI Platform Engineer',
   description:
-    'Teng Fone — AI Platform and Data Engineer based in Singapore. Building MLOps systems, LLM infrastructure, and full-stack products.',
+    'Teng Fone — AI Platform Engineer based in Singapore. I build and lead production AI platforms: MLOps, LLM infrastructure, model serving, and developer platforms.',
   canonical: 'https://tengfone.dev/',
   openGraph: {
     type: 'website',
     locale: 'en_SG',
     url: 'https://tengfone.dev/',
     site_name: 'Teng Fone',
-    title: 'Teng Fone | AI & Data Engineer',
+    title: 'Teng Fone | AI Platform Engineer',
     description:
-      'Teng Fone — AI Platform and Data Engineer based in Singapore. Building MLOps systems, LLM infrastructure, and full-stack products.',
+      'Teng Fone — AI Platform Engineer based in Singapore. I build and lead production AI platforms: MLOps, LLM infrastructure, model serving, and developer platforms.',
     images: [
       {
         url: 'https://tengfone.dev/profilepic.jpg',
         width: 800,
         height: 600,
-        alt: 'Teng Fone — AI & Data Engineer',
+        alt: 'Teng Fone — AI Platform Engineer',
       },
     ],
   },
@@ -34,7 +34,7 @@ const SEO = {
     {
       name: 'keywords',
       content:
-        'Teng Fone, AI Engineer, Data Engineer, MLOps, LLM, GovTech Singapore, Portfolio, Full Stack, Machine Learning',
+        'Teng Fone, AI Platform Engineer, MLOps, LLM Infrastructure, Model Serving, Developer Platforms, Kubernetes, GovTech Singapore, Portfolio, Machine Learning',
     },
     {
       name: 'theme-color',

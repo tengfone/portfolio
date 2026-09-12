@@ -1,6 +1,34 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
+const SKILL_AREAS = [
+  {
+    area: 'AI Platform',
+    focus: 'Model access, inference and governed ML workflows, including RAG.',
+    tools: 'vLLM · SageMaker · MLflow · HuggingFace · LangGraph · LLM APIs',
+  },
+  {
+    area: 'Backend',
+    focus: 'APIs and services that turn models into shared capabilities.',
+    tools: 'Python · Qdrant · FastAPI · Go · PostgreSQL · Redis',
+  },
+  {
+    area: 'Cloud & Infrastructure',
+    focus: 'Repeatable delivery across cloud and restricted environments.',
+    tools: 'AWS · Azure · Kubernetes · Terraform · Docker · GitLab CI/CD · ArgoCD',
+  },
+  {
+    area: 'Observability',
+    focus: 'Understanding reliability, usage and platform adoption.',
+    tools: 'OpenTelemetry · Prometheus · Grafana · Loki · Tempo · CloudWatch',
+  },
+  {
+    area: 'Product Engineering',
+    focus: 'Interfaces and developer tools that make platforms usable.',
+    tools: 'React · TypeScript · Next.js',
+  },
+]
+
 export default function AboutMe(): React.ReactElement {
   const fadeIn = {
     hidden: { opacity: 0 },
@@ -25,148 +53,72 @@ export default function AboutMe(): React.ReactElement {
               I build AI platforms and MLOps systems from idea to production,
               especially in enterprise and restricted environments where
               integration, security, and operational readiness decide whether
-              something gets adopted. I like working across the stack and across
-              teams, from architecture discussions to hands on engineering.
+              something gets adopted. Across the platforms I work on, I operate
+              in three modes: technical owner when a platform needs someone
+              accountable for its architecture, hands on engineer when it needs
+              someone to write the thing, and engineering delivery lead when it
+              needs someone to align priorities and keep a team moving in the
+              same direction.
             </p>
             <p className="mb-6">
               At GovTech Singapore, I led the architecture and rollout of a
               multi tenant, multi cloud MLOps platform on AWS and Azure used by
               growing 450~ users across 90~ teams, supporting governed model
               development and deployment in isolated environments and LLM
-              workflows like RAG prototyping. I also built an AI access platform
-              on Kubernetes, owning the frontend, Go based orchestration and API
-              services, and governance grade observability. I built and scaled
-              an enterprise LLM gateway routing millions of monthly requests
+              workflows like RAG/Agentic. I also built an AI access platform
+              on Kubernetes, owning the frontend, the Go microservices behind
+              its APIs, and governance grade observability. I built and scaled
+              an enterprise LLM gateway routing tens of millions of monthly requests
               across multiple providers and self hosted inference with vLLM to
               balance cost, latency, and vendor dependency.
             </p>
+            <p className="mb-6">
+              I started out as a Data Engineer, but I have always been a bit of
+              a do everything engineer. That has meant picking up whatever the
+              problem needed at the time, from Go microservices and Kubernetes
+              to frontends, and it is why platform work suits me.
+            </p>
             <p>
               I enjoy problem solving and building useful things that work
-              within real constraints. I like pressure testing new techniques,
-              keeping what works, and turning it into patterns that others can
-              reuse. I co founded AI Wednesday with a team and previously ran
-              technical workshops on applied AI adoption, and this site is where
-              I share projects I build in my free time.
+              within real constraints, and I like that the constraints here come
+              with a public good payoff. I pressure test new techniques, keep
+              what works, and turn it into patterns that others can reuse. I co
+              founded AI Wednesday with a team and previously ran technical
+              workshops on applied AI adoption, and this site is where I share
+              projects I build in my free time.
             </p>
           </div>
 
           <div className="mx-auto mt-12 max-w-4xl">
             <div className="rounded-lg border border-gray-100 bg-white/50 px-8 py-12 shadow-lg backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/50">
-              <h2 className="mb-4 text-2xl font-bold text-gray-800 dark:text-gray-100">
-                Technical Skills
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                What I work with
               </h2>
-              <p className="mb-6 text-gray-600 dark:text-gray-300">
-                I work primarily with these technologies:
+              <p className="mt-2 text-gray-600 dark:text-gray-300">
+                The tools behind the platforms I build, grouped by the problems
+                they solve.
               </p>
 
-              <div className="space-y-8">
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                    Programming Languages
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      'Python',
-                      'TypeScript',
-                      'JavaScript',
-                      'Bash',
-                      'Java',
-                      'Dart',
-                      'Solidity',
-                      'Go',
-                      '.NET',
-                      'c%23',
-                      'C++',
-                    ].map((lang) => (
-                      <motion.div
-                        key={lang}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          alt={lang}
-                          src={`https://img.shields.io/badge/${lang.toLowerCase()}-%2314354C.svg?style=for-the-badge&logo=${lang.toLowerCase()}&logoColor=white`}
-                          className="h-7 transition-opacity hover:opacity-80"
-                        />
-                      </motion.div>
-                    ))}
+              <dl className="mt-6 divide-y divide-gray-200 dark:divide-gray-700">
+                {SKILL_AREAS.map((group) => (
+                  <div
+                    key={group.area}
+                    className="grid gap-2 py-5 sm:grid-cols-[13rem_1fr] sm:gap-8"
+                  >
+                    <dt className="font-semibold text-emerald-700 dark:text-brand-accent">
+                      {group.area}
+                    </dt>
+                    <dd>
+                      <p className="text-gray-800 dark:text-gray-200">
+                        {group.focus}
+                      </p>
+                      <p className="mt-2 font-mono text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                        {group.tools}
+                      </p>
+                    </dd>
                   </div>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-200">
-                    Frameworks & Libraries
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      'React',
-                      'Cypress',
-                      'Docker',
-                      'Postgres',
-                      'MySQL',
-                      'Flutter',
-                      'Jupyter',
-                      'Arduino',
-                      'PyTorch',
-                      'NumPy',
-                      'Pandas',
-                      'MongoDB',
-                      '.NET',
-                    ].map((tech) => (
-                      <motion.div
-                        key={tech}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          alt={tech}
-                          src={`https://img.shields.io/badge/${tech.toLowerCase()}-%2320232a.svg?style=for-the-badge&logo=${tech.toLowerCase()}&logoColor=white`}
-                          className="h-7 transition-opacity hover:opacity-80"
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-200">
-                    Cloud & Infrastructure
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {['Amazon_AWS', 'Microsoft_Azure', 'Terraform'].map(
-                      (tool) => {
-                        let badgeUrl
-                        if (tool === 'Amazon_AWS') {
-                          badgeUrl =
-                            'https://img.shields.io/badge/Amazon_AWS-%23FF9900.svg?style=for-the-badge&logo=amazonaws&logoColor=white'
-                        } else if (tool === 'Microsoft_Azure') {
-                          badgeUrl =
-                            'https://img.shields.io/badge/Microsoft_Azure-%230078D4.svg?style=for-the-badge&logo=microsoftazure&logoColor=white'
-                        } else {
-                          badgeUrl = `https://img.shields.io/badge/${tool.toLowerCase()}-%235835CC.svg?style=for-the-badge&logo=${tool.toLowerCase()}&logoColor=white`
-                        }
-
-                        return (
-                          <motion.div
-                            key={tool}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              alt={tool}
-                              src={badgeUrl}
-                              className="h-7 transition-opacity hover:opacity-80"
-                            />
-                          </motion.div>
-                        )
-                      }
-                    )}
-                  </div>
-                </div>
-              </div>
+                ))}
+              </dl>
             </div>
           </div>
         </motion.div>

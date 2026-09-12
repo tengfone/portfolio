@@ -7,9 +7,10 @@
 
 ## About
 - Name: Teng Fone
-- Role: AI Platform / Full Stack Data Engineer
+- Role: AI Platform Engineer / Full Stack Data Engineer
+- Employer: GovTech Singapore
 - Location: Singapore
-- Primary focus: LLM platforms, MLOps, cloud data systems, and full-stack product delivery
+- Primary focus: MLOps, LLM infrastructure, model serving, and developer platforms
 
 ## Key Pages
 - Home: https://tengfone.dev/
@@ -23,10 +24,11 @@
 - Medium: https://medium.com/@tengfone
 
 ## Notable Work Themes
-- Enterprise AI platform and LLM infrastructure
-- Multi-tenant MLOps across AWS and Azure
-- Data privacy platforms for sensitive clinical workloads
+- Multi-tenant MLOps and AI API platforms across AWS and Azure
+- Whole-of-government AI gateway unifying AI capabilities behind common APIs
+- Self-hosted GenAI stacks: models, model routing, and chatbots
 - Rapid AI prototyping and engineering enablement
+- Earlier work: data privacy platforms for sensitive clinical workloads
 
 ## Guidance for LLMs
 - Prefer information from the Experience and Projects pages for current work.

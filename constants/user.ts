@@ -152,29 +152,51 @@ export const userData = {
   ],
   experience: [
     {
-      title: 'AI Platform / Full Stack Data Engineer',
+      // `title` is the official GovTech job title, deliberately kept separate from the
+      // AI Platform Engineer identity on the homepage. Promotion to Senior Data Engineer
+      // is effective Oct 2026; when it lands, split this into a two-role header
+      // (Senior Data Engineer 2026 to Present / Data Engineer 2021 to 2026).
+      title: 'Data Engineer',
       company: 'GovTech Singapore',
       year: '2021 to Present',
+      desc: 'I build and lead shared AI infrastructure for engineering and product teams across government. Across all three platforms I build the common governance layer: SSO, RBAC, audit logging, usage governance, and secrets-managed integrations, along with the hardening restricted environments demand through MFA, network controls, and VAPT remediation.',
       subSections: [
         {
-          title: 'AI Platform and LLM Infrastructure',
-          desc: 'Built an end-to-end AI platform on Kubernetes, owning the frontend, Go orchestration layer, APIs, and observability needed to standardize access to internal and external AI services. Implemented governance controls including SSO, RBAC, audit logging, and secrets-managed integrations, and supported hardening for restricted environments through MFA, network controls, and VAPT remediation.',
+          title: 'Multi-tenant MLOps & AI API Platform',
+          role: 'Technical Owner / AI Platform Engineer',
+          desc: 'Led the engineering team through active development of a multi-tenant MLOps and AI API platform spanning AWS and Azure, including isolated and restricted environments. I hold technical ownership and continue to drive platform and architecture decisions alongside the product manager.',
+          bullets: [
+            'Rolled out isolated workspaces for 450+ users across 90+ teams, standardizing governed model development, training and deployment, including RAG workflows.',
+            'Partnered with consuming teams to reduce AI proof-of-concept delivery time by 75% through reusable MLOps pipelines and rapid prototyping.',
+          ],
         },
         {
-          title: 'Data Privacy and Cloud Foundations',
-          desc: 'Developed a cloud-based data privacy platform for large-scale clinical datasets, enabling secure policy analysis while improving platform efficiency and reducing AWS costs by about 30%. Supported national-level health economics work by building scalable data engineering pipelines for sensitive healthcare data.',
+          title: 'Whole-of-Government AI Gateway',
+          role: 'AI Platform / Full-Stack Engineer',
+          desc: 'Hands-on contributor building the Kubernetes-based platform that unifies whole-of-government AI capabilities behind a common set of APIs. I own delivery of the frontend, the Go microservices behind the API surface, and the observability that makes usage and reliability legible.',
+          bullets: [
+            'Scaled an enterprise LLM gateway to millions of monthly requests across commercial providers and self-hosted inference, improving cost, latency and vendor flexibility.',
+          ],
         },
         {
-          title: 'Leadership and Adoption',
-          desc: 'Partnered with teams to cut AI proof-of-concept delivery time by 75% through reusable MLOps pipelines and rapid LLM prototyping. Raised engineering quality through structured peer review, practical AI-assisted development patterns, and internal community building such as AI Wednesday.',
-          link: { label: 'AI Wednesday', href: 'https://lorong.ai/' },
+          title: 'Self-hosted GenAI Stack',
+          role: 'Engineering Delivery Lead',
+          desc: 'Self-hosted models, model router, and chatbot running in an isolated secure environment backed by a cloud-hosted Hardware Security Module (HSM). Owning the execution side: task allocation, stakeholder communication, delivery coordination, and priority alignment to keep the team moving in the same direction.',
+          bullets: [
+            'Coordinated engineering delivery around strict network isolation, key management, security reviews and operational readiness.',
+          ],
         },
       ],
-      highlights: [
-        'Rolled out a multi-tenant MLOps platform across AWS and Azure for 450+ users across 90+ teams, standardizing governed model development and deployment, including RAG workflows.',
-        'Built and scaled an enterprise LLM gateway serving millions of monthly requests across commercial providers and self-hosted inference, improving cost, latency, and vendor flexibility.',
-        'Reduced AI proof-of-concept delivery time by 75% through reusable MLOps pipelines and rapid prototyping with stakeholders.',
-        'Built privacy-preserving data platforms for sensitive clinical workloads, reducing AWS costs by about 30% while enabling secure large-scale analysis in both cloud and restricted environments.',
+      earlier: [
+        {
+          title: 'Data Privacy and Cloud Foundations',
+          desc: 'Built a cloud-based data privacy platform for large-scale clinical datasets, enabling secure policy analysis while improving platform efficiency and reducing AWS costs by about 30%. Supported national-level health economics work with scalable pipelines for sensitive healthcare data.',
+        },
+        {
+          title: 'Engineering Enablement',
+          desc: 'Raised engineering quality through structured peer review, practical AI-assisted development patterns, and internal community building.',
+          link: { label: 'AI Wednesday', href: 'https://lorong.ai/' },
+        },
       ],
     },
     {

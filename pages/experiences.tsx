@@ -8,15 +8,23 @@ import { safeExternalUrl } from '../lib/safeExternalUrl'
 const title = `${userData.name}`
 const subtitle = 'Experiences'
 
-interface SubSection {
-  title: string
-  desc: string
-  link?: { label: string; href: string }
-}
-
 interface ProofLink {
   label: string
   href: string
+}
+
+interface SubSection {
+  title: string
+  role?: string
+  desc: string
+  bullets?: string[]
+  link?: ProofLink
+}
+
+interface EarlierWork {
+  title: string
+  desc: string
+  link?: ProofLink
 }
 
 interface ExpDetails {
@@ -24,8 +32,8 @@ interface ExpDetails {
   company: string
   desc?: string | string[]
   year: string
-  highlights?: string[]
   subSections?: SubSection[]
+  earlier?: EarlierWork[]
   proofLinks?: ProofLink[]
 }
 
@@ -50,37 +58,51 @@ const Experiences: NextPage = () => {
         <div className="relative pb-20 pt-6">
           <div className="absolute inset-0 left-4 h-full w-0.5 -translate-x-1/2 transform bg-gray-200 dark:bg-gray-800 sm:left-1/2"></div>
           <div className="relative space-y-12">
-            {userData.experience.map((exp, idx) => (
-              <motion.div
-                key={`${exp.company}-${exp.year}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.5 }}
-                className="relative flex flex-col gap-4 sm:grid sm:grid-cols-2"
-              >
-                <div
-                  className={`${idx % 2 === 0 ? 'sm:col-start-1' : 'sm:col-start-2'
-                    } relative`}
+            {userData.experience.map((exp, idx) => {
+              // Roles with platform breakdowns carry too much content for a half-width
+              // timeline slot, so they span the full width and skip the timeline dot.
+              const featured = Boolean(exp.subSections)
+
+              return (
+                <motion.div
+                  key={`${exp.company}-${exp.year}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  className={`relative flex flex-col gap-4 ${featured ? '' : 'sm:grid sm:grid-cols-2'
+                    }`}
                 >
-                  <ExperienceCard
-                    title={exp.title}
-                    desc={exp.desc}
-                    year={exp.year}
-                    company={exp.company}
-                    isLeft={idx % 2 === 0}
-                    highlights={exp.highlights}
-                    subSections={exp.subSections}
-                  />
-                </div>
-                <div className="absolute left-4 top-6 z-20 hidden -translate-x-1/2 sm:left-1/2 sm:block">
-                  <div className="relative flex h-4 w-4 items-center justify-center">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75"></span>
-                    <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-accent shadow-lg border-2 border-white dark:border-brand-dark"></span>
+                  <div
+                    className={`${featured
+                      ? ''
+                      : idx % 2 === 0
+                        ? 'sm:col-start-1'
+                        : 'sm:col-start-2'
+                      } relative`}
+                  >
+                    <ExperienceCard
+                      title={exp.title}
+                      desc={exp.desc}
+                      year={exp.year}
+                      company={exp.company}
+                      isLeft={idx % 2 === 0}
+                      featured={featured}
+                      subSections={exp.subSections}
+                      earlier={exp.earlier}
+                    />
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  {!featured && (
+                    <div className="absolute left-4 top-6 z-20 hidden -translate-x-1/2 sm:left-1/2 sm:block">
+                      <div className="relative flex h-4 w-4 items-center justify-center">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75"></span>
+                        <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-accent shadow-lg border-2 border-white dark:border-brand-dark"></span>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -90,6 +112,7 @@ const Experiences: NextPage = () => {
 
 interface ExperienceCardProps extends ExpDetails {
   isLeft: boolean
+  featured?: boolean
 }
 
 const ExperienceCard = ({
@@ -98,14 +121,15 @@ const ExperienceCard = ({
   year,
   company,
   isLeft,
-  highlights,
+  featured,
   subSections,
+  earlier,
   proofLinks,
 }: ExperienceCardProps): ReactElement => {
   return (
     <div
-      className={`group relative z-10 mx-4 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl dark:border-gray-800 dark:bg-brand-gray sm:mx-0
-            ${isLeft ? 'sm:mr-8' : 'sm:ml-8'}`}
+      className={`group relative z-10 mx-4 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl dark:border-gray-800 dark:bg-brand-gray sm:mx-0 sm:p-8
+            ${featured ? '' : isLeft ? 'sm:mr-8' : 'sm:ml-8'}`}
     >
       <div className={`absolute -top-4 ${isLeft ? 'right-8' : 'left-8'}`}>
         <span className="rounded-full border border-brand-accent/20 bg-brand-accent/10 px-3 py-1 text-sm font-bold text-brand-accent">
@@ -119,27 +143,44 @@ const ExperienceCard = ({
         {company}
       </div>
 
+      {/* Cross-cutting work that belongs to the role rather than any one platform. */}
+      {subSections && typeof desc === 'string' && (
+        <p className="mb-6 max-w-4xl text-sm leading-relaxed text-gray-600 dark:text-gray-300 sm:text-base">
+          {desc}
+        </p>
+      )}
+
       {subSections && subSections.length > 0 ? (
         <div>
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-700 dark:text-gray-300">
-            Focus Areas
+            Platforms &amp; Roles
           </h4>
-          <div className="space-y-4">
+          <div className="grid gap-8 lg:grid-cols-2">
             {subSections.map((section, idx) => (
               <div
                 key={idx}
-                className={
-                  idx > 0
-                    ? 'border-t border-gray-200 pt-3 dark:border-gray-700'
-                    : ''
-                }
+                className="border-t border-gray-200 pt-4 dark:border-gray-700"
               >
-                <h3 className="mb-1 text-base font-semibold text-gray-800 dark:text-gray-200">
-                  {section.title}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <div className="mb-1">
+                  <h3 className="text-base font-semibold text-gray-800 dark:text-gray-200">
+                    {section.title}
+                  </h3>
+                  {section.role && (
+                    <div className="font-mono text-xs uppercase tracking-wide text-brand-accent">
+                      {section.role}
+                    </div>
+                  )}
+                </div>
+                <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                   {section.desc}
                 </p>
+                {section.bullets && section.bullets.length > 0 && (
+                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-gray-600 marker:text-brand-accent dark:text-gray-400">
+                    {section.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                )}
                 {section.link && (
                   <a
                     href={safeExternalUrl(section.link.href)}
@@ -178,22 +219,33 @@ const ExperienceCard = ({
         </>
       )}
 
-      {highlights && highlights.length > 0 && (
-        <div className="mt-4">
-          <h4 className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-            Selected Impact
+      {earlier && earlier.length > 0 && (
+        <div className="mt-6 border-t border-gray-200 pt-4 dark:border-gray-700">
+          <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-500">
+            Earlier Work at {company}
           </h4>
-          <ul className="space-y-1">
-            {highlights.map((highlight, idx) => (
-              <li
-                key={idx}
-                className="flex items-start text-sm text-gray-600 dark:text-gray-400"
-              >
-                <span className="mr-2 text-brand-accent">&bull;</span>
-                {highlight}
-              </li>
+          <div className="space-y-2">
+            {earlier.map((item, idx) => (
+              <div key={idx}>
+                <span className="text-xs font-semibold text-gray-600 dark:text-gray-400">
+                  {item.title}
+                </span>
+                <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-500">
+                  {item.desc}
+                </p>
+                {item.link && (
+                  <a
+                    href={safeExternalUrl(item.link.href)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-brand-accent hover:underline"
+                  >
+                    {item.link.label}
+                  </a>
+                )}
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 

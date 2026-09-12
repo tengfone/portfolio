@@ -9,9 +9,11 @@ interface HeroSplashProps {
   scrollToSection: (id: string) => void
 }
 
-const SUBTITLE = 'I build things for public good'
-const ROLE = 'A Data Engineer (DE)'
-const TAGLINE = '*Do Everything Engineer'
+const ROLE = 'AI Platform Engineer'
+const TAGLINE = 'MLOps · LLM Infrastructure · Model Serving · Developer Platforms'
+const SUBTITLE = 'I build and lead production AI platforms'
+const SUBTITLE_HIGHLIGHT = 'production AI platforms'
+const SECONDARY = 'Currently at GovTech Singapore, building for public good.'
 
 export default function HeroSplash({
   scrollToSection,
@@ -49,10 +51,10 @@ export default function HeroSplash({
               </motion.span>
             </span>
             <br />
-            <span className="text-2xl font-light text-gray-700 dark:text-gray-300 sm:text-3xl md:text-4xl">
+            <span className="text-2xl font-semibold text-gray-800 dark:text-gray-200 sm:text-3xl md:text-5xl">
               {ROLE}
             </span>
-            <span className="mt-2 block font-mono text-xs text-brand-muted sm:text-sm md:text-base">
+            <span className="mt-3 block font-mono text-xs text-brand-muted sm:text-sm">
               {TAGLINE}
             </span>
           </h1>
@@ -62,12 +64,12 @@ export default function HeroSplash({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="mt-6 text-base font-medium text-gray-600 dark:text-gray-400 sm:mt-10 sm:text-lg md:text-xl"
+          className="mt-6 text-base font-medium text-gray-600 dark:text-gray-400 sm:mt-8 sm:text-lg md:text-xl"
         >
-          {SUBTITLE.split('public good')[0]}
+          {SUBTITLE.split(SUBTITLE_HIGHLIGHT)[0]}
           <span className="relative inline-block px-2">
             <span className="relative z-10 font-bold text-white">
-              public good
+              {SUBTITLE_HIGHLIGHT}
             </span>
             <motion.span
               initial={{ scaleX: 0 }}
@@ -76,13 +78,23 @@ export default function HeroSplash({
               className="absolute inset-0 origin-left -skew-y-3 rounded-sm bg-brand-accent"
             />
           </span>
+          {SUBTITLE.split(SUBTITLE_HIGHLIGHT)[1]}
         </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="mt-5 text-sm text-gray-500 dark:text-gray-500"
+        >
+          {SECONDARY}
+        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="mt-10 flex justify-center gap-x-6 md:justify-start"
+          transition={{ delay: 0.7, duration: 0.5 }}
+          className="mt-8 flex justify-center gap-x-6 md:justify-start"
         >
           {[
             { href: userData.github, icon: 'github' },
@@ -106,7 +118,7 @@ export default function HeroSplash({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="mt-32 grid w-full cursor-pointer place-items-center"
+          className="mt-12 grid w-full cursor-pointer place-items-center sm:mt-20"
           onClick={() => scrollToSection('aboutme')}
         >
           <motion.div

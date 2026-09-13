@@ -50,7 +50,8 @@ const Experiences: NextPage = () => {
             Experiences
           </h1>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Where I worked.
+            The platforms I build, the roles I take on, and the work behind
+            them.
           </p>
         </motion.div>
       </div>
@@ -70,16 +71,18 @@ const Experiences: NextPage = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  className={`relative flex flex-col gap-4 ${featured ? '' : 'sm:grid sm:grid-cols-2'
-                    }`}
+                  className={`relative flex flex-col gap-4 ${
+                    featured ? '' : 'sm:grid sm:grid-cols-2'
+                  }`}
                 >
                   <div
-                    className={`${featured
-                      ? ''
-                      : idx % 2 === 0
+                    className={`${
+                      featured
+                        ? ''
+                        : idx % 2 === 0
                         ? 'sm:col-start-1'
                         : 'sm:col-start-2'
-                      } relative`}
+                    } relative`}
                   >
                     <ExperienceCard
                       title={exp.title}
@@ -128,7 +131,7 @@ const ExperienceCard = ({
 }: ExperienceCardProps): ReactElement => {
   return (
     <div
-      className={`group relative z-10 mx-4 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl dark:border-gray-800 dark:bg-brand-gray sm:mx-0 sm:p-8
+      className={`group relative z-10 mx-0 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl dark:border-gray-800 dark:bg-brand-gray sm:mx-0 sm:p-8
             ${featured ? '' : isLeft ? 'sm:mr-8' : 'sm:ml-8'}`}
     >
       <div className={`absolute -top-4 ${isLeft ? 'right-8' : 'left-8'}`}>
@@ -136,9 +139,9 @@ const ExperienceCard = ({
           {year}
         </span>
       </div>
-      <h1 className="mb-1 text-2xl font-bold text-gray-900 transition-colors group-hover:text-brand-accent dark:text-gray-100">
+      <h2 className="mb-1 text-2xl font-bold text-gray-900 transition-colors group-hover:text-brand-accent dark:text-gray-100">
         {title}
-      </h1>
+      </h2>
       <div className="mb-4 text-lg font-medium text-gray-600 dark:text-gray-400">
         {company}
       </div>
@@ -162,14 +165,14 @@ const ExperienceCard = ({
                 className="border-t border-gray-200 pt-4 dark:border-gray-700"
               >
                 <div className="mb-1">
-                  <h3 className="text-base font-semibold text-gray-800 dark:text-gray-200">
+                  <h3 className="text-base font-semibold leading-relaxed text-gray-800 dark:text-gray-200">
+                    {section.role && (
+                      <span className="block text-emerald-700 dark:text-brand-accent">
+                        {section.role}
+                      </span>
+                    )}
                     {section.title}
                   </h3>
-                  {section.role && (
-                    <div className="font-mono text-xs uppercase tracking-wide text-brand-accent">
-                      {section.role}
-                    </div>
-                  )}
                 </div>
                 <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                   {section.desc}
@@ -222,15 +225,15 @@ const ExperienceCard = ({
       {earlier && earlier.length > 0 && (
         <div className="mt-6 border-t border-gray-200 pt-4 dark:border-gray-700">
           <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-500">
-            Earlier Work at {company}
+            Data Foundations &amp; Engineering Enablement
           </h4>
           <div className="space-y-2">
             {earlier.map((item, idx) => (
               <div key={idx}>
-                <span className="text-xs font-semibold text-gray-600 dark:text-gray-400">
+                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   {item.title}
                 </span>
-                <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-500">
+                <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                   {item.desc}
                 </p>
                 {item.link && (

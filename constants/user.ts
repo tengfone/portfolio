@@ -1,7 +1,8 @@
 export const blogData = [
   {
     slug: 'agentic-mlops-review-flow-april-2026',
-    title: 'What Building an Agentic MLOps Review Flow in an Isolated Environment Taught Me',
+    title:
+      'What Building an Agentic MLOps Review Flow in an Isolated Environment Taught Me',
     date: '2026-04-05',
     summary:
       'After building a ReAct-style model promotion review system for HDB resale price prediction, the hardest part was not adding the agent — it was making it trustworthy in an isolated enterprise environment where bad decisions have real business cost.',
@@ -156,45 +157,50 @@ export const userData = {
       // AI Platform Engineer identity on the homepage. Promotion to Senior Data Engineer
       // is effective Oct 2026; when it lands, split this into a two-role header
       // (Senior Data Engineer 2026 to Present / Data Engineer 2021 to 2026).
-      title: 'Data Engineer',
+      title: 'Data Engineer — AI Platform Engineering',
       company: 'GovTech Singapore',
-      year: '2021 to Present',
-      desc: 'I build and lead shared AI infrastructure for engineering and product teams across government. Across all three platforms I build the common governance layer: SSO, RBAC, audit logging, usage governance, and secrets-managed integrations, along with the hardening restricted environments demand through MFA, network controls, and VAPT remediation.',
+      year: 'Sep 2021 to Present',
+      desc: 'I work with customer teams and product stakeholders to turn AI use cases into shared production capabilities. Across these platforms, I build authentication, RBAC, audit logging and secrets management, and help resolve production incidents in enterprise and restricted environments.',
       subSections: [
         {
-          title: 'Multi-tenant MLOps & AI API Platform',
-          role: 'Technical Owner / AI Platform Engineer',
-          desc: 'Led the engineering team through active development of a multi-tenant MLOps and AI API platform spanning AWS and Azure, including isolated and restricted environments. I hold technical ownership and continue to drive platform and architecture decisions alongside the product manager.',
+          title: 'MLOps & AI API Platform',
+          role: 'Technical Owner',
+          desc: 'Led engineering of a multi-tenant platform across AWS and Azure, shaping architecture and roadmap decisions with product stakeholders.',
           bullets: [
-            'Rolled out isolated workspaces for 450+ users across 90+ teams, standardizing governed model development, training and deployment, including RAG workflows.',
-            'Partnered with consuming teams to reduce AI proof-of-concept delivery time by 75% through reusable MLOps pipelines and rapid prototyping.',
+            'Enabled governed model development and deployment for 450+ users across 90+ teams.',
+            'Partnered with customer teams to cut POC delivery time by 75%, with reusable RAG reference implementations and OpenAI-compatible APIs.',
+            'Scaled shared AI API infrastructure to millions of requests/month, routing across commercial providers and self-hosted models using vLLM.',
           ],
         },
         {
-          title: 'Whole-of-Government AI Gateway',
-          role: 'AI Platform / Full-Stack Engineer',
-          desc: 'Hands-on contributor building the Kubernetes-based platform that unifies whole-of-government AI capabilities behind a common set of APIs. I own delivery of the frontend, the Go microservices behind the API surface, and the observability that makes usage and reliability legible.',
+          title: 'Whole-of-Government AI Platform',
+          role: 'Core Full-Stack Engineer',
+          desc: 'Own React applications, Go microservices and APIs, authentication, usage analytics and observability on Kubernetes.',
           bullets: [
-            'Scaled an enterprise LLM gateway to millions of monthly requests across commercial providers and self-hosted inference, improving cost, latency and vendor flexibility.',
+            'Productionized the platform to reliably serve more than 3,000 requests/minute across governed AI capabilities.',
           ],
         },
         {
-          title: 'Self-hosted GenAI Stack',
+          title: 'Self-Hosted GenAI Platform',
           role: 'Engineering Delivery Lead',
-          desc: 'Self-hosted models, model router, and chatbot running in an isolated secure environment backed by a cloud-hosted Hardware Security Module (HSM). Owning the execution side: task allocation, stakeholder communication, delivery coordination, and priority alignment to keep the team moving in the same direction.',
+          desc: 'Led the successful migration into a highly restricted environment, coordinating engineering delivery, stakeholders and operational readiness.',
           bullets: [
-            'Coordinated engineering delivery around strict network isolation, key management, security reviews and operational readiness.',
+            'Now coordinate newer-model onboarding, inference scaling, routing and model lifecycle management, aligning priorities across product and technical leads.',
           ],
         },
       ],
       earlier: [
         {
-          title: 'Data Privacy and Cloud Foundations',
-          desc: 'Built a cloud-based data privacy platform for large-scale clinical datasets, enabling secure policy analysis while improving platform efficiency and reducing AWS costs by about 30%. Supported national-level health economics work with scalable pipelines for sensitive healthcare data.',
+          title: 'Usage Analytics & Cost Governance',
+          desc: 'Built Python/PySpark pipelines processing millions of logs/day to support usage reporting, quotas, budgeting and cost recovery.',
+        },
+        {
+          title: 'Secure Clinical Data Platforms',
+          desc: 'Built and operated secure platforms for large-scale clinical datasets using Python/PySpark, AWS, Terraform and CI/CD, enabling national-level health economics analysis while reducing cloud costs by approximately 30%.',
         },
         {
           title: 'Engineering Enablement',
-          desc: 'Raised engineering quality through structured peer review, practical AI-assisted development patterns, and internal community building.',
+          desc: 'Mentor interns and junior engineers, introduced structured peer review, and co-founded AI Wednesday to share practical AI/MLOps approaches.',
           link: { label: 'AI Wednesday', href: 'https://lorong.ai/' },
         },
       ],

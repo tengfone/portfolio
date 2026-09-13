@@ -122,7 +122,7 @@ export default function Navbar(): React.ReactElement {
               <Link
                 href={href}
                 key={name}
-                className="mr-6 sm:mr-8 relative group"
+                className="mr-1.5 min-[380px]:mr-6 sm:mr-8 relative group"
               >
                 <span className={`text-sm font-medium transition-colors duration-200 ${isActiveLink(href, router.pathname)
                   ? 'text-brand-accent'

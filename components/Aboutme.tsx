@@ -3,29 +3,26 @@ import { motion } from 'framer-motion'
 
 const SKILL_AREAS = [
   {
-    area: 'AI Platform',
-    focus: 'Model access, inference and governed ML workflows, including RAG.',
-    tools: 'vLLM · SageMaker · MLflow · HuggingFace · LangGraph · LLM APIs',
+    area: 'Application Engineering',
+    focus: 'Full-stack applications and APIs shaped around user needs.',
+    tools: 'Go · Python · TypeScript · React · REST APIs · PostgreSQL · Redis',
   },
   {
-    area: 'Backend',
-    focus: 'APIs and services that turn models into shared capabilities.',
-    tools: 'Python · Qdrant · FastAPI · Go · PostgreSQL · Redis',
+    area: 'AI/ML Platforms',
+    focus: 'Reusable AI workflows, model serving and governed ML lifecycles.',
+    tools:
+      'LLMs · RAG · vLLM · LiteLLM · SageMaker · MLflow · Hugging Face · PySpark',
   },
   {
     area: 'Cloud & Infrastructure',
     focus: 'Repeatable delivery across cloud and restricted environments.',
-    tools: 'AWS · Azure · Kubernetes · Terraform · Docker · GitLab CI/CD · ArgoCD',
+    tools: 'AWS · Azure · Kubernetes · ECS · Docker · Terraform · CI/CD',
   },
   {
-    area: 'Observability',
-    focus: 'Understanding reliability, usage and platform adoption.',
-    tools: 'OpenTelemetry · Prometheus · Grafana · Loki · Tempo · CloudWatch',
-  },
-  {
-    area: 'Product Engineering',
-    focus: 'Interfaces and developer tools that make platforms usable.',
-    tools: 'React · TypeScript · Next.js',
+    area: 'Observability & Platform Security',
+    focus: 'Reliable services, visible usage and controlled access.',
+    tools:
+      'OpenTelemetry · Prometheus · Grafana · OIDC/OAuth · RBAC · Secrets management',
   },
 ]
 
@@ -48,49 +45,41 @@ export default function AboutMe(): React.ReactElement {
             About Me
           </h1>
 
-          <div className="mx-auto max-w-4xl rounded-lg bg-white/10 px-8 py-12 text-justify leading-relaxed text-gray-600 dark:bg-black/10 dark:text-gray-300">
+          <div className="mx-auto max-w-4xl rounded-lg bg-white/10 px-4 py-8 text-left leading-relaxed text-gray-600 dark:bg-black/10 dark:text-gray-300 sm:px-8 sm:py-12">
             <p className="mb-6">
-              I build AI platforms and MLOps systems from idea to production,
-              especially in enterprise and restricted environments where
-              integration, security, and operational readiness decide whether
-              something gets adopted. Across the platforms I work on, I operate
-              in three modes: technical owner when a platform needs someone
-              accountable for its architecture, hands on engineer when it needs
-              someone to write the thing, and engineering delivery lead when it
-              needs someone to align priorities and keep a team moving in the
-              same direction.
+              I’m an AI Platform Engineer at GovTech Singapore. I work with
+              users, customer teams and product stakeholders to turn ambiguous
+              problems into full-stack AI applications and shared platforms,
+              from the first prototype to secure production on AWS and Azure.
             </p>
             <p className="mb-6">
-              At GovTech Singapore, I led the architecture and rollout of a
-              multi tenant, multi cloud MLOps platform on AWS and Azure used by
-              growing 450~ users across 90~ teams, supporting governed model
-              development and deployment in isolated environments and LLM
-              workflows like RAG/Agentic. I also built an AI access platform
-              on Kubernetes, owning the frontend, the Go microservices behind
-              its APIs, and governance grade observability. I built and scaled
-              an enterprise LLM gateway routing tens of millions of monthly requests
-              across multiple providers and self hosted inference with vLLM to
-              balance cost, latency, and vendor dependency.
+              My role changes with what each project needs: technical owner for
+              a multi-tenant MLOps and AI API platform, core full-stack engineer
+              for a whole-of-government AI platform, and engineering delivery
+              lead for a self-hosted GenAI platform. That means shaping
+              architecture, building React interfaces and Go services, and
+              aligning people and priorities across enterprise and restricted
+              environments.
             </p>
             <p className="mb-6">
-              I started out as a Data Engineer, but I have always been a bit of
-              a do everything engineer. That has meant picking up whatever the
-              problem needed at the time, from Go microservices and Kubernetes
-              to frontends, and it is why platform work suits me.
+              I care about making AI useful beyond a demo. I turn lessons from
+              working with teams into reusable RAG reference implementations and
+              OpenAI-compatible APIs, so they have a practical starting point.
+              Having led the self-hosted platform’s migration into a highly
+              restricted environment, I now coordinate newer-model onboarding,
+              inference scaling, routing and model lifecycle management.
             </p>
             <p>
-              I enjoy problem solving and building useful things that work
-              within real constraints, and I like that the constraints here come
-              with a public good payoff. I pressure test new techniques, keep
-              what works, and turn it into patterns that others can reuse. I co
-              founded AI Wednesday with a team and previously ran technical
-              workshops on applied AI adoption, and this site is where I share
-              projects I build in my free time.
+              My data engineering roots keep me close to how systems run: their
+              reliability, usage, cost and security. I also co-founded AI
+              Wednesday and have run applied AI workshops to help teams learn
+              from one another. This site is where I share what I build and
+              learn along the way.
             </p>
           </div>
 
           <div className="mx-auto mt-12 max-w-4xl">
-            <div className="rounded-lg border border-gray-100 bg-white/50 px-8 py-12 shadow-lg backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/50">
+            <div className="rounded-lg border border-gray-100 bg-white/50 px-4 py-8 sm:px-8 sm:py-12 shadow-lg backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/50">
               <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                 What I work with
               </h2>

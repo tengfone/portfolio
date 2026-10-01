@@ -57,10 +57,6 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'j.gifs.com',
-      },
-      {
-        protocol: 'https',
         hostname: 'github.githubassets.com',
       },
       {

@@ -13,8 +13,14 @@ body {
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+@layer base {
+  body {
+    @apply bg-white transition-colors duration-500 dark:bg-brand-dark;
+  }
+}
+
 @layer utilities {
-  .glass {
+  .glass-panel {
     @apply bg-white/70 dark:bg-black/70 backdrop-blur-md border border-white/20 dark:border-white/10;
   }
   

@@ -83,7 +83,7 @@ export default function Navbar(): React.ReactElement {
   };
 
   return (
-    <div className="sticky top-0 z-50 w-full glass">
+    <div className="sticky top-0 z-50 w-full glass-panel">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex md:flex-row justify-between items-center">
           <Link href="/">

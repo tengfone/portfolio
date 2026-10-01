@@ -16,7 +16,7 @@ export default function Custom404() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="glass mx-auto max-w-lg rounded-2xl border border-white/20 p-12 shadow-xl"
+          className="glass-panel mx-auto max-w-lg rounded-2xl border border-white/20 p-12 shadow-xl"
         >
           <motion.div
             initial={{ scale: 0.8, rotate: -10 }}

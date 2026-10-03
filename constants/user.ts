@@ -131,6 +131,12 @@ export const userData = {
   ],
   playground: [
     {
+      title: 'FlipSide',
+      desc: 'The table-side scoreboard for Flip 7. One phone hosts, everyone scans in, and scores update live with a real deck or a virtual one.',
+      link: 'https://flip7-score-hub.lovable.app/',
+      image: '/playground/flipside.png',
+    },
+    {
       title: 'Redactor',
       desc: 'Blur, pixelate or black out faces in photos and video with an on-device model. Turn off your Wi-Fi and it still works.',
       link: 'https://redactorlocal.lovable.app/',

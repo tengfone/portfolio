@@ -20,7 +20,7 @@ interface projectDetails {
 interface playgroundDetails {
     title: string,
     link: string,
-    repo: string,
+    repo?: string,
     image: string,
     desc: string
 }
@@ -242,14 +242,16 @@ const PlaygroundCard = ({ title, link, repo, image, desc }: playgroundDetails) =
                     >
                         Live ↗
                     </a>
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={safeExternalUrl(repo)}
-                        className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                    >
-                        Source
-                    </a>
+                    {repo ? (
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={safeExternalUrl(repo)}
+                            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                        >
+                            Source
+                        </a>
+                    ) : null}
                 </div>
             </div>
         </div>

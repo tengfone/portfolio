@@ -18,6 +18,10 @@ export default function Mermaid({ chart }: MermaidProps) {
         mermaid.initialize({
           startOnLoad: false,
           theme: 'neutral',
+          // Mermaid 12 defaults to a new layout and look; keep the classic rendering.
+          layout: 'dagre',
+          look: 'classic',
+          flowchart: { wrappingWidth: 200 },
           securityLevel: 'loose',
           fontFamily: 'inherit',
         })

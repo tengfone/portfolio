@@ -35,12 +35,11 @@ export const userData = {
   formBold: 'https://formbold.com/s/3ZdJ6',
   projects: [
     {
-      title: 'PrivatePixel',
-      desc: 'A local-first browser image utility suite for resizing, compressing, converting, cropping, editing metadata, and removing backgrounds without uploads or remote inference.',
-      link: 'https://tengfone.github.io/privatepixel/',
-      image:
-        'https://raw.githubusercontent.com/tengfone/privatepixel/main/public/assets/privatepixel.gif',
-      tech: ['Vite', 'React', 'TypeScript', 'Web Workers', 'WASM'],
+      title: 'ForgeTools',
+      desc: 'Offline developer utilities in one desktop app. 60+ tools to format, decode, convert and generate, with paste-to-detect, chainable pipelines and nothing you paste ever leaving your machine.',
+      link: 'https://github.com/tengfone/forgetools/releases/latest',
+      image: 'https://raw.githubusercontent.com/tengfone/forgetools/main/assets/demo.gif',
+      tech: ['Electron', 'TypeScript', 'Vite', 'Monaco'],
       featured: true,
     },
     {
@@ -52,11 +51,12 @@ export const userData = {
       featured: true,
     },
     {
-      title: 'ForgeTools',
-      desc: 'Comprehensive offline desktop application built with Electron that provides a suite of essential development tools for software engineers.',
-      link: 'https://github.com/tengfone/forgetools',
-      image: 'https://raw.githubusercontent.com/tengfone/forgetools/main/assets/demo.gif',
-      tech: ['Electron', 'CI/CD'],
+      title: 'PrivatePixel',
+      desc: 'A local-first browser image utility suite for resizing, compressing, converting, cropping, editing metadata, and removing backgrounds without uploads or remote inference.',
+      link: 'https://tengfone.github.io/privatepixel/',
+      image:
+        'https://raw.githubusercontent.com/tengfone/privatepixel/main/public/assets/privatepixel.gif',
+      tech: ['Vite', 'React', 'TypeScript', 'Web Workers', 'WASM'],
     },
     {
       title: 'DeadText',

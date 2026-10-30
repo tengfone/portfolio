@@ -36,10 +36,10 @@ export const userData = {
   projects: [
     {
       title: 'ForgeTools',
-      desc: 'Offline developer utilities in one desktop app. 60+ tools to format, decode, convert and generate, with paste-to-detect, chainable pipelines and nothing you paste ever leaving your machine.',
+      desc: 'Offline developer utilities in one desktop app, migrated from Electron to Tauri: the download went from 104 MB to about 5 MB and the window opens in about 0.6 s. 60+ tools to format, decode, convert and generate, and nothing you paste leaves your machine.',
       link: 'https://github.com/tengfone/forgetools/releases/latest',
       image: 'https://raw.githubusercontent.com/tengfone/forgetools/main/assets/demo.gif',
-      tech: ['Electron', 'TypeScript', 'Vite', 'Monaco'],
+      tech: ['Tauri', 'Rust', 'TypeScript', 'Vite'],
       featured: true,
     },
     {

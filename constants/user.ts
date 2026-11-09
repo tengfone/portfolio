@@ -67,11 +67,11 @@ export const userData = {
       tech: ['Prompting'],
     },
     {
-      title: 'Browser-o-matic',
-      desc: 'A Browser Prompter running on Electron co-created by AI',
-      link: 'https://github.com/tengfone/browser-o-matic',
-      image: 'https://raw.githubusercontent.com/tengfone/browser-o-matic/master/demo.gif',
-      tech: ['Electron', 'Claude', 'ProductivityAI'],
+      title: 'PickMyBrowser',
+      desc: 'Pick which browser opens every link. Set it as your default browser and each link opens a small picker: press a number, done. Cross-platform, ~4 MB, and lives in the tray.',
+      link: 'https://github.com/tengfone/pickmybrowser',
+      image: 'https://raw.githubusercontent.com/tengfone/pickmybrowser/main/assets/demo.gif',
+      tech: ['Tauri', 'Rust', 'TypeScript'],
     },
     {
       title: 'OpenRiver',

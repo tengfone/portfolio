@@ -76,14 +76,14 @@ export const userData = {
     {
       title: 'OpenRiver',
       desc: 'Ethereum smart contracts specifically designed for buying and selling unique digital assets.',
-      link: 'https://open-river.vercel.app/',
+      link: 'https://github.com/tengfone/open-river',
       image: '/projects/openriver.jpg',
       tech: ['React', 'Solidity', 'Ethereum'],
     },
     {
       title: 'Yestion',
       desc: 'A Notion Copy to test out the latest UI frameworks',
-      link: 'https://yestion-one.vercel.app/',
+      link: 'https://github.com/tengfone/yestion',
       image:
         'https://raw.githubusercontent.com/tengfone/yestion/main/demo_yestion.gif',
       tech: ['NextJS', 'Tailwind'],
@@ -91,7 +91,7 @@ export const userData = {
     {
       title: 'Deep Learning: HandWash',
       desc: 'Due to COVID-19, this handwashing project utilizes deep learning to detect and advise users on how to wash their hands.',
-      link: 'https://handwashdl.herokuapp.com/',
+      link: 'https://github.com/tengfone/handwashStreamLit',
       image:
         'https://raw.githubusercontent.com/tengfone/handwashStreamLit/main/streamlit.png',
       tech: ['AlexNet', 'Streamlit', 'PyTorch'],

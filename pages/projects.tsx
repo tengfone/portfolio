@@ -258,7 +258,10 @@ const ArchivedCard = ({ title, link, image, desc, tech, award }: projectDetails)
                 {desc}
             </p>
             <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
-                {tech.join(' · ')} <span className="ml-1 text-brand-accent">Source ↗</span>
+                {tech.join(' · ')}{' '}
+                <span className="ml-1 text-brand-accent">
+                    {new URL(link).hostname === 'github.com' ? 'Source ↗' : 'Live ↗'}
+                </span>
             </p>
         </div>
     </a>

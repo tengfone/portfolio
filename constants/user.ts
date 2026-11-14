@@ -80,18 +80,19 @@ export const userData = {
       tech: ['NextJS', 'TypeScript', 'Tailwind', 'Vercel'],
     },
     {
-      title: 'SHA-256 Hash Bench',
-      desc: 'Hash text and files with SHA-1/256/384/512, verify a digest pasted from sha256sum, and compute HMACs, all in the browser with Web Crypto. Nothing is uploaded.',
-      link: 'https://sha-256-puce.vercel.app/',
-      image: '/projects/sha256.jpg',
-      tech: ['React', 'Vite', 'Web Crypto', 'Tailwind'],
-    },
-    {
       title: 'Dead Pixel Tester',
       desc: 'Full-screen colour plates for spotting dead or stuck pixels, including a grid drawn at exact device-pixel size, with keyboard, swipe and full-screen controls.',
       link: 'https://deadpixel-tester.vercel.app/',
       image: '/projects/deadpixel.jpg',
       tech: ['React', 'Vite', 'Canvas'],
+    },
+    {
+      title: 'SHA-256 Hash Bench',
+      desc: 'Hash text and files with SHA-1/256/384/512, verify a digest pasted from sha256sum, and compute HMACs, all in the browser with Web Crypto. Nothing is uploaded.',
+      link: 'https://sha-256-puce.vercel.app/',
+      image: '/projects/sha256.jpg',
+      tech: ['React', 'Vite', 'Web Crypto', 'Tailwind'],
+      archived: true,
     },
     {
       title: 'URL Shortener',
@@ -100,6 +101,7 @@ export const userData = {
       image:
         'https://raw.githubusercontent.com/tengfone/urlshortener/main/screenshots/demo.gif',
       tech: ['React', 'Firebase', 'Vercel', 'MySQL', 'Express'],
+      archived: true,
     },
     {
       title: 'DeadText',

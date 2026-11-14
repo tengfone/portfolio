@@ -14,7 +14,9 @@ interface projectDetails {
     link: string,
     image: string,
     tech: string[],
-    desc: string
+    desc: string,
+    year?: string,
+    award?: string,
 }
 
 interface playgroundDetails {
@@ -25,8 +27,10 @@ interface playgroundDetails {
     desc: string
 }
 
-const featuredProjects = userData.projects.filter((proj) => proj.featured);
-const otherProjects = userData.projects.filter((proj) => !proj.featured);
+const activeProjects = userData.projects.filter((proj) => !proj.archived);
+const featuredProjects = activeProjects.filter((proj) => proj.featured);
+const otherProjects = activeProjects.filter((proj) => !proj.featured);
+const archivedProjects = userData.projects.filter((proj) => proj.archived);
 const fanPreviews = userData.playground.filter((site) => site.image.endsWith('.gif'));
 
 const Projects: NextPage = () => {
@@ -76,16 +80,30 @@ const Projects: NextPage = () => {
                             </motion.div>
                         ))}
                     </div>
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={safeExternalUrl(userData.github)}
-                        className="mt-8 flex items-center justify-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-brand-accent dark:text-gray-400"
-                    >
-                        See everything on GitHub
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </a>
                 </Section>
+
+                {archivedProjects.length > 0 && (
+                    <Section heading="Archive" delay={0.25}>
+                        <p className="-mt-3 mb-6 text-sm text-gray-600 dark:text-gray-400">
+                            Earlier work that is no longer maintained. The code stays up on GitHub.
+                        </p>
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                            {archivedProjects.map((proj) => (
+                                <ArchivedCard key={proj.link} {...proj} />
+                            ))}
+                        </div>
+                    </Section>
+                )}
+
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={safeExternalUrl(userData.github)}
+                    className="mt-10 flex items-center justify-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-brand-accent dark:text-gray-400"
+                >
+                    See everything on GitHub
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
 
                 {userData.playground.length > 0 && (
                     <motion.details
@@ -208,6 +226,49 @@ const ProjectCard = ({ title, link, image, desc, tech }: projectDetails) => {
         </a>
     );
 };
+
+const ArchivedCard = ({ title, link, image, desc, tech, year, award }: projectDetails) => (
+    <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={safeExternalUrl(link)}
+        className="group flex gap-4 rounded-xl border border-gray-100 bg-white p-4 transition-colors hover:border-brand-accent/40 dark:border-gray-800 dark:bg-brand-gray"
+    >
+        <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+            <Image
+                src={image}
+                alt=""
+                fill
+                sizes="112px"
+                className="object-cover grayscale transition duration-300 group-hover:grayscale-0"
+                unoptimized={image.endsWith('.gif')}
+            />
+        </div>
+        <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-2">
+                <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-brand-accent dark:text-gray-100">
+                    {title}
+                </h3>
+                {year && (
+                    <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+                        {year}
+                    </span>
+                )}
+                {award && (
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-500/15 dark:text-amber-300">
+                        <span aria-hidden="true">🏆 </span>{award}
+                    </span>
+                )}
+            </div>
+            <p className="mt-1 line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
+                {desc}
+            </p>
+            <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
+                {tech.join(' · ')} <span className="ml-1 text-brand-accent">Source ↗</span>
+            </p>
+        </div>
+    </a>
+);
 
 const PlaygroundCard = ({ title, link, repo, image, desc }: playgroundDetails) => {
     return (

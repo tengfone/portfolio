@@ -294,7 +294,8 @@ export const userData = {
       company: 'Univac',
       year: '2019',
       desc: [
-        `Built Python ETL pipelines \n Streamed shop floor metrics via Kafka and NodeJS to surface near real-time insights`,
+        'Built Python ETL pipelines',
+        'Streamed shop floor metrics via Kafka and NodeJS to surface near real-time insights',
       ],
     },
     {

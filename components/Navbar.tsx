@@ -3,13 +3,11 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import { userData } from "../constants/user";
-import { motion } from 'framer-motion'
 
 export default function Navbar(): React.ReactElement {
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme: theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [onHoverTheme, setOnHoverTheme] = useState("");
 
   const links: { name: string; href: string }[] = [
     {
@@ -50,17 +48,16 @@ export default function Navbar(): React.ReactElement {
       <button
         type="button"
         aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-        className="w-10 h-10 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+        className="-mr-2 flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-gray-100"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        onMouseEnter={() => setOnHoverTheme(theme === "dark" ? "animate-ping" : "animate-pulse")}
-        onMouseLeave={() => setOnHoverTheme("")}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          fill="currentColor"
           stroke="currentColor"
-          className={`w-4 h-4 text-gray-800 dark:text-yellow-500 ${onHoverTheme}`}
+          fill="none"
+          className="h-4 w-4"
+          aria-hidden="true"
         >
           {theme === "dark" ? (
             <path
@@ -83,12 +80,12 @@ export default function Navbar(): React.ReactElement {
   };
 
   return (
-    <div className="sticky top-0 z-50 w-full glass-panel">
-      <div className="max-w-6xl mx-auto px-4 py-4">
-        <div className="flex md:flex-row justify-between items-center">
-          <Link href="/">
-            <div className="cursor-pointer flex gap-3 items-center hover:opacity-80 transition-opacity">
-              <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325.77 340.66">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200/80 bg-white/85 backdrop-blur-md dark:border-white/10 dark:bg-brand-dark/85">
+      <div className="container-page">
+        <div className="flex h-16 items-center justify-between">
+          <Link href="/" aria-label={`${userData.name}, home`} className="rounded-sm">
+            <div className="flex items-center gap-3 transition-opacity hover:opacity-80">
+              <svg className="h-7 w-7" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325.77 340.66">
                 <g id="a" />
                 <g id="b">
                   <g id="c">
@@ -113,36 +110,34 @@ export default function Navbar(): React.ReactElement {
                       <polygon points="171.04 170.33 242.62 255.37 143.41 255.37 171.04 170.33" fill="#065f46" /></g>
                   </g></g>
               </svg>
-              <h1 className="hidden md:flex font-bold text-xl text-gray-800 dark:text-gray-100 whitespace-nowrap tracking-tight">{userData.name}</h1>
+              <span className="hidden whitespace-nowrap text-base font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:inline">{userData.name}</span>
             </div>
           </Link>
 
-          <nav className="flex items-center">
-            {links.map(({ name, href }) => (
-              <Link
-                href={href}
-                key={name}
-                className="mr-1.5 min-[380px]:mr-6 sm:mr-8 relative group"
-              >
-                <span className={`text-sm font-medium transition-colors duration-200 ${isActiveLink(href, router.pathname)
-                  ? 'text-brand-accent'
-                  : 'text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200'
-                  }`}>
+          <nav aria-label="Main" className="flex items-center gap-0.5 sm:gap-2">
+            {links.map(({ name, href }) => {
+              const active = isActiveLink(href, router.pathname)
+              return (
+                <Link
+                  href={href}
+                  key={name}
+                  aria-current={active ? 'page' : undefined}
+                  className={`relative rounded-md px-2 py-2 text-sm font-medium transition-colors duration-200 sm:px-3 ${active
+                    ? 'text-gray-900 dark:text-white'
+                    : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+                    }`}
+                >
                   {name}
-                </span>
-                {isActiveLink(href, router.pathname) && (
-                  <motion.div
-                    layoutId="navbar-underline"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-brand-accent"
-                    animate
-                  />
-                )}
-              </Link>
-            ))}
+                  {active && (
+                    <span className="absolute inset-x-2 -bottom-[13px] h-0.5 bg-brand-accent sm:inset-x-3" />
+                  )}
+                </Link>
+              )
+            })}
             {renderThemeChanger()}
           </nav>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

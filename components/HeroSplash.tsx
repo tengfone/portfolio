@@ -1,173 +1,95 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { userData } from '../constants/user'
 import Icon, { IconName } from './shared/Icon'
-import { motion } from 'framer-motion'
 import { safeExternalUrl } from '../lib/safeExternalUrl'
 
-interface HeroSplashProps {
-  scrollToSection: (id: string) => void
-}
+// Figures come from the GovTech role on the Experiences page (constants/user.ts).
+const PROOF = [
+  { value: '450+', label: 'users across 90+ teams on the MLOps platform' },
+  { value: '3,000+', label: 'requests a minute served in production' },
+  { value: '75%', label: 'less time to deliver a proof of concept' },
+]
 
-const ROLE = 'AI Platform Engineer'
-const TAGLINE = 'MLOps · LLM Infrastructure · Model Serving · Developer Platforms'
-const SUBTITLE = 'I build and lead production AI platforms'
-const SUBTITLE_HIGHLIGHT = 'production AI platforms'
-const SECONDARY = 'Currently at GovTech Singapore, building for public good.'
+const SOCIALS: { href: string; icon: IconName; label: string }[] = [
+  { href: userData.github, icon: 'github', label: 'GitHub' },
+  { href: userData.linkedin, icon: 'linkedin', label: 'LinkedIn' },
+  { href: userData.medium, icon: 'medium', label: 'Medium' },
+]
 
-export default function HeroSplash({
-  scrollToSection,
-}: HeroSplashProps): React.ReactElement {
+export default function HeroSplash(): React.ReactElement {
   return (
-    <div className="relative flex h-screen flex-row items-start justify-center overflow-hidden bg-white transition-colors duration-500 dark:bg-brand-dark">
-      {/* Background Elements */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-[10%] -top-[20%] h-[50%] w-[50%] animate-pulse-slow rounded-full bg-brand-accent/10 blur-[100px]" />
-        <div className="absolute -right-[10%] top-[20%] h-[40%] w-[40%] animate-pulse-slow rounded-full bg-blue-500/10 blur-[100px] delay-1000" />
-      </div>
-
-      <div className="z-10 mx-auto mt-20 w-full text-center md:mt-0 md:w-1/2 md:text-left lg:p-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="mb-2 font-mono text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl md:text-6xl">
-            Hi, I&apos;m <br className="block md:hidden" />
-            <span className="relative inline-block">
-              <span className="text-brand-accent">{userData.name}</span>
-              <motion.span
-                initial={{ opacity: 0, rotate: -10 }}
-                animate={{ opacity: 1, rotate: 10 }}
-                transition={{
-                  duration: 0.5,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
-                  repeatDelay: 0.5,
-                }}
-                className="ml-2 inline-block origin-bottom-right"
-              >
-                👋
-              </motion.span>
-            </span>
-            <br />
-            <span className="text-2xl font-semibold text-gray-800 dark:text-gray-200 sm:text-3xl md:text-5xl">
-              {ROLE}
-            </span>
-            <span className="mt-3 block font-mono text-xs text-brand-muted sm:text-sm">
-              {TAGLINE}
-            </span>
-          </h1>
-        </motion.div>
-
-        <motion.h2
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="mt-6 text-base font-medium text-gray-600 dark:text-gray-400 sm:mt-8 sm:text-lg md:text-xl"
-        >
-          {SUBTITLE.split(SUBTITLE_HIGHLIGHT)[0]}
-          <span className="relative inline-block px-2">
-            <span className="relative z-10 font-bold text-white">
-              {SUBTITLE_HIGHLIGHT}
-            </span>
-            <motion.span
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-              className="absolute inset-0 origin-left -skew-y-3 rounded-sm bg-brand-accent"
-            />
-          </span>
-          {SUBTITLE.split(SUBTITLE_HIGHLIGHT)[1]}
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="mt-5 text-sm text-gray-500 dark:text-gray-500"
-        >
-          {SECONDARY}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          className="mt-8 flex justify-center gap-x-6 md:justify-start"
-        >
-          {[
-            { href: userData.github, icon: 'github' },
-            { href: userData.linkedin, icon: 'linkedin' },
-            { href: userData.medium, icon: 'medium' },
-          ].map((item) => (
-            <a
-              key={item.icon}
-              href={safeExternalUrl(item.href)}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Visit my ${item.icon} profile`}
-              className="transform text-gray-600 transition-colors duration-300 hover:scale-110 hover:text-brand-accent dark:text-gray-400 dark:hover:text-brand-accent"
-            >
-              <Icon name={item.icon as IconName} className="h-6 w-6" />
-            </a>
-          ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="mt-12 grid w-full cursor-pointer place-items-center sm:mt-20"
-          onClick={() => scrollToSection('aboutme')}
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="flex flex-col items-center"
-          >
-            <span className="mb-2 text-sm text-brand-muted">Scroll Down</span>
-            <svg
-              className="h-6 w-6 text-brand-accent"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
-          </motion.div>
-        </motion.div>
-      </div>
-
+    <section className="container-page pb-4 pt-14 sm:pt-24">
       <motion.div
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative -mr-40 mt-20 hidden w-full md:w-1/2 lg:block"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="grid items-start gap-8 md:grid-cols-[minmax(0,1fr)_15rem] md:gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-20"
       >
-        <div className="relative w-3/4">
-          <div className="absolute inset-0 translate-x-10 translate-y-10 transform rounded-full bg-brand-accent/20 blur-3xl" />
-          <motion.div
-            animate={{ y: [-10, 10, -10] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            className="relative z-10"
-          >
-            <Image
-              src="/profilepic.jpg"
-              alt="avatar"
-              width={500}
-              height={500}
-              className="rounded-2xl border-4 border-white shadow-2xl dark:border-brand-gray"
-              priority
-            />
-          </motion.div>
+        <div className="relative h-20 w-20 overflow-hidden rounded-full border border-gray-200 dark:border-white/10 md:order-last md:aspect-[4/5] md:h-auto md:w-full md:rounded-2xl">
+          <Image
+            src="/profilepic.jpg"
+            alt={`Portrait of ${userData.name}`}
+            fill
+            sizes="(min-width: 1024px) 304px, (min-width: 768px) 240px, 80px"
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        <div>
+          <h1 className="text-5xl font-semibold tracking-[-0.035em] text-gray-900 dark:text-white sm:text-6xl lg:text-7xl">
+            {userData.name}
+          </h1>
+          <p className="mt-5 max-w-2xl text-xl leading-snug text-gray-600 [text-wrap:balance] dark:text-gray-400 sm:text-2xl">
+            AI Platform Engineer at GovTech Singapore, building and leading
+            production AI platforms for the public good.
+          </p>
+
+          <dl className="mt-10 grid max-w-2xl gap-x-8 gap-y-5 border-t border-gray-200 pt-6 dark:border-white/10 sm:grid-cols-3">
+            {PROOF.map((item) => (
+              <div key={item.value}>
+                <dt className="sr-only">{item.label}</dt>
+                <dd>
+                  <span className="block font-mono text-lg font-medium tabular-nums text-gray-900 dark:text-gray-100">
+                    {item.value}
+                  </span>
+                  <span className="mt-1 block text-sm leading-snug text-gray-600 dark:text-gray-400">
+                    {item.label}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link
+              href="/projects"
+              className="inline-flex h-10 items-center rounded-full bg-gray-900 px-5 text-sm font-medium text-white transition-colors hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+            >
+              See my projects
+            </Link>
+            <ul className="flex items-center gap-1">
+              {SOCIALS.map((item) => (
+                <li key={item.icon}>
+                  <a
+                    href={safeExternalUrl(item.href)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.label}
+                    title={item.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-gray-100"
+                  >
+                    <Icon name={item.icon} className="h-5 w-5" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </motion.div>
-    </div>
+    </section>
   )
 }

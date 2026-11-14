@@ -40,225 +40,150 @@ interface ExpDetails {
 const Experiences: NextPage = () => {
   return (
     <Layout title="Experiences" description={`${title} - ${subtitle}`}>
-      <div className="mx-auto max-w-7xl px-4 pt-12 pb-4 sm:px-6 lg:px-8">
+      <div className="container-page pt-14 sm:pt-20">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
+          <h1 className="text-4xl font-semibold tracking-[-0.03em] text-gray-900 dark:text-white sm:text-5xl">
             Experiences
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
             The platforms I build, the roles I take on, and the work behind
             them.
           </p>
         </motion.div>
-      </div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative pb-20 pt-6">
-          <div className="absolute inset-0 left-4 h-full w-0.5 -translate-x-1/2 transform bg-gray-200 dark:bg-gray-800 sm:left-1/2"></div>
-          <div className="relative space-y-12">
-            {userData.experience.map((exp, idx) => {
-              // Roles with platform breakdowns carry too much content for a half-width
-              // timeline slot, so they span the full width and skip the timeline dot.
-              const featured = Boolean(exp.subSections)
 
-              return (
-                <motion.div
-                  key={`${exp.company}-${exp.year}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  className={`relative flex flex-col gap-4 ${
-                    featured ? '' : 'sm:grid sm:grid-cols-2'
-                  }`}
-                >
-                  <div
-                    className={`${
-                      featured
-                        ? ''
-                        : idx % 2 === 0
-                        ? 'sm:col-start-1'
-                        : 'sm:col-start-2'
-                    } relative`}
-                  >
-                    <ExperienceCard
-                      title={exp.title}
-                      desc={exp.desc}
-                      year={exp.year}
-                      company={exp.company}
-                      isLeft={idx % 2 === 0}
-                      featured={featured}
-                      subSections={exp.subSections}
-                      earlier={exp.earlier}
-                    />
-                  </div>
-                  {!featured && (
-                    <div className="absolute left-4 top-6 z-20 hidden -translate-x-1/2 sm:left-1/2 sm:block">
-                      <div className="relative flex h-4 w-4 items-center justify-center">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75"></span>
-                        <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-accent shadow-lg border-2 border-white dark:border-brand-dark"></span>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              )
-            })}
-          </div>
-        </div>
+        <ol className="mt-16">
+          {userData.experience.map((exp) => (
+            <li
+              key={`${exp.company}-${exp.year}`}
+              className="grid gap-3 border-t border-gray-200 py-8 dark:border-white/10 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10"
+            >
+              <p className="font-mono text-sm tabular-nums text-gray-500 dark:text-gray-400">
+                {exp.year}
+              </p>
+              <ExperienceEntry {...exp} />
+            </li>
+          ))}
+        </ol>
       </div>
     </Layout>
   )
 }
 
-interface ExperienceCardProps extends ExpDetails {
-  isLeft: boolean
-  featured?: boolean
-}
-
-const ExperienceCard = ({
+const ExperienceEntry = ({
   title,
   desc,
-  year,
   company,
-  isLeft,
-  featured,
   subSections,
   earlier,
   proofLinks,
-}: ExperienceCardProps): ReactElement => {
+}: ExpDetails): ReactElement => {
   return (
-    <div
-      className={`group relative z-10 mx-0 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl dark:border-gray-800 dark:bg-brand-gray sm:mx-0 sm:p-8
-            ${featured ? '' : isLeft ? 'sm:mr-8' : 'sm:ml-8'}`}
-    >
-      <div className={`absolute -top-4 ${isLeft ? 'right-8' : 'left-8'}`}>
-        <span className="rounded-full border border-brand-accent/20 bg-brand-accent/10 px-3 py-1 text-sm font-bold text-brand-accent">
-          {year}
-        </span>
-      </div>
-      <h2 className="mb-1 text-2xl font-bold text-gray-900 transition-colors group-hover:text-brand-accent dark:text-gray-100">
+    <div className="min-w-0">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
         {title}
       </h2>
-      <div className="mb-4 text-lg font-medium text-gray-600 dark:text-gray-400">
-        {company}
-      </div>
+      <p className="text-gray-600 dark:text-gray-400">{company}</p>
 
       {/* Cross-cutting work that belongs to the role rather than any one platform. */}
       {subSections && typeof desc === 'string' && (
-        <p className="mb-6 max-w-4xl text-sm leading-relaxed text-gray-600 dark:text-gray-300 sm:text-base">
+        <p className="mt-4 max-w-3xl leading-relaxed text-gray-700 dark:text-gray-300">
           {desc}
         </p>
       )}
 
       {subSections && subSections.length > 0 ? (
-        <div>
-          <h4 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-700 dark:text-gray-300">
-            Platforms &amp; Roles
-          </h4>
-          <div className="grid gap-8 lg:grid-cols-2">
-            {subSections.map((section, idx) => (
-              <div
-                key={idx}
-                className="border-t border-gray-200 pt-4 dark:border-gray-700"
-              >
-                <div className="mb-1">
-                  <h3 className="text-base font-semibold leading-relaxed text-gray-800 dark:text-gray-200">
-                    {section.role && (
-                      <span className="block text-emerald-700 dark:text-brand-accent">
-                        {section.role}
-                      </span>
-                    )}
-                    {section.title}
-                  </h3>
-                </div>
-                <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                  {section.desc}
-                </p>
-                {section.bullets && section.bullets.length > 0 && (
-                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-gray-600 marker:text-brand-accent dark:text-gray-400">
-                    {section.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
-                    ))}
-                  </ul>
+        <ul className="mt-8 grid gap-x-10 gap-y-8 lg:grid-cols-3">
+          {subSections.map((section) => (
+            <li key={section.title}>
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                {section.role && (
+                  <span className="text-accent block text-sm font-medium">
+                    {section.role}
+                  </span>
                 )}
-                {section.link && (
-                  <a
-                    href={safeExternalUrl(section.link.href)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-block text-sm text-brand-accent hover:underline"
-                  >
-                    {section.link.label}
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <>
-          {Array.isArray(desc) ? (
-            <ul className="mb-4 space-y-1">
-              {desc.map((item, idx) => (
-                <li
-                  key={idx}
-                  className="flex items-start text-sm leading-relaxed text-gray-600 dark:text-gray-400"
-                >
-                  <span className="mr-2 text-brand-accent">&bull;</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            desc && (
-              <p className="mb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                {desc}
+                {section.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                {section.desc}
               </p>
-            )
-          )}
-        </>
+              {section.bullets && section.bullets.length > 0 && (
+                <ul className="mt-3 list-disc space-y-2 pl-4 text-sm leading-relaxed text-gray-700 marker:text-gray-400 dark:text-gray-300 dark:marker:text-gray-600">
+                  {section.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+              {section.link && (
+                <a
+                  href={safeExternalUrl(section.link.href)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent mt-2 inline-block text-sm hover:underline"
+                >
+                  {section.link.label}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : Array.isArray(desc) ? (
+        <ul className="mt-3 list-disc space-y-1 pl-4 text-sm leading-relaxed text-gray-600 marker:text-gray-400 dark:text-gray-400 dark:marker:text-gray-600">
+          {desc.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      ) : (
+        desc && (
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            {desc}
+          </p>
+        )
       )}
 
       {earlier && earlier.length > 0 && (
-        <div className="mt-6 border-t border-gray-200 pt-4 dark:border-gray-700">
-          <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-500">
-            Data Foundations &amp; Engineering Enablement
-          </h4>
-          <div className="space-y-2">
-            {earlier.map((item, idx) => (
-              <div key={idx}>
-                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+        <div className="mt-10">
+          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+            Data foundations and engineering enablement
+          </h3>
+          <dl className="mt-3 grid gap-x-10 gap-y-5 border-t border-gray-200 pt-4 dark:border-white/10 lg:grid-cols-3">
+            {earlier.map((item) => (
+              <div key={item.title}>
+                <dt className="text-sm font-medium text-gray-800 dark:text-gray-200">
                   {item.title}
-                </span>
-                <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                </dt>
+                <dd className="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                   {item.desc}
-                </p>
-                {item.link && (
-                  <a
-                    href={safeExternalUrl(item.link.href)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-brand-accent hover:underline"
-                  >
-                    {item.link.label}
-                  </a>
-                )}
+                  {item.link && (
+                    <>
+                      {' '}
+                      <a
+                        href={safeExternalUrl(item.link.href)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-accent hover:underline"
+                      >
+                        {item.link.label}
+                      </a>
+                    </>
+                  )}
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       )}
 
       {proofLinks && proofLinks.length > 0 && (
-        <div className="mt-4 flex gap-4 border-t border-gray-200 pt-4 dark:border-gray-700">
-          {proofLinks.map((link, idx) => (
+        <div className="mt-4 flex gap-4">
+          {proofLinks.map((link) => (
             <a
-              key={idx}
+              key={link.href}
               href={safeExternalUrl(link.href)}
-              className="text-sm text-brand-accent hover:underline"
+              className="text-accent text-sm hover:underline"
             >
               {link.label}
             </a>

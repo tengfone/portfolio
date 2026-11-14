@@ -15,14 +15,6 @@ class MyDocument extends Document {
     return (
       <Html data-scroll-behavior="smooth">
         <Head>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
-            rel="stylesheet"
-          />
           <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
         <body>

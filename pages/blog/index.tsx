@@ -6,6 +6,8 @@ import fs from 'fs'
 import path from 'path'
 import Layout from '../../components/Layout'
 import { blogData, userData } from '../../constants/user'
+import { TagList } from '../../components/Tag'
+import { formatDate, estimateReadTime } from '../../lib/formatDate'
 
 const title = `${userData.name}`
 const subtitle = 'Blog'
@@ -21,94 +23,49 @@ const Blog: NextPage<BlogProps> = ({ wordCounts }) => {
 
   return (
     <Layout title="Blog" description={`${title} - ${subtitle}`}>
-      <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -right-[10%] -top-[20%] h-[40%] w-[40%] animate-pulse-slow rounded-full bg-brand-accent/5 blur-[100px]" />
-        </div>
+      <div className="container-page pt-14 sm:pt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <h1 className="text-4xl font-semibold tracking-[-0.03em] text-gray-900 dark:text-white sm:text-5xl">
+            Blog
+          </h1>
+          <p className="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+            Notes on AI platforms, MLOps and the tools I use.
+          </p>
+        </motion.div>
 
-        <div className="relative z-10">
-          <div className="mx-auto max-w-4xl px-4 pt-12 pb-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
-                Blog
-              </h1>
-              <p className="mt-2 text-gray-600 dark:text-gray-400">
-                Thoughts on anything.
-              </p>
-            </motion.div>
-          </div>
-
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="space-y-3 pb-12 pt-6">
-              {sortedPosts.map((post, idx) => (
-                <motion.div
-                  key={post.slug}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1, duration: 0.5 }}
-                >
-                  <Link href={`/blog/${post.slug}`} className="group block">
-                    <article className="relative rounded-xl border border-gray-100 bg-white px-6 py-5 transition-all duration-300 hover:shadow-md dark:border-gray-800 dark:bg-brand-gray">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2 text-xs text-brand-muted">
-                            <time className="font-medium text-brand-accent">
-                              {formatDate(post.date)}
-                            </time>
-                            <span className="h-0.5 w-0.5 rounded-full bg-brand-muted" />
-                            <span>{estimateReadTime(wordCounts[post.slug])} min read</span>
-                          </div>
-                          <h2 className="mt-1.5 text-base font-semibold text-gray-900 transition-colors group-hover:text-brand-accent dark:text-gray-100 sm:text-lg">
-                            {post.title}
-                          </h2>
-                          <p className="mt-1 text-sm leading-relaxed text-gray-500 dark:text-gray-400 line-clamp-1">
-                            {post.summary}
-                          </p>
-                          {post.tags.length > 0 && (
-                            <div className="mt-2.5 flex flex-wrap gap-1.5">
-                              {post.tags.map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="rounded-full border border-brand-accent/20 bg-brand-accent/10 px-2 py-0.5 text-[11px] font-medium text-brand-accent"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        <div className="hidden shrink-0 self-center sm:block">
-                          <svg className="h-4 w-4 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-brand-accent dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      </div>
-                    </article>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <ul className="mt-16 border-b border-gray-200 dark:border-white/10">
+          {sortedPosts.map((post) => (
+            <li key={post.slug} className="border-t border-gray-200 dark:border-white/10">
+              <Link
+                href={`/blog/${post.slug}`}
+                className="group grid gap-2 py-7 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10"
+              >
+                <p className="font-mono text-sm tabular-nums text-gray-500 dark:text-gray-400">
+                  <time dateTime={post.date}>{formatDate(post.date)}</time>
+                  <span className="block">{estimateReadTime(wordCounts[post.slug])} min read</span>
+                </p>
+                <div className="min-w-0">
+                  <h2 className="text-lg font-semibold text-gray-900 underline-offset-4 group-hover:underline dark:text-gray-100">
+                    {post.title}
+                  </h2>
+                  <p className="mt-2 max-w-3xl leading-relaxed text-gray-600 line-clamp-2 dark:text-gray-400">
+                    {post.summary}
+                  </p>
+                  <div className="mt-4">
+                    <TagList items={post.tags} />
+                  </div>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </Layout>
   )
-}
-
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('en-SG', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
-
-function estimateReadTime(wordCount?: number): number {
-  return Math.max(1, Math.round((wordCount ?? 0) / 200))
 }
 
 export const getStaticProps: GetStaticProps<BlogProps> = async () => {

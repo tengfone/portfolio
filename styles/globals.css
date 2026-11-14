@@ -2,53 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+    accent-color: theme('colors.brand.accent');
+    scrollbar-color: theme('colors.gray.300') transparent;
+  }
+
+  html.dark {
+    color-scheme: dark;
+    scrollbar-color: theme('colors.gray.700') transparent;
+  }
+
   body {
-    @apply bg-white transition-colors duration-500 dark:bg-brand-dark;
+    @apply m-0 bg-white p-0 font-sans text-gray-900 antialiased dark:bg-brand-dark dark:text-gray-100;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  ::selection {
+    @apply bg-brand-accent/25 text-gray-900 dark:text-white;
+  }
+
+  :focus-visible {
+    @apply rounded-sm outline outline-2 outline-offset-2 outline-brand-accent;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-@layer utilities {
-  .glass-panel {
-    @apply bg-white/70 dark:bg-black/70 backdrop-blur-md border border-white/20 dark:border-white/10;
-  }
-  
-  .glass-hover {
-    @apply hover:bg-white/80 dark:hover:bg-black/80 transition-all duration-300;
-  }
-}
-
-.cursor::after {
-  display: block;
-  content: '';
-  position: absolute;
-  width: 4px;
-  height: 100%;
-  background-color: rgb(21, 255, 0);
-  animation: cursor 0.4s linear infinite alternate;
-  will-change: opacity;
-}
-
-@keyframes cursor {
-  0%,
-  40% {
-    opacity: 1;
+@layer components {
+  /* Layout: one grid for every page, aligned to the logo. */
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
 
-  60%,
-  100% {
-    opacity: 0;
+  /* Accent text: darker green on white, brand green on dark. */
+  .text-accent {
+    @apply text-brand-ink dark:text-brand-accent;
+  }
+
+  /* Surfaces */
+  .card {
+    @apply rounded-xl border border-gray-200 bg-white dark:border-white/10 dark:bg-brand-gray;
+  }
+
+  .card-link {
+    @apply card transition-colors duration-200 hover:border-gray-400 dark:hover:border-white/25;
+  }
+
+  /* Section heading row: title on the left, a "see all" link on the right. */
+  .section-title {
+    @apply text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100;
+  }
+
+  .text-link {
+    @apply text-sm font-medium text-gray-600 underline-offset-4 transition-colors hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-gray-100;
   }
 }
 
@@ -63,7 +88,7 @@ body {
 }
 
 .code-block-lang {
-  @apply text-xs font-medium text-gray-500 dark:text-gray-400;
+  @apply font-mono text-xs font-medium text-gray-500 dark:text-gray-400;
 }
 
 .code-block-copy {
@@ -88,7 +113,7 @@ html.dark .shiki span {
 
 .shiki,
 .shiki-fallback {
-  @apply overflow-x-auto px-5 py-4 text-sm leading-relaxed font-mono;
+  @apply overflow-x-auto px-5 py-4 font-mono text-sm leading-relaxed;
   margin: 0 !important;
   border: none !important;
   border-radius: 0 !important;

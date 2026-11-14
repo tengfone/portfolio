@@ -15,7 +15,6 @@ interface projectDetails {
     image: string,
     tech: string[],
     desc: string,
-    year?: string,
     award?: string,
 }
 
@@ -46,7 +45,7 @@ const Projects: NextPage = () => {
                         Projects
                     </h1>
                     <p className="mt-2 text-gray-600 dark:text-gray-400">
-                        Things I built and shipped.
+                        Independent projects I build to explore new technology and solve problems I run into. Most are open source.
                     </p>
                 </motion.div>
             </div>
@@ -67,7 +66,7 @@ const Projects: NextPage = () => {
                     </div>
                 </Section>
 
-                <Section heading="More projects" delay={0.2}>
+                <Section heading="Active projects" delay={0.2}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {otherProjects.map((proj, idx) => (
                             <motion.div
@@ -85,7 +84,7 @@ const Projects: NextPage = () => {
                 {archivedProjects.length > 0 && (
                     <Section heading="Archive" delay={0.25}>
                         <p className="-mt-3 mb-6 text-sm text-gray-600 dark:text-gray-400">
-                            Earlier work that is no longer maintained. The code stays up on GitHub.
+                            Earlier projects that are no longer maintained. The source remains available on GitHub.
                         </p>
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                             {archivedProjects.map((proj) => (
@@ -227,7 +226,7 @@ const ProjectCard = ({ title, link, image, desc, tech }: projectDetails) => {
     );
 };
 
-const ArchivedCard = ({ title, link, image, desc, tech, year, award }: projectDetails) => (
+const ArchivedCard = ({ title, link, image, desc, tech, award }: projectDetails) => (
     <a
         target="_blank"
         rel="noopener noreferrer"
@@ -249,11 +248,6 @@ const ArchivedCard = ({ title, link, image, desc, tech, year, award }: projectDe
                 <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-brand-accent dark:text-gray-100">
                     {title}
                 </h3>
-                {year && (
-                    <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400">
-                        {year}
-                    </span>
-                )}
                 {award && (
                     <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-500/15 dark:text-amber-300">
                         <span aria-hidden="true">🏆 </span>{award}

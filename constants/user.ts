@@ -51,6 +51,13 @@ export const userData = {
       featured: true,
     },
     {
+      title: 'CI Delta',
+      desc: 'Reviews CI/CD changes in pull requests the way terraform plan reviews infrastructure. Flags risky edits such as removed approval gates, widened permissions and new secrets in GitHub Actions and GitLab CI. Published on npm and the GitHub Marketplace.',
+      link: 'https://github.com/tengfone/ci-delta',
+      image: '/projects/ci-delta.jpg',
+      tech: ['TypeScript', 'Node.js', 'GitHub Actions', 'GitLab CI'],
+    },
+    {
       title: 'PickMyBrowser',
       desc: 'Pick which browser opens every link. Set it as your default browser and each link opens a small picker: press a number, done. Cross-platform, ~4 MB, and lives in the tray.',
       link: 'https://github.com/tengfone/pickmybrowser',
@@ -64,6 +71,27 @@ export const userData = {
       image:
         'https://raw.githubusercontent.com/tengfone/privatepixel/main/public/assets/privatepixel.gif',
       tech: ['Vite', 'React', 'TypeScript', 'Web Workers', 'WASM'],
+    },
+    {
+      title: 'IPMapAWS',
+      desc: "Search, filter and export AWS's published IP ranges, or look up which AWS prefix contains an IP or CIDR. Server-rendered pages plus a free public REST API with OpenAPI docs.",
+      link: 'https://ipmapaws.vercel.app/',
+      image: '/projects/ipmapaws.jpg',
+      tech: ['NextJS', 'TypeScript', 'Tailwind', 'Vercel'],
+    },
+    {
+      title: 'SHA-256 Hash Bench',
+      desc: 'Hash text and files with SHA-1/256/384/512, verify a digest pasted from sha256sum, and compute HMACs, all in the browser with Web Crypto. Nothing is uploaded.',
+      link: 'https://sha-256-puce.vercel.app/',
+      image: '/projects/sha256.jpg',
+      tech: ['React', 'Vite', 'Web Crypto', 'Tailwind'],
+    },
+    {
+      title: 'Dead Pixel Tester',
+      desc: 'Full-screen colour plates for spotting dead or stuck pixels, including a grid drawn at exact device-pixel size, with keyboard, swipe and full-screen controls.',
+      link: 'https://deadpixel-tester.vercel.app/',
+      image: '/projects/deadpixel.jpg',
+      tech: ['React', 'Vite', 'Canvas'],
     },
     {
       title: 'URL Shortener',
@@ -81,7 +109,6 @@ export const userData = {
         'https://raw.githubusercontent.com/tengfone/deadtext/main/assets/demo.gif',
       tech: ['Telegram', 'LLM', 'Prompting'],
       archived: true,
-      year: '2025',
     },
     {
       title: 'Chat-Kaki',
@@ -91,7 +118,6 @@ export const userData = {
         'https://raw.githubusercontent.com/tengfone/chat-kaki/main/demo_chatkaki.gif',
       tech: ['NextJS', 'Pinecone', 'Langchain', 'Stripe'],
       archived: true,
-      year: '2023',
     },
     {
       title: 'Yestion',
@@ -101,7 +127,6 @@ export const userData = {
         'https://raw.githubusercontent.com/tengfone/yestion/main/demo_yestion.gif',
       tech: ['NextJS', 'Tailwind'],
       archived: true,
-      year: '2023',
     },
     {
       title: 'OpenRiver',
@@ -110,7 +135,6 @@ export const userData = {
       image: '/projects/openriver.jpg',
       tech: ['React', 'Solidity', 'Ethereum'],
       archived: true,
-      year: '2021',
     },
     {
       title: 'Deep Learning: HandWash',
@@ -120,7 +144,6 @@ export const userData = {
         'https://raw.githubusercontent.com/tengfone/handwashStreamLit/main/streamlit.png',
       tech: ['AlexNet', 'Streamlit', 'PyTorch'],
       archived: true,
-      year: '2021',
     },
     {
       title: 'Big Data Book Review',
@@ -130,7 +153,6 @@ export const userData = {
         'https://raw.githubusercontent.com/tengfone/AmaNerdBookReview/master/screenshots/splashpage.PNG',
       tech: ['AWS', 'React', 'Hadoop', 'Spark'],
       archived: true,
-      year: '2020',
     },
     {
       title: 'Green Scanner',
@@ -140,7 +162,6 @@ export const userData = {
         'https://raw.githubusercontent.com/tengfone/green_scanner_flutter/master/screenshots/home.jpg',
       tech: ['Flutter', 'Hackathon'],
       archived: true,
-      year: '2020',
       award: 'Grand Champion, Hack Junction X Asia 2020',
     },
   ],

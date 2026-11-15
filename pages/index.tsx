@@ -47,7 +47,7 @@ const Home: NextPage = () => {
               <p className="text-accent text-sm font-medium">{section.role}</p>
               <h3 className="mt-1 font-semibold text-gray-900 dark:text-gray-100">{section.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                {section.bullets?.[0] ?? section.desc}
+                {section.desc}
               </p>
             </li>
           ))}

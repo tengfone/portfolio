@@ -6,13 +6,6 @@ import { userData } from '../constants/user'
 import Icon, { IconName } from './shared/Icon'
 import { safeExternalUrl } from '../lib/safeExternalUrl'
 
-// Figures come from the GovTech role on the Experiences page (constants/user.ts).
-const PROOF = [
-  { value: '450+', label: 'users across 90+ teams on the MLOps platform' },
-  { value: '3,000+', label: 'requests a minute served in production' },
-  { value: '75%', label: 'less time to deliver a proof of concept' },
-]
-
 const SOCIALS: { href: string; icon: IconName; label: string }[] = [
   { href: userData.github, icon: 'github', label: 'GitHub' },
   { href: userData.linkedin, icon: 'linkedin', label: 'LinkedIn' },
@@ -48,21 +41,9 @@ export default function HeroSplash(): React.ReactElement {
             production AI platforms for the public good.
           </p>
 
-          <dl className="mt-10 grid max-w-2xl gap-x-8 gap-y-5 border-t border-gray-200 pt-6 dark:border-white/10 sm:grid-cols-3">
-            {PROOF.map((item) => (
-              <div key={item.value}>
-                <dt className="sr-only">{item.label}</dt>
-                <dd>
-                  <span className="block font-mono text-lg font-medium tabular-nums text-gray-900 dark:text-gray-100">
-                    {item.value}
-                  </span>
-                  <span className="mt-1 block text-sm leading-snug text-gray-600 dark:text-gray-400">
-                    {item.label}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <p className="mt-6 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
+            Currently leading the self-hosted GenAI platform and its team.
+          </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link

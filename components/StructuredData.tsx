@@ -7,7 +7,7 @@ export default function StructuredData() {
         "@type": "Person",
         "name": userData.name,
         "jobTitle": "AI Platform Engineer",
-        "description": "AI Platform Engineer specializing in MLOps, LLM infrastructure, model serving, and developer platforms. Builds and leads production AI platforms serving 450+ users across 90+ teams.",
+        "description": "AI Platform Engineer specializing in MLOps, LLM infrastructure, model serving, and developer platforms. Builds and leads production AI platforms in enterprise and restricted environments.",
         "url": "https://tengfone.dev",
         "sameAs": [
             userData.linkedin,

@@ -207,11 +207,11 @@ export const userData = {
   ],
   experience: [
     {
-      // `title` is the official GovTech job title, deliberately kept separate from the
-      // AI Platform Engineer identity on the homepage. Promotion to Senior Data Engineer
-      // is effective Oct 2026; when it lands, split this into a two-role header
-      // (Senior Data Engineer 2026 to Present / Data Engineer 2021 to 2026).
-      title: 'Data Engineer — AI Platform Engineering',
+      // `title` is the official GovTech job title, kept separate from the AI Platform
+      // Engineer identity on the homepage. Promoted from Data Engineer in Oct 2026; the
+      // date is deliberately not shown, only the title progression.
+      title: 'Senior Software Engineer — AI Platform Engineering',
+      previousTitle: 'Data Engineer',
       company: 'GovTech Singapore',
       year: 'Sep 2021 to Present',
       desc: 'I work with customer teams and product stakeholders to turn AI use cases into shared production capabilities. Across these platforms, I build authentication, RBAC, audit logging and secrets management, and help resolve production incidents in enterprise and restricted environments.',
@@ -236,10 +236,11 @@ export const userData = {
         },
         {
           title: 'Self-Hosted GenAI Platform',
-          role: 'Engineering Delivery Lead',
-          desc: 'Led the successful migration into a highly restricted environment, coordinating engineering delivery, stakeholders and operational readiness.',
+          role: 'Lead',
+          desc: 'Lead the platform and its team end to end: architecture, priorities, model onboarding, inference scaling, routing and model lifecycle.',
           bullets: [
-            'Now coordinate newer-model onboarding, inference scaling, routing and model lifecycle management, aligning priorities across product and technical leads.',
+            'Took the platform into a highly restricted environment, from engineering through stakeholder alignment to operational readiness.',
+            'Set priorities across product and technical leads as newer models are onboarded and inference scales.',
           ],
         },
       ],

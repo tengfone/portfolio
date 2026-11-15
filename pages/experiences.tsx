@@ -29,6 +29,7 @@ interface EarlierWork {
 
 interface ExpDetails {
   title: string
+  previousTitle?: string
   company: string
   desc?: string | string[]
   year: string
@@ -75,6 +76,7 @@ const Experiences: NextPage = () => {
 
 const ExperienceEntry = ({
   title,
+  previousTitle,
   desc,
   company,
   subSections,
@@ -87,6 +89,11 @@ const ExperienceEntry = ({
         {title}
       </h2>
       <p className="text-gray-600 dark:text-gray-400">{company}</p>
+      {previousTitle && (
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          Previously {previousTitle}
+        </p>
+      )}
 
       {/* Cross-cutting work that belongs to the role rather than any one platform. */}
       {subSections && typeof desc === 'string' && (

@@ -76,14 +76,14 @@ export const userData = {
       title: 'IPMapAWS',
       desc: "Search, filter and export AWS's published IP ranges, or look up which AWS prefix contains an IP or CIDR. Server-rendered pages plus a free public REST API with OpenAPI docs.",
       link: 'https://ipmapaws.vercel.app/',
-      image: '/projects/ipmapaws.jpg',
+      image: 'https://raw.githubusercontent.com/tengfone/ipmapaws/main/assets/demo.gif',
       tech: ['NextJS', 'TypeScript', 'Tailwind', 'Vercel'],
     },
     {
       title: 'Dead Pixel Tester',
       desc: 'Full-screen colour plates for spotting dead or stuck pixels, including a grid drawn at exact device-pixel size, with keyboard, swipe and full-screen controls.',
       link: 'https://deadpixel-tester.vercel.app/',
-      image: '/projects/deadpixel.jpg',
+      image: 'https://raw.githubusercontent.com/tengfone/deadpixel-tester/main/assets/demo.gif',
       tech: ['React', 'Vite', 'Canvas'],
     },
     {

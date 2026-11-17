@@ -1,0 +1,4 @@
+# Dependency version pins (moved from package.json, which pnpm 11+ ignores).
+overrides:
+  '@tailwindcss/typography>postcss-selector-parser': '^6.1.5'
+  'minimatch@>=7.0.0 <11.0.1': '^11.0.1'
